@@ -8,7 +8,7 @@
 #include "../Headers/net.minecraft.world.entity.player.h"
 #include "../Headers/net.minecraft.world.h"
 
-DWORD TheEndPortal::tlsIdx = TlsAlloc();
+uint32_t TheEndPortal::tlsIdx = TlsAlloc();
 
 // 4J - allowAnywhere is a static in java, implementing as TLS here to make thread safe
 bool TheEndPortal::allowAnywhere()

@@ -28,14 +28,14 @@ private:
 
 	CRITICAL_SECTION m_lock;
 
-	void PrepareForWrite( FileEntry *file, DWORD nNumberOfBytesToWrite );
-	void MoveDataBeyond(FileEntry *file, DWORD nNumberOfBytesToWrite);
+	void PrepareForWrite( FileEntry *file, uint32_t nNumberOfBytesToWrite );
+	void MoveDataBeyond(FileEntry *file, uint32_t nNumberOfBytesToWrite);
 
 public:
 #if (defined __PS3__ || defined __ORBIS__ || defined __PSVITA__ || defined _DURANGO || defined _WINDOWS64)
 	static int SaveSaveDataCallback(LPVOID lpParam,bool bRes);
 #endif
-	ConsoleSaveFileOriginal(const std::wstring &fileName, LPVOID pvSaveData = NULL, DWORD fileSize = 0, bool forceCleanSave = false, ESavePlatform plat = SAVE_FILE_PLATFORM_LOCAL);
+	ConsoleSaveFileOriginal(const std::wstring &fileName, LPVOID pvSaveData = NULL, uint32_t fileSize = 0, bool forceCleanSave = false, ESavePlatform plat = SAVE_FILE_PLATFORM_LOCAL);
 	virtual ~ConsoleSaveFileOriginal();
 
 	// 4J Stu - Initial implementation is intended to have a similar interface to the standard Xbox file access functions
@@ -43,10 +43,10 @@ public:
 	virtual FileEntry *createFile( const ConsoleSavePath &fileName );
 	virtual void deleteFile( FileEntry *file );
 
-	virtual void setFilePointer(FileEntry *file,LONG lDistanceToMove,PLONG lpDistanceToMoveHigh,DWORD dwMoveMethod);
-	virtual BOOL writeFile(	FileEntry *file, LPCVOID lpBuffer, DWORD nNumberOfBytesToWrite, LPDWORD lpNumberOfBytesWritten );
-	virtual BOOL zeroFile(FileEntry *file, DWORD nNumberOfBytesToWrite, LPDWORD lpNumberOfBytesWritten);
-	virtual BOOL readFile( FileEntry *file, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead );
+	virtual void setFilePointer(FileEntry *file,int32_t lDistanceToMove,int32_t* lpDistanceToMoveHigh,uint32_t dwMoveMethod);
+	virtual BOOL writeFile(	FileEntry *file, LPCVOID lpBuffer, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten );
+	virtual BOOL zeroFile(FileEntry *file, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten);
+	virtual BOOL readFile( FileEntry *file, LPVOID lpBuffer, uint32_t nNumberOfBytesToRead, uint32_t* lpNumberOfBytesRead );
 	virtual BOOL closeHandle( FileEntry *file );
 
 	virtual void finalizeWrite();

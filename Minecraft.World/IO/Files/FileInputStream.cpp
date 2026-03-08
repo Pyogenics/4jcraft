@@ -66,7 +66,7 @@ FileInputStream::~FileInputStream()
 }
 
 #if defined(__linux__)
-ssize_t ReadFile(int fd, void* buffer, size_t byteRead, DWORD* numberOfBytesRead, int JustAddANULL) {
+ssize_t ReadFile(int fd, void* buffer, size_t byteRead, uint32_t* numberOfBytesRead, int JustAddANULL) {
 	ssize_t result = read(fd, buffer, byteRead);
 
 	if (result == -1) {
@@ -85,7 +85,7 @@ ssize_t ReadFile(int fd, void* buffer, size_t byteRead, DWORD* numberOfBytesRead
 int FileInputStream::read()
 {
 	uint8_t byteRead = static_cast<uint8_t>(0);
-	DWORD numberOfBytesRead;
+	uint32_t numberOfBytesRead;
 
 	BOOL bSuccess = ReadFile(
 		m_fileHandle, // handle to file
@@ -117,7 +117,7 @@ int FileInputStream::read()
 //the total number of bytes read into the buffer, or -1 if there is no more data because the end of the file has been reached.
 int FileInputStream::read(byteArray b)
 {
-	DWORD numberOfBytesRead;
+	uint32_t numberOfBytesRead;
 
 	BOOL bSuccess = ReadFile(
 		m_fileHandle, // handle to file
@@ -155,7 +155,7 @@ int FileInputStream::read(byteArray b, unsigned int offset, unsigned int length)
 	// 4J Stu - We don't want to read any more than the array buffer can hold
 	assert( length <= ( b.length - offset ) );
 
-	DWORD numberOfBytesRead;
+	uint32_t numberOfBytesRead;
 
 	BOOL bSuccess = ReadFile(
 		m_fileHandle, // handle to file

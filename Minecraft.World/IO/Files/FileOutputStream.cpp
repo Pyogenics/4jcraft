@@ -59,7 +59,7 @@ FileOutputStream::FileOutputStream(const File &file) : m_fileHandle( INVALID_HAN
 	if( m_fileHandle == INVALID_HANDLE_VALUE )
 	{
 		// TODO 4J Stu - Any form of error/exception handling
-		DWORD error = GetLastError();
+		uint32_t error = GetLastError();
 	}
 }
 
@@ -140,7 +140,7 @@ void FileOutputStream::write(byteArray b, unsigned int offset, unsigned int leng
 	assert( length <= ( b.length - offset ) );
 
 #if defined(_WIN32)
-	DWORD numberOfBytesWritten;
+	uint32_t numberOfBytesWritten;
 
 	BOOL result = WriteFile(
 		m_fileHandle, // handle to file

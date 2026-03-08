@@ -21,7 +21,7 @@ void ZoneIo::write(byteArray bb, int size)
 
 void ZoneIo::write(ByteBuffer *bb, int size)
 {
-	DWORD numberOfBytesWritten;
+	uint32_t numberOfBytesWritten;
 	SetFilePointer(channel,(int)pos,NULL,NULL);
 	WriteFile(channel,bb->getBuffer(), bb->getSize(),&numberOfBytesWritten,NULL);
     pos += size;
@@ -29,7 +29,7 @@ void ZoneIo::write(ByteBuffer *bb, int size)
 
 ByteBuffer *ZoneIo::read(int size)
 {
-	DWORD numberOfBytesRead;
+	uint32_t numberOfBytesRead;
     byteArray bb = byteArray(size);
 	SetFilePointer(channel,(int)pos,NULL,NULL);
     ByteBuffer *buff = ByteBuffer::wrap(bb);

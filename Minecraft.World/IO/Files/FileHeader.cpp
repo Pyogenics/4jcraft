@@ -76,7 +76,7 @@ void FileHeader::WriteHeader( LPVOID saveMem )
 	// 4J Changed for save version 2 to be the number of files rather than the size in bytes
 	unsigned int headerSize = (int)(fileTable.size());
 	
-	//DWORD numberOfBytesWritten = 0;
+	//uint32_t numberOfBytesWritten = 0;
 
 	// Write the offset of the header
 	//assert(numberOfBytesWritten == 4);
@@ -325,7 +325,7 @@ unsigned int FileHeader::GetFileSize()
 	return GetStartOfNextData() + ( sizeof(FileEntrySaveData) * (unsigned int)fileTable.size() );
 }
 
-void FileHeader::AdjustStartOffsets(FileEntry *file, DWORD nNumberOfBytesToWrite, bool subtract /*= false*/)
+void FileHeader::AdjustStartOffsets(FileEntry *file, uint32_t nNumberOfBytesToWrite, bool subtract /*= false*/)
 {
 	bool found = false;
 	for( unsigned int i = 0; i < fileTable.size(); ++i )

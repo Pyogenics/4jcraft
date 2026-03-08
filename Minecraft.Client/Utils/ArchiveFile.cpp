@@ -145,7 +145,7 @@ byteArray ArchiveFile::getFile(const std::wstring &filename)
 		if (hfile != INVALID_HANDLE_VALUE)
 		{
 			app.DebugPrintf("hfile ok\n");
-			DWORD ok = SetFilePointer(	hfile,
+			uint32_t ok = SetFilePointer(	hfile,
 				data->ptr,
 				NULL,
 				FILE_BEGIN
@@ -153,9 +153,9 @@ byteArray ArchiveFile::getFile(const std::wstring &filename)
 
 			if (ok != INVALID_SET_FILE_POINTER)
 			{
-				PBYTE pbData = new BYTE[ data->filesize ];
+				uint8_t* pbData = new uint8_t[ data->filesize ];
 
-				DWORD bytesRead = -1;
+				uint32_t bytesRead = -1;
 				BOOL bSuccess = ReadFile(	hfile,
 					(LPVOID) pbData,
 					data->filesize,
@@ -198,7 +198,7 @@ byteArray ArchiveFile::getFile(const std::wstring &filename)
 			unsigned int decompressedSize = dis.readInt();
 			dis.close();
 
-			PBYTE uncompressedBuffer = new BYTE[decompressedSize];
+			uint8_t* uncompressedBuffer = new uint8_t[decompressedSize];
 			Compression::getCompression()->Decompress(uncompressedBuffer, &decompressedSize, out.data+4, out.length-4);
 
 			delete [] out.data;

@@ -1,7 +1,7 @@
 #include "../Build/stdafx.h"
 #include "IntCache.h"
 
-DWORD IntCache::tlsIdx = TlsAlloc();
+uint32_t IntCache::tlsIdx = TlsAlloc();
 
 void IntCache::CreateNewThreadStorage()
 {

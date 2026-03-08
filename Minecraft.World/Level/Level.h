@@ -77,8 +77,8 @@ public:
 	int seaLevel;
 
 	// 4J - added, making instaTick flag use TLS so we can set it in the chunk rebuilding thread without upsetting the main game thread
-	static DWORD tlsIdx;
-	static DWORD tlsIdxLightCache;
+	static uint32_t tlsIdx;
+	static uint32_t tlsIdxLightCache;
 	static void enableLightingCache();
 	static void destroyLightingCache();
 	static bool getCacheTestEnabled();

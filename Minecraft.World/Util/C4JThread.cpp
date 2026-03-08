@@ -238,7 +238,7 @@ SceInt32 C4JThread::entryPoint(SceSize argSize, void *pArgBlock)
 	return pThread->m_exitCode;
 }
 #else
-DWORD WINAPI	C4JThread::entryPoint(LPVOID lpParam)
+uint32_t WINAPI	C4JThread::entryPoint(LPVOID lpParam)
 {
 	C4JThread* pThread = (C4JThread*)lpParam;
 	SetThreadName(-1, pThread->m_threadName);
@@ -357,7 +357,7 @@ void C4JThread::SetPriority( int priority )
 #endif // __PS3__
 }
 
-DWORD C4JThread::WaitForCompletion( int timeoutMs )
+uint32_t C4JThread::WaitForCompletion( int timeoutMs )
 {
 #ifdef __PS3__
 	if(timeoutMs == INFINITE)
@@ -397,7 +397,7 @@ int C4JThread::GetExitCode()
 #if defined  __PS3__ || defined __ORBIS__ || defined __PSVITA__
 	return m_exitCode;
 #else
-	DWORD exitcode = 0;
+	uint32_t exitcode = 0;
 	GetExitCodeThread(m_threadHandle, &exitcode);
 
 	return *((int *)&exitcode);
@@ -435,7 +435,7 @@ C4JThread* C4JThread::getCurrentThread()
 #elif defined __PSVITA__
 	SceUID currThreadID = sceKernelGetThreadId();
 #else
-	DWORD currThreadID = GetCurrentThreadId();
+	uint32_t currThreadID = GetCurrentThreadId();
 #endif //__PS3__
 	EnterCriticalSection(&ms_threadListCS);
 
@@ -530,7 +530,7 @@ void C4JThread::Event::Clear()
 #endif //__PS3__
 }
 
-DWORD C4JThread::Event::WaitForSignal( int timeoutMs )
+uint32_t C4JThread::Event::WaitForSignal( int timeoutMs )
 {
 #ifdef __PS3__
 	if(timeoutMs == INFINITE)
@@ -677,9 +677,9 @@ void C4JThread::EventArray::ClearAll()
 		Clear(i);
 }
 
-DWORD C4JThread::EventArray::WaitForSingle(int index, int timeoutMs )
+uint32_t C4JThread::EventArray::WaitForSingle(int index, int timeoutMs )
 {
-	DWORD retVal;
+	uint32_t retVal;
 #ifdef __PS3__
 	int timeoutMicrosecs;
 	if(timeoutMs == INFINITE)
@@ -775,9 +775,9 @@ DWORD C4JThread::EventArray::WaitForSingle(int index, int timeoutMs )
 	return retVal;
 }
 
-DWORD C4JThread::EventArray::WaitForAll(int timeoutMs )
+uint32_t C4JThread::EventArray::WaitForAll(int timeoutMs )
 {
-	DWORD retVal;
+	uint32_t retVal;
 #ifdef __PS3__
 	if(timeoutMs == INFINITE)
 		timeoutMs = SYS_NO_TIMEOUT ;
@@ -880,7 +880,7 @@ DWORD C4JThread::EventArray::WaitForAll(int timeoutMs )
 	return retVal;
 }
 
-DWORD C4JThread::EventArray::WaitForAny(int timeoutMs )
+uint32_t C4JThread::EventArray::WaitForAny(int timeoutMs )
 {
 #ifdef __PS3__
 	if(timeoutMs == INFINITE)
@@ -1044,7 +1044,7 @@ void C4JThread::EventQueue::threadPoll()
 	while(ShutdownManager::ShouldRun(ShutdownManager::eEventQueueThreads))
 	{
 
-		DWORD err = m_startEvent->WaitForAny(INFINITE);
+		uint32_t err = m_startEvent->WaitForAny(INFINITE);
 		if(err == WAIT_OBJECT_0)
 		{
 			bool bListEmpty = true;

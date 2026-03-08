@@ -4,7 +4,7 @@
 class TheEndPortal : public EntityTile
 {
 public:
-	static DWORD tlsIdx;
+	static uint32_t tlsIdx;
 	// 4J - was just a static but implemented with TLS for our version
     static bool allowAnywhere();	
 	static void allowAnywhere(bool set);	

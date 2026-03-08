@@ -24,7 +24,7 @@ int normal;
 
 
 */
-DWORD Tesselator::tlsIdx = TlsAlloc();
+uint32_t Tesselator::tlsIdx = TlsAlloc();
 
 Tesselator *Tesselator::getInstance()
 {

@@ -70,7 +70,7 @@ public:
 		~Event();
 		void Set();
 		void Clear();
-		DWORD WaitForSignal(int timeoutMs);
+		uint32_t WaitForSignal(int timeoutMs);
 
 	private:
 		EMode	m_mode;
@@ -100,9 +100,9 @@ public:
 		void Clear(int index);
 		void SetAll();
 		void ClearAll();
-		DWORD WaitForAll(int timeoutMs);
-		DWORD WaitForAny(int timeoutMs);
-		DWORD WaitForSingle(int index, int timeoutMs);
+		uint32_t WaitForAll(int timeoutMs);
+		uint32_t WaitForAny(int timeoutMs);
+		uint32_t WaitForSingle(int index, int timeoutMs);
 #ifdef __PS3__
 		void Cancel();
 #endif
@@ -161,7 +161,7 @@ public:
 	bool hasStarted() { return m_hasStarted; }
 	void SetProcessor(int proc);
 	void SetPriority(int priority);
-	DWORD WaitForCompletion(int timeoutMs);
+	uint32_t WaitForCompletion(int timeoutMs);
 	int GetExitCode();
 	char* getName() { return m_threadName; }
 	static void Sleep(int millisecs);
@@ -215,11 +215,11 @@ private:
 	int				m_priority;
 	static SceInt32	entryPoint(SceSize argSize, void *pArgBlock);
 #else
-	DWORD m_threadID;
+	uint32_t m_threadID;
 	HANDLE m_threadHandle;
 	Event			*m_completionFlag;
-	static DWORD WINAPI	entryPoint(LPVOID lpParam);
+	static uint32_t WINAPI	entryPoint(LPVOID lpParam);
 #endif
 };
-void SetThreadName( DWORD dwThreadID, LPCSTR szThreadName );
+void SetThreadName( uint32_t dwThreadID, LPCSTR szThreadName );
 

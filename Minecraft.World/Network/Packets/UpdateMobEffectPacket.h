@@ -8,7 +8,7 @@ class UpdateMobEffectPacket : public Packet, public std::enable_shared_from_this
 {
 public:
 	int entityId;
-	BYTE effectId;
+	uint8_t effectId;
 	char effectAmplifier;
 	short effectDurationTicks;
 

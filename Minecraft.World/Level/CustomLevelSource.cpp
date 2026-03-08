@@ -33,7 +33,7 @@ CustomLevelSource::CustomLevelSource(Level *level, __int64 seed, bool generateSt
 	if( file == INVALID_HANDLE_VALUE )
 	{
 		app.FatalLoadError();
-		DWORD error = GetLastError();
+		uint32_t error = GetLastError();
 		assert(false);
 	}
 	else
@@ -41,9 +41,9 @@ CustomLevelSource::CustomLevelSource(Level *level, __int64 seed, bool generateSt
 
 #ifdef _DURANGO
 		__debugbreak();	// TODO
-		DWORD bytesRead,dwFileSize = 0;
+		uint32_t bytesRead,dwFileSize = 0;
 #else
-		DWORD bytesRead,dwFileSize = GetFileSize(file,NULL);
+		uint32_t bytesRead,dwFileSize = GetFileSize(file,NULL);
 #endif
 		if(dwFileSize > m_heightmapOverride.length)
 		{
@@ -74,7 +74,7 @@ CustomLevelSource::CustomLevelSource(Level *level, __int64 seed, bool generateSt
 	file = CreateFile(waterHeightPath.c_str(), GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if( file == INVALID_HANDLE_VALUE )
 	{
-		DWORD error = GetLastError();
+		uint32_t error = GetLastError();
 		//assert(false);
 		memset(m_waterheightOverride.data, level->seaLevel, m_waterheightOverride.length);
 	}
@@ -83,9 +83,9 @@ CustomLevelSource::CustomLevelSource(Level *level, __int64 seed, bool generateSt
 
 #ifdef _DURANGO
 		__debugbreak();	// TODO
-		DWORD bytesRead,dwFileSize = 0;
+		uint32_t bytesRead,dwFileSize = 0;
 #else
-		DWORD bytesRead,dwFileSize = GetFileSize(file,NULL);
+		uint32_t bytesRead,dwFileSize = GetFileSize(file,NULL);
 #endif
 		if(dwFileSize > m_waterheightOverride.length)
 		{

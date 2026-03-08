@@ -11,18 +11,18 @@ class TextureAndGeometryPacket : public Packet, public std::enable_shared_from_t
 {
 public:
 	std::wstring textureName;
-	DWORD dwSkinID;
-	PBYTE pbData;
-	DWORD dwTextureBytes;
+	uint32_t dwSkinID;
+	uint8_t* pbData;
+	uint32_t dwTextureBytes;
 	SKIN_BOX *BoxDataA;
-	DWORD dwBoxC;
+	uint32_t dwBoxC;
 	unsigned int uiAnimOverrideBitmask;
 
 	TextureAndGeometryPacket();
 	~TextureAndGeometryPacket();
-	TextureAndGeometryPacket(const std::wstring &textureName, PBYTE pbData, DWORD dwBytes); 
-	TextureAndGeometryPacket(const std::wstring &textureName, PBYTE pbData, DWORD dwBytes, DLCSkinFile *pDLCSkinFile); 
-	TextureAndGeometryPacket(const std::wstring &textureName, PBYTE pbData, DWORD dwBytes, std::vector<SKIN_BOX *> *pvSkinBoxes, unsigned int uiAnimOverrideBitmask); 
+	TextureAndGeometryPacket(const std::wstring &textureName, uint8_t* pbData, uint32_t dwBytes); 
+	TextureAndGeometryPacket(const std::wstring &textureName, uint8_t* pbData, uint32_t dwBytes, DLCSkinFile *pDLCSkinFile); 
+	TextureAndGeometryPacket(const std::wstring &textureName, uint8_t* pbData, uint32_t dwBytes, std::vector<SKIN_BOX *> *pvSkinBoxes, unsigned int uiAnimOverrideBitmask); 
 
 	virtual void handle(PacketListener *listener);
 	virtual void read(DataInputStream *dis);

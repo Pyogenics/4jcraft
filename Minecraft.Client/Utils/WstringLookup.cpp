@@ -8,7 +8,7 @@ WstringLookup::WstringLookup()
 	numIDs = 0;
 }
 
-std::wstring WstringLookup::lookup(UINT id)
+std::wstring WstringLookup::lookup(uint32_t id)
 {
 	// TODO
 	//if (id > currentMaxID)
@@ -17,12 +17,12 @@ std::wstring WstringLookup::lookup(UINT id)
 	return int2str.at(id);
 }
 	
-UINT WstringLookup::lookup(std::wstring str)
+uint32_t WstringLookup::lookup(std::wstring str)
 {
 	if (str2int.find(str) == str2int.end())
 	{
-		std::pair<std::wstring,UINT> p = 
-			std::pair<std::wstring,UINT>(str, numIDs);
+		std::pair<std::wstring,uint32_t> p = 
+			std::pair<std::wstring,uint32_t>(str, numIDs);
 
 		str2int.insert( p );
 		int2str.push_back( str );
@@ -35,14 +35,14 @@ UINT WstringLookup::lookup(std::wstring str)
 	}
 }
 
-VOID WstringLookup::getTable(std::wstring **lookup, UINT *len)
+VOID WstringLookup::getTable(std::wstring **lookup, uint32_t *len)
 {
 	// Outputs
-	std::wstring *out_lookup; UINT out_len;
+	std::wstring *out_lookup; uint32_t out_len;
 
 	// Fill lookup.
 	out_lookup = new std::wstring[int2str.size()];
-	for (UINT i = 0; i < numIDs; i++)
+	for (uint32_t i = 0; i < numIDs; i++)
 		out_lookup[i] = int2str.at(i);
 
 	out_len = numIDs;

@@ -102,18 +102,18 @@ void glTexGeni(int,int,int)
 #ifdef _XBOX
 // 4J Stu - Added these to stop us needing to pull in loads of media libraries just to use Qnet
 #include <xcam.h>
-DWORD XCamInitialize(){ return 0; }
+uint32_t XCamInitialize(){ return 0; }
 VOID XCamShutdown() {}
  
-DWORD XCamCreateStreamEngine(
+uint32_t XCamCreateStreamEngine(
          CONST XCAM_STREAM_ENGINE_INIT_PARAMS *pParams,
          PIXCAMSTREAMENGINE *ppEngine
 		 ) { return 0; }
  
-DWORD XCamSetView(
+uint32_t XCamSetView(
          XCAMZOOMFACTOR ZoomFactor,
-         LONG XCenter,
-         LONG YCenter,
+         int32_t XCenter,
+         int32_t YCenter,
          PXOVERLAPPED pOverlapped
 ) { return 0; }
  

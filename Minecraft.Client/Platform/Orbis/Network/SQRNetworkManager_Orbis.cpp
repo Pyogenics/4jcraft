@@ -3913,7 +3913,7 @@ void SQRNetworkManager_Orbis::AttemptPSNSignIn(int (*SignInCompleteCallbackFn)(v
 	else if(ProfileManager.isConnectedToPSN(iPad) == false)
 	{
 		// we're signed into PSN, but we don't have a net connection, throw up a lan error
-		UINT uiIDA[1];
+		uint32_t uiIDA[1];
 		uiIDA[0]=IDS_CONFIRM_OK;
 		ui.RequestMessageBox( IDS_ERROR_NETWORK_TITLE, IDS_ERROR_NETWORK, uiIDA,1,iPad,ErrorPSNDisconnectedDialogReturned,pParam, app.GetStringTable());
 

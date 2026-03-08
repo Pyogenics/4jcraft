@@ -99,7 +99,7 @@ MinecraftServer::~MinecraftServer()
 {
 }
 
-bool MinecraftServer::initServer(__int64 seed, NetworkGameInitData *initData, DWORD initSettings, bool findSeed)
+bool MinecraftServer::initServer(__int64 seed, NetworkGameInitData *initData, uint32_t initSettings, bool findSeed)
 {
 	// 4J - removed
 #if 0
@@ -262,7 +262,7 @@ bool MinecraftServer::initServer(__int64 seed, NetworkGameInitData *initData, DW
 		// 4J delete passed in save data now - this is only required for the tutorial which is loaded by passing data directly in rather than using the storage manager
 		if( initData->saveData )
 		{
-			delete[] (BYTE*)initData->saveData->data;
+			delete[] (uint8_t*)initData->saveData->data;
 			initData->saveData->data = 0;
 			initData->saveData->fileSize = 0;
 		}
@@ -349,7 +349,7 @@ void	MinecraftServer::addPostProcessRequest(ChunkSource *chunkSource, int x, int
 
 void MinecraftServer::postProcessTerminate(ProgressRenderer *mcprogress)
 {
-	DWORD status = 0;
+	uint32_t status = 0;
 
 	EnterCriticalSection(&server->m_postProcessCS);
 	size_t postProcessItemCount = server->m_postProcessRequests.size();
@@ -426,7 +426,7 @@ bool MinecraftServer::loadLevel(LevelStorageSource *storageSource, const std::ws
 		LevelGenerationOptions *levelGen = app.getLevelGenerationOptions();
 		if( levelGen != NULL && levelGen->requiresBaseSave())
 		{
-			DWORD fileSize = 0;
+			uint32_t fileSize = 0;
 			LPVOID pvSaveData = levelGen->getBaseSaveData(fileSize);
 			if(pvSaveData && fileSize != 0) bLevelGenBaseSave = true;
 		}
@@ -535,13 +535,13 @@ bool MinecraftServer::loadLevel(LevelStorageSource *storageSource, const std::ws
 	ConsoleSaveFile *csf = getLevel(0)->getLevelStorage()->getSaveFile();
 	if( csf->doesFileExist(filepath) )
 	{
-		DWORD numberOfBytesRead;
+		uint32_t numberOfBytesRead;
 		byteArray ba_gameRules;
 
 		FileEntry *fe = csf->createFile(filepath);
 
 		ba_gameRules.length = fe->getFileSize();
-		ba_gameRules.data = new BYTE[ ba_gameRules.length ];
+		ba_gameRules.data = new uint8_t[ ba_gameRules.length ];
 
 		csf->setFilePointer(fe,0,NULL,FILE_BEGIN);
 		csf->readFile(fe, ba_gameRules.data, ba_gameRules.length, &numberOfBytesRead);
@@ -810,7 +810,7 @@ void MinecraftServer::saveGameRules()
 			ConsoleSaveFile *csf = getLevel(0)->getLevelStorage()->getSaveFile();
 			FileEntry *fe = csf->createFile(ConsoleSavePath(GAME_RULE_SAVENAME));
 			csf->setFilePointer(fe, 0, NULL, FILE_BEGIN);
-			DWORD length;
+			uint32_t length;
 			csf->writeFile(fe, ba.data, ba.length, &length );
 
 			delete [] ba.data;
@@ -1060,7 +1060,7 @@ extern int c0a, c0b, c1a, c1b, c1c, c2a, c2b;
 void MinecraftServer::run(__int64 seed, void *lpParameter)
 {
 	NetworkGameInitData *initData = NULL;
-	DWORD initSettings = 0;
+	uint32_t initSettings = 0;
 	bool findSeed = false;
 	if(lpParameter != NULL)
 	{
@@ -1653,7 +1653,7 @@ void MinecraftServer::cycleSlowQueueIndex()
 
 	int startingIndex = s_slowQueuePlayerIndex;
 	INetworkPlayer *currentPlayer = NULL;
-	DWORD currentPlayerCount = 0;
+	uint32_t currentPlayerCount = 0;
 	do
 	{
 		currentPlayerCount = g_NetworkManager.GetPlayerCount();

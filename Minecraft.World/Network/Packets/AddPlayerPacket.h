@@ -21,9 +21,9 @@ public:
     int carriedItem;
 	PlayerUID xuid; // 4J Added
 	PlayerUID OnlineXuid; // 4J Added
-	BYTE m_playerIndex; // 4J Added
-	DWORD m_skinId; // 4J Added
-	DWORD m_capeId; // 4J Added
+	uint8_t m_playerIndex; // 4J Added
+	uint32_t m_skinId; // 4J Added
+	uint32_t m_capeId; // 4J Added
 	unsigned int m_uiGamePrivileges; // 4J Added
 	uint8_t yHeadRot; // 4J Added
 

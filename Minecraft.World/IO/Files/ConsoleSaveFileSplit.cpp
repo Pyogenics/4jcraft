@@ -379,9 +379,9 @@ FileEntry *ConsoleSaveFileSplit::GetRegionFileEntry(unsigned int regionIndex)
 	return newRef->fileEntry;
 }
 
-ConsoleSaveFileSplit::ConsoleSaveFileSplit(const std::wstring &fileName, LPVOID pvSaveData /*= NULL*/, DWORD dFileSize /*= 0*/, bool forceCleanSave /*= false*/, ESavePlatform plat /*= SAVE_FILE_PLATFORM_LOCAL*/)
+ConsoleSaveFileSplit::ConsoleSaveFileSplit(const std::wstring &fileName, LPVOID pvSaveData /*= NULL*/, uint32_t dFileSize /*= 0*/, bool forceCleanSave /*= false*/, ESavePlatform plat /*= SAVE_FILE_PLATFORM_LOCAL*/)
 {
-	DWORD fileSize = dFileSize;
+	uint32_t fileSize = dFileSize;
 
 	// Load a save from the game rules
 	bool bLevelGenBaseSave = false;
@@ -418,7 +418,7 @@ ConsoleSaveFileSplit::ConsoleSaveFileSplit(ConsoleSaveFile *sourceSave, bool alr
 
 		std::vector<FileEntry *> *sourceFiles = sourceSave->getFilesWithPrefix(L"");
 
-		DWORD bytesWritten;
+		uint32_t bytesWritten;
 		for(AUTO_VAR(it, sourceFiles->begin()); it != sourceFiles->end(); ++it)
 		{
 			FileEntry *sourceEntry = *it;
@@ -437,7 +437,7 @@ ConsoleSaveFileSplit::ConsoleSaveFileSplit(ConsoleSaveFile *sourceSave, bool alr
 	}
 }
 
-void ConsoleSaveFileSplit::_init(const std::wstring &fileName, LPVOID pvSaveData, DWORD fileSize, ESavePlatform plat)
+void ConsoleSaveFileSplit::_init(const std::wstring &fileName, LPVOID pvSaveData, uint32_t fileSize, ESavePlatform plat)
 {
 	InitializeCriticalSectionAndSpinCount(&m_lock,5120);
 
@@ -478,7 +478,7 @@ void ConsoleSaveFileSplit::_init(const std::wstring &fileName, LPVOID pvSaveData
 		regionFiles[regionIndex] = regionFileRef;
 	}
 
-	DWORD heapSize = std::max( fileSize, (DWORD)(1024 * 1024 * 2)); // 4J Stu - Our files are going to be bigger than 2MB so allocate high to start with
+	uint32_t heapSize = std::max( fileSize, (uint32_t)(1024 * 1024 * 2)); // 4J Stu - Our files are going to be bigger than 2MB so allocate high to start with
 
 	// Initially committ enough room to store headSize bytes (using CSF_PAGE_SIZE pages, so rounding up here). We should only ever have one save file at a time,
 	// and the pages should be decommitted in the dtor, so pages committed should always be zero at this point.
@@ -537,9 +537,9 @@ void ConsoleSaveFileSplit::_init(const std::wstring &fileName, LPVOID pvSaveData
 				{
 
 					// Only ReAlloc if we need to (we might already have enough) and align to 512 byte boundaries
-					DWORD currentHeapSize = pagesCommitted * CSF_PAGE_SIZE;
+					uint32_t currentHeapSize = pagesCommitted * CSF_PAGE_SIZE;
 
-					DWORD desiredSize = decompSize;
+					uint32_t desiredSize = decompSize;
 
 					if( desiredSize > currentHeapSize )
 					{
@@ -636,13 +636,13 @@ void ConsoleSaveFileSplit::deleteFile( FileEntry *file )
 
 	LockSaveAccess();
 
-	DWORD numberOfBytesRead = 0;
-	DWORD numberOfBytesWritten = 0;
+	uint32_t numberOfBytesRead = 0;
+	uint32_t numberOfBytesWritten = 0;
 
 	const int bufferSize = 4096;
 	int amountToRead = bufferSize;
 	uint8_t buffer[bufferSize];
-	DWORD bufferDataSize = 0;
+	uint32_t bufferDataSize = 0;
 
 
 	char *readStartOffset = (char *)pvSaveMem + file->data.startOffset + file->getFileSize();
@@ -686,7 +686,7 @@ void ConsoleSaveFileSplit::deleteFile( FileEntry *file )
 	ReleaseSaveAccess();
 }
 
-void ConsoleSaveFileSplit::setFilePointer(FileEntry *file,LONG lDistanceToMove,PLONG lpDistanceToMoveHigh,DWORD dwMoveMethod)
+void ConsoleSaveFileSplit::setFilePointer(FileEntry *file,int32_t lDistanceToMove,int32_t* lpDistanceToMoveHigh,uint32_t dwMoveMethod)
 {
 	LockSaveAccess();
 
@@ -708,7 +708,7 @@ void ConsoleSaveFileSplit::setFilePointer(FileEntry *file,LONG lDistanceToMove,P
 }
 
 // If this file needs to grow, move the data after along
-void ConsoleSaveFileSplit::PrepareForWrite( FileEntry *file, DWORD nNumberOfBytesToWrite )
+void ConsoleSaveFileSplit::PrepareForWrite( FileEntry *file, uint32_t nNumberOfBytesToWrite )
 {
 	int bytesToGrowBy = ( (file->currentFilePointer - file->data.startOffset) + nNumberOfBytesToWrite) - file->getFileSize();
 	if( bytesToGrowBy <= 0 )
@@ -733,7 +733,7 @@ void ConsoleSaveFileSplit::PrepareForWrite( FileEntry *file, DWORD nNumberOfByte
 	finalizeWrite();
 }
 
-BOOL ConsoleSaveFileSplit::writeFile(FileEntry *file,LPCVOID lpBuffer, DWORD nNumberOfBytesToWrite, LPDWORD lpNumberOfBytesWritten)
+BOOL ConsoleSaveFileSplit::writeFile(FileEntry *file,LPCVOID lpBuffer, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten)
 {
 	assert( pvSaveMem != NULL );
 	if( pvSaveMem == NULL )
@@ -786,7 +786,7 @@ BOOL ConsoleSaveFileSplit::writeFile(FileEntry *file,LPCVOID lpBuffer, DWORD nNu
 	return 1;
 }
 
-BOOL ConsoleSaveFileSplit::zeroFile(FileEntry *file, DWORD nNumberOfBytesToWrite, LPDWORD lpNumberOfBytesWritten)
+BOOL ConsoleSaveFileSplit::zeroFile(FileEntry *file, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten)
 {
 	assert( pvSaveMem != NULL );
 	if( pvSaveMem == NULL )
@@ -839,9 +839,9 @@ BOOL ConsoleSaveFileSplit::zeroFile(FileEntry *file, DWORD nNumberOfBytesToWrite
 	return 1;
 }
 
-BOOL ConsoleSaveFileSplit::readFile( FileEntry *file, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead)
+BOOL ConsoleSaveFileSplit::readFile( FileEntry *file, LPVOID lpBuffer, uint32_t nNumberOfBytesToRead, uint32_t* lpNumberOfBytesRead)
 {
-	DWORD actualBytesToRead;
+	uint32_t actualBytesToRead;
 	assert( pvSaveMem != NULL );
 	if( pvSaveMem == NULL )
 	{
@@ -1036,23 +1036,23 @@ void ConsoleSaveFileSplit::finalizeWrite()
 	ReleaseSaveAccess();
 }
 
-void ConsoleSaveFileSplit::MoveDataBeyond(FileEntry *file, DWORD nNumberOfBytesToWrite)
+void ConsoleSaveFileSplit::MoveDataBeyond(FileEntry *file, uint32_t nNumberOfBytesToWrite)
 {
-	DWORD numberOfBytesRead = 0;
-	DWORD numberOfBytesWritten = 0;
+	uint32_t numberOfBytesRead = 0;
+	uint32_t numberOfBytesWritten = 0;
 
-	const DWORD bufferSize = 4096;
-	DWORD amountToRead = bufferSize;
+	const uint32_t bufferSize = 4096;
+	uint32_t amountToRead = bufferSize;
 	//assert( nNumberOfBytesToWrite <= bufferSize );
 	static uint8_t buffer1[bufferSize];
 	static uint8_t buffer2[bufferSize];
-	DWORD buffer1Size = 0;
-	DWORD buffer2Size = 0;
+	uint32_t buffer1Size = 0;
+	uint32_t buffer2Size = 0;
 
 	// Only ReAlloc if we need to (we might already have enough) and align to 512 byte boundaries
-	DWORD currentHeapSize = pagesCommitted * CSF_PAGE_SIZE;
+	uint32_t currentHeapSize = pagesCommitted * CSF_PAGE_SIZE;
 	
-	DWORD desiredSize = header.GetFileSize() + nNumberOfBytesToWrite;
+	uint32_t desiredSize = header.GetFileSize() + nNumberOfBytesToWrite;
 
 	if( desiredSize > currentHeapSize )
 	{
@@ -1134,7 +1134,7 @@ void ConsoleSaveFileSplit::MoveDataBeyond(FileEntry *file, DWORD nNumberOfBytesT
 			// Fill buffer 1 from file
 			if( (readStartOffset - bufferSize) < spaceStartOffset )
 			{
-				amountToRead = (DWORD)(readStartOffset - spaceStartOffset);
+				amountToRead = (uint32_t)(readStartOffset - spaceStartOffset);
 			}
 			else
 			{
@@ -1406,11 +1406,11 @@ void ConsoleSaveFileSplit::Flush(bool autosave, bool updateThumbnail)
 
 		if(updateThumbnail)
 		{
-			PBYTE pbThumbnailData=NULL;
-			DWORD dwThumbnailDataSize=0;
+			uint8_t* pbThumbnailData=NULL;
+			uint32_t dwThumbnailDataSize=0;
 
-			PBYTE pbDataSaveImage=NULL;
-			DWORD dwDataSizeSaveImage=0;
+			uint8_t* pbDataSaveImage=NULL;
+			uint32_t dwDataSizeSaveImage=0;
 
 #if ( defined _XBOX || defined _DURANGO )
 			app.GetSaveThumbnail(&pbThumbnailData,&dwThumbnailDataSize);
@@ -1418,7 +1418,7 @@ void ConsoleSaveFileSplit::Flush(bool autosave, bool updateThumbnail)
 			app.GetSaveThumbnail(&pbThumbnailData,&dwThumbnailDataSize,&pbDataSaveImage,&dwDataSizeSaveImage);
 #endif
 
-			BYTE bTextMetadata[88];
+			uint8_t bTextMetadata[88];
 			ZeroMemory(bTextMetadata,88);
 
 			__int64 seed = 0;
@@ -1437,7 +1437,7 @@ void ConsoleSaveFileSplit::Flush(bool autosave, bool updateThumbnail)
 
 		}
 		
-		INT saveOrCheckpointId = 0;
+		int32_t saveOrCheckpointId = 0;
 		bool validSave = StorageManager.GetSaveUniqueNumber(&saveOrCheckpointId);
 		TelemetryManager->RecordLevelSaveOrCheckpoint(ProfileManager.GetPrimaryPad(), saveOrCheckpointId, compLength+8);
 
@@ -1488,7 +1488,7 @@ void ConsoleSaveFileSplit::DebugFlushToFile(void *compressedData /*= NULL*/, uns
 
 	unsigned int fileSize = header.GetFileSize();
 
-	DWORD numberOfBytesWritten = 0;
+	uint32_t numberOfBytesWritten = 0;
 
 	File targetFileDir(L"Saves");
 
@@ -1646,8 +1646,8 @@ void ConsoleSaveFileSplit::setEndian(ByteOrder endian)
 
 void ConsoleSaveFileSplit::ConvertRegionFile(File sourceFile)
 {
-	DWORD numberOfBytesWritten = 0;
-	DWORD numberOfBytesRead = 0;
+	uint32_t numberOfBytesWritten = 0;
+	uint32_t numberOfBytesRead = 0;
 
 	RegionFile sourceRegionFile(this, &sourceFile);
 

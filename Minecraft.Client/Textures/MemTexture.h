@@ -12,6 +12,6 @@ public:
 	int ticksSinceLastUse;
 	static const int UNUSED_TICKS_TO_FREE = 20;
 
-    MemTexture(const std::wstring& _name, PBYTE pbData, DWORD dwBytes, MemTextureProcessor *processor);
+    MemTexture(const std::wstring& _name, uint8_t* pbData, uint32_t dwBytes, MemTextureProcessor *processor);
 	~MemTexture();
 };

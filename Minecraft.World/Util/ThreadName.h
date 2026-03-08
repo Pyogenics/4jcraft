@@ -1,3 +1,3 @@
 #pragma once
 
-void SetThreadName( DWORD dwThreadID, LPCSTR szThreadName );
+void SetThreadName( uint32_t dwThreadID, LPCSTR szThreadName );

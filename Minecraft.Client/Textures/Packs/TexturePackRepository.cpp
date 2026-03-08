@@ -59,7 +59,7 @@ void TexturePackRepository::addDebugPacks()
 		{
 			wprintf(L"Pack \"%ls\" is not installed, so adding it\n", L"DLCTestPack");
 			pack = new DLCPack(L"DLCTestPack",0xffffffff);
-			DWORD dwFilesProcessed = 0;
+			uint32_t dwFilesProcessed = 0;
 			if( app.m_dlcManager.readDLCDataFile(dwFilesProcessed, "GAME:\\DummyTexturePack\\TexturePack.pck",pack))
 			{
 				// 4J Stu - Don't need to do this, as the readDLCDataFile now adds texture packs
@@ -291,19 +291,19 @@ bool TexturePackRepository::canUseWebSkin()
 	return false;
 }
 
-std::vector< std::pair<DWORD,std::wstring> > *TexturePackRepository::getTexturePackIdNames()
+std::vector< std::pair<uint32_t,std::wstring> > *TexturePackRepository::getTexturePackIdNames()
 {
-	std::vector< std::pair<DWORD,std::wstring> > *packList = new std::vector< std::pair<DWORD,std::wstring> >();
+	std::vector< std::pair<uint32_t,std::wstring> > *packList = new std::vector< std::pair<uint32_t,std::wstring> >();
 
 	for(AUTO_VAR(it,texturePacks->begin()); it != texturePacks->end(); ++it)
 	{
 		TexturePack *pack = *it;
-		packList->push_back( std::pair<DWORD,std::wstring>(pack->getId(),pack->getName()) );
+		packList->push_back( std::pair<uint32_t,std::wstring>(pack->getId(),pack->getName()) );
 	}
 	return packList;
 }
 
-bool TexturePackRepository::selectTexturePackById(DWORD id)
+bool TexturePackRepository::selectTexturePackById(uint32_t id)
 {
 	bool bDidSelect = false;
 
@@ -352,7 +352,7 @@ bool TexturePackRepository::selectTexturePackById(DWORD id)
 	return bDidSelect;
 }
 
-TexturePack *TexturePackRepository::getTexturePackById(DWORD id)
+TexturePack *TexturePackRepository::getTexturePackById(uint32_t id)
 {
 	AUTO_VAR(it, cacheById.find(id));
 	if(it != cacheById.end())
@@ -363,12 +363,12 @@ TexturePack *TexturePackRepository::getTexturePackById(DWORD id)
 	return NULL;
 }
 
-TexturePack *TexturePackRepository::addTexturePackFromDLC(DLCPack *dlcPack, DWORD id)
+TexturePack *TexturePackRepository::addTexturePackFromDLC(DLCPack *dlcPack, uint32_t id)
 {
 	TexturePack *newPack = NULL;
 	// 4J-PB - The City texture pack went out with a child id for the texture pack of 1 instead of zero
 	// we need to mask off the child id here to deal with this
-	DWORD dwParentID=id&0xFFFFFF; // child id is <<24 and Or'd with parent
+	uint32_t dwParentID=id&0xFFFFFF; // child id is <<24 and Or'd with parent
 
 	if(dlcPack != NULL)
 	{
@@ -398,7 +398,7 @@ void TexturePackRepository::clearInvalidTexturePacks()
 	}
 }
 
-void TexturePackRepository::removeTexturePackById(DWORD id)
+void TexturePackRepository::removeTexturePackById(uint32_t id)
 {
 	AUTO_VAR(it, cacheById.find(id));
 	if(it != cacheById.end())

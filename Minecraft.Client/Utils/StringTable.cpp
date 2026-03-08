@@ -7,7 +7,7 @@ StringTable::StringTable(void)
 }
 
 // Load string table from a binary blob, filling out with the current localisation data only
-StringTable::StringTable(PBYTE pbData, DWORD dwSize)
+StringTable::StringTable(uint8_t* pbData, uint32_t dwSize)
 {
 	src = byteArray(pbData, dwSize);
 
@@ -119,7 +119,7 @@ StringTable::~StringTable(void)
 	// delete src.data; TODO 4J-JEV: ?
 }
 
-void StringTable::getData(PBYTE *ppData, UINT *pSize)
+void StringTable::getData(uint8_t* *ppData, uint32_t *pSize)
 {
 	*ppData = src.data;
 	*pSize = src.length;

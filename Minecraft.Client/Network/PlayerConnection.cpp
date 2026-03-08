@@ -802,8 +802,8 @@ void PlayerConnection::handleTexture(std::shared_ptr<TexturePacket> packet)
 #ifndef _CONTENT_PACKAGE
 			wprintf(L"Server received request for custom texture %ls\n",packet->textureName.c_str());
 #endif
-		PBYTE pbData=NULL;
-		DWORD dwBytes=0;		
+		uint8_t* pbData=NULL;
+		uint32_t dwBytes=0;		
 		app.GetMemFileDetails(packet->textureName,&pbData,&dwBytes);
 
 		if(dwBytes!=0)
@@ -836,8 +836,8 @@ void PlayerConnection::handleTextureAndGeometry(std::shared_ptr<TextureAndGeomet
 #ifndef _CONTENT_PACKAGE
 		wprintf(L"Server received request for custom texture %ls\n",packet->textureName.c_str());
 #endif
-		PBYTE pbData=NULL;
-		DWORD dwTextureBytes=0;		
+		uint8_t* pbData=NULL;
+		uint32_t dwTextureBytes=0;		
 		app.GetMemFileDetails(packet->textureName,&pbData,&dwTextureBytes);
 		DLCSkinFile *pDLCSkinFile = app.m_dlcManager.getSkinFile(packet->textureName);
 
@@ -900,8 +900,8 @@ void PlayerConnection::handleTextureReceived(const std::wstring &textureName)
 	AUTO_VAR(it, find( m_texturesRequested.begin(), m_texturesRequested.end(), textureName ));
 	if( it != m_texturesRequested.end() )
 	{
-		PBYTE pbData=NULL;
-		DWORD dwBytes=0;		
+		uint8_t* pbData=NULL;
+		uint32_t dwBytes=0;		
 		app.GetMemFileDetails(textureName,&pbData,&dwBytes);
 
 		if(dwBytes!=0)
@@ -918,8 +918,8 @@ void PlayerConnection::handleTextureAndGeometryReceived(const std::wstring &text
 	AUTO_VAR(it, find( m_texturesRequested.begin(), m_texturesRequested.end(), textureName ));
 	if( it != m_texturesRequested.end() )
 	{
-		PBYTE pbData=NULL;
-		DWORD dwTextureBytes=0;		
+		uint8_t* pbData=NULL;
+		uint32_t dwTextureBytes=0;		
 		app.GetMemFileDetails(textureName,&pbData,&dwTextureBytes);
 		DLCSkinFile *pDLCSkinFile=app.m_dlcManager.getSkinFile(textureName);
 
@@ -932,7 +932,7 @@ void PlayerConnection::handleTextureAndGeometryReceived(const std::wstring &text
 			else
 			{
 				// get the data from the app
-				DWORD dwSkinID = app.getSkinIdFromPath(textureName);
+				uint32_t dwSkinID = app.getSkinIdFromPath(textureName);
 				std::vector<SKIN_BOX *> *pvSkinBoxes = app.GetAdditionalSkinBoxes(dwSkinID);
 				unsigned int uiAnimOverrideBitmask= app.GetAnimOverrideBitmask(dwSkinID);
 

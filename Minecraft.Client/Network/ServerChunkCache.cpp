@@ -172,7 +172,7 @@ LevelChunk *ServerChunkCache::create(int x, int z, bool asyncPostProcess)	// 4J 
 #if ( defined _WIN64 || defined __LP64__ )
 		if( InterlockedCompareExchangeRelease64((LONG64 *)&cache[idx],(LONG64)chunk,(LONG64)lastChunk) == (LONG64)lastChunk )
 #else
-		if( InterlockedCompareExchangeRelease((LONG *)&cache[idx],(LONG)chunk,(LONG)lastChunk) == (LONG)lastChunk )
+		if( InterlockedCompareExchangeRelease((int32_t *)&cache[idx],(int32_t)chunk,(int32_t)lastChunk) == (int32_t)lastChunk )
 #endif // _DURANGO
 		{
 			// Successfully updated the cache
@@ -664,7 +664,7 @@ bool ServerChunkCache::save(bool force, ProgressListener *progressListener)
 		C4JThread::Event *wakeEvent[3]; // This sets off the threads that are waiting to continue
 		C4JThread::Event *notificationEvent[3]; // These are signalled by the threads to let us know they are complete
 		C4JThread *saveThreads[3];
-		DWORD threadId[3];
+		uint32_t threadId[3];
 		SaveThreadData threadData[3];
 		ZeroMemory(&threadData[0], sizeof(SaveThreadData));
 		ZeroMemory(&threadData[1], sizeof(SaveThreadData));

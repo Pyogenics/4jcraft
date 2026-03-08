@@ -19,7 +19,7 @@ const std::wstring PistonBaseTile::INSIDE_TEX = L"piston_inner_top";
 
 const float PistonBaseTile::PLATFORM_THICKNESS = 4.0f;
 
-DWORD PistonBaseTile::tlsIdx = TlsAlloc();
+uint32_t PistonBaseTile::tlsIdx = TlsAlloc();
 
 // 4J - NOTE - this ignoreUpdate stuff has been removed from the java version, but I'm not currently sure how the java version does without it... there must be
 // some other mechanism that we don't have that stops the event from one piston being processed, from causing neighbours to have extra events created for them.

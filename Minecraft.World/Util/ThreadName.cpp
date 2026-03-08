@@ -3,13 +3,13 @@
 // From Xbox documentation
 
 typedef struct tagTHREADNAME_INFO {
-    DWORD dwType;     // Must be 0x1000
+    uint32_t dwType;     // Must be 0x1000
     LPCSTR szName;    // Pointer to name (in user address space)
-    DWORD dwThreadID; // Thread ID (-1 for caller thread)
-    DWORD dwFlags;    // Reserved for future use; must be zero
+    uint32_t dwThreadID; // Thread ID (-1 for caller thread)
+    uint32_t dwFlags;    // Reserved for future use; must be zero
 } THREADNAME_INFO;
 
-void SetThreadName( DWORD dwThreadID, LPCSTR szThreadName )
+void SetThreadName( uint32_t dwThreadID, LPCSTR szThreadName )
 {
 #ifndef __PS3__
     THREADNAME_INFO info;
@@ -22,7 +22,7 @@ void SetThreadName( DWORD dwThreadID, LPCSTR szThreadName )
 #if ( defined _WINDOWS64 | defined _DURANGO )
 	__try
 	{
-		RaiseException( 0x406D1388, 0, sizeof(info)/sizeof(DWORD), (ULONG_PTR *)&info );
+		RaiseException( 0x406D1388, 0, sizeof(info)/sizeof(uint32_t), (ULONG_PTR *)&info );
 	}
 	__except( GetExceptionCode()==0x406D1388 ? EXCEPTION_CONTINUE_EXECUTION : EXCEPTION_EXECUTE_HANDLER )
 	{
@@ -31,7 +31,7 @@ void SetThreadName( DWORD dwThreadID, LPCSTR szThreadName )
 #ifdef _XBOX
     __try
     {
-        RaiseException( 0x406D1388, 0, sizeof(info)/sizeof(DWORD), (DWORD *)&info );
+        RaiseException( 0x406D1388, 0, sizeof(info)/sizeof(uint32_t), (uint32_t *)&info );
     }
     __except( GetExceptionCode()==0x406D1388 ? EXCEPTION_CONTINUE_EXECUTION : EXCEPTION_EXECUTE_HANDLER )
     {

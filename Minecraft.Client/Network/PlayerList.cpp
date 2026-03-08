@@ -105,7 +105,7 @@ void PlayerList::placeNewPlayer(Connection *connection, std::shared_ptr<ServerPl
 
         ServerLevel *level = server->getLevel(player->dimension);
 
-		DWORD playerIndex = 0;
+		uint32_t playerIndex = 0;
 		{
 			bool usedIndexes[MINECRAFT_NET_MAX_PLAYERS];
 			ZeroMemory( &usedIndexes, MINECRAFT_NET_MAX_PLAYERS * sizeof(bool) );
@@ -211,7 +211,7 @@ void PlayerList::placeNewPlayer(Connection *connection, std::shared_ptr<ServerPl
 
 		playerConnection->send( std::shared_ptr<LoginPacket>( new LoginPacket(L"", player->entityId, level->getLevelData()->getGenerator(), level->getSeed(), player->gameMode->getGameModeForPlayer()->getId(),
 																		(uint8_t) level->dimension->id, (uint8_t) level->getMaxBuildHeight(), (uint8_t) getMaxPlayers(),
-																		level->difficulty, TelemetryManager->GetMultiplayerInstanceID(), (BYTE)playerIndex, level->useNewSeaLevel(), player->getAllPlayerGamePrivileges(),
+																		level->difficulty, TelemetryManager->GetMultiplayerInstanceID(), (uint8_t)playerIndex, level->useNewSeaLevel(), player->getAllPlayerGamePrivileges(),
 																		level->getLevelData()->getXZSize(), level->getLevelData()->getHellScale() ) ) );
         playerConnection->send( std::shared_ptr<SetSpawnPositionPacket>( new SetSpawnPositionPacket(spawnPos->x, spawnPos->y, spawnPos->z) ) );
 		playerConnection->send( std::shared_ptr<PlayerAbilitiesPacket>( new PlayerAbilitiesPacket(&player->abilities)) );
@@ -535,7 +535,7 @@ std::shared_ptr<ServerPlayer> PlayerList::respawn(std::shared_ptr<ServerPlayer> 
     serverPlayer->dimension = targetDimension;
 
 	EDefaultSkins skin = serverPlayer->getPlayerDefaultSkin();
-	DWORD playerIndex = serverPlayer->getPlayerIndex();
+	uint32_t playerIndex = serverPlayer->getPlayerIndex();
 
 	PlayerUID playerXuid = serverPlayer->getXuid();
 	PlayerUID playerOnlineXuid = serverPlayer->getOnlineXuid();
@@ -846,7 +846,7 @@ void PlayerList::tick()
 	EnterCriticalSection(&m_closePlayersCS);
 	while(!m_smallIdsToClose.empty())
 	{
-		BYTE smallId = m_smallIdsToClose.front();
+		uint8_t smallId = m_smallIdsToClose.front();
 		m_smallIdsToClose.pop_front();
 
 		std::shared_ptr<ServerPlayer> player = nullptr;
@@ -872,7 +872,7 @@ void PlayerList::tick()
 	EnterCriticalSection(&m_kickPlayersCS);
 	while(!m_smallIdsToKick.empty())
 	{
-		BYTE smallId = m_smallIdsToKick.front();
+		uint8_t smallId = m_smallIdsToKick.front();
 		m_smallIdsToKick.pop_front();
 		INetworkPlayer *selectedPlayer = g_NetworkManager.GetPlayerBySmallId(smallId);
 		if( selectedPlayer != NULL )
@@ -1415,14 +1415,14 @@ bool PlayerList::canReceiveAllPackets(std::shared_ptr<ServerPlayer> player)
 	return false;
 }
 
-void PlayerList::kickPlayerByShortId(BYTE networkSmallId)
+void PlayerList::kickPlayerByShortId(uint8_t networkSmallId)
 {
 	EnterCriticalSection(&m_kickPlayersCS);
 	m_smallIdsToKick.push_back(networkSmallId);
 	LeaveCriticalSection(&m_kickPlayersCS);
 }
 
-void  PlayerList::closePlayerConnectionBySmallId(BYTE networkSmallId)
+void  PlayerList::closePlayerConnectionBySmallId(uint8_t networkSmallId)
 {
 	EnterCriticalSection(&m_closePlayersCS);
 	m_smallIdsToClose.push_back(networkSmallId);

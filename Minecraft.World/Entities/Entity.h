@@ -367,7 +367,7 @@ private:
 	static int extraWanderCount;
 	static int extraWanderTicks;
 #if defined(_WIN32)
-	static DWORD tlsIdx;
+	static uint32_t tlsIdx;
 #else
 	static pthread_key_t tlsIdx;
 #endif

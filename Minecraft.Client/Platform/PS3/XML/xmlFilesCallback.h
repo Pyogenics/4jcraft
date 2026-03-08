@@ -12,7 +12,7 @@ public:
 	virtual HRESULT  StartDocument() { return S_OK; };
 	virtual HRESULT  EndDocument() { return S_OK; };
 
-	virtual HRESULT  ElementBegin( CONST WCHAR* strName, UINT NameLen, CONST XMLAttribute *pAttributes, UINT NumAttributes )
+	virtual HRESULT  ElementBegin( CONST WCHAR* strName, uint32_t NameLen, CONST XMLAttribute *pAttributes, uint32_t NumAttributes )
 	{
 		WCHAR wTemp[35] = L"";
 		WCHAR wAttName[32] = L"";
@@ -33,7 +33,7 @@ public:
 		}
 		else if ( _wcsicmp(wAttName,L"data") == 0)
 		{
-			for(UINT i = 0; i < NumAttributes; i++)
+			for(uint32_t i = 0; i < NumAttributes; i++)
 			{
 				wcsncpy_s( wAttName, pAttributes[i].strName, pAttributes[i].NameLen);
 				if (_wcsicmp(wAttName,L"name")==0)
@@ -80,13 +80,13 @@ public:
 		}
 	};
 
-	virtual HRESULT  ElementContent( CONST WCHAR *strData, UINT DataLen, BOOL More ) {    return S_OK;   };
+	virtual HRESULT  ElementContent( CONST WCHAR *strData, uint32_t DataLen, BOOL More ) {    return S_OK;   };
 
-	virtual HRESULT  ElementEnd( CONST WCHAR *strName, UINT NameLen ){       return S_OK;    };
+	virtual HRESULT  ElementEnd( CONST WCHAR *strName, uint32_t NameLen ){       return S_OK;    };
 
 	virtual HRESULT  CDATABegin( )  { return S_OK; };
 
-	virtual HRESULT  CDATAData( CONST WCHAR *strCDATA, UINT CDATALen, BOOL bMore ){ return S_OK; };
+	virtual HRESULT  CDATAData( CONST WCHAR *strCDATA, uint32_t CDATALen, BOOL bMore ){ return S_OK; };
 
 	virtual HRESULT  CDATAEnd( ){ return S_OK; };
 
@@ -100,7 +100,7 @@ public:
 	virtual HRESULT  StartDocument() { return S_OK; };
 	virtual HRESULT  EndDocument() { return S_OK; };
 
-	virtual HRESULT  ElementBegin( CONST WCHAR* strName, UINT NameLen, CONST XMLAttribute *pAttributes, UINT NumAttributes )
+	virtual HRESULT  ElementBegin( CONST WCHAR* strName, uint32_t NameLen, CONST XMLAttribute *pAttributes, uint32_t NumAttributes )
 	{
 		WCHAR wTemp[35] = L"";
 		WCHAR wAttName[32] = L"";
@@ -124,7 +124,7 @@ public:
 		}
 		else if ( _wcsicmp(wAttName,L"data") == 0)
 		{
-			for(UINT i = 0; i < NumAttributes; i++)
+			for(uint32_t i = 0; i < NumAttributes; i++)
 			{
 				wcsncpy_s( wAttName, pAttributes[i].strName, pAttributes[i].NameLen);
 				if (_wcsicmp(wAttName,L"Banner")==0)
@@ -215,13 +215,13 @@ public:
 		}
 	};
 
-	virtual HRESULT  ElementContent( CONST WCHAR *strData, UINT DataLen, BOOL More ) {    return S_OK;   };
+	virtual HRESULT  ElementContent( CONST WCHAR *strData, uint32_t DataLen, BOOL More ) {    return S_OK;   };
 
-	virtual HRESULT  ElementEnd( CONST WCHAR *strName, UINT NameLen ){       return S_OK;    };
+	virtual HRESULT  ElementEnd( CONST WCHAR *strName, uint32_t NameLen ){       return S_OK;    };
 
 	virtual HRESULT  CDATABegin( )  { return S_OK; };
 
-	virtual HRESULT  CDATAData( CONST WCHAR *strCDATA, UINT CDATALen, BOOL bMore ){ return S_OK; };
+	virtual HRESULT  CDATAData( CONST WCHAR *strCDATA, uint32_t CDATALen, BOOL bMore ){ return S_OK; };
 
 	virtual HRESULT  CDATAEnd( ){ return S_OK; };
 

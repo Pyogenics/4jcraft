@@ -1518,14 +1518,14 @@ void SQRNetworkManager_Vita::TickJoinablePresenceData()
 			// 		if (ProfileManager.IsSignedInPSN(ProfileManager.GetPrimaryPad()))
 			// 		{
 			// 			// Signed in to PSN but not connected (no internet access)
-			// 			UINT uiIDA[1];
+			// 			uint32_t uiIDA[1];
 			// 			uiIDA[0] = IDS_OK;
 			// 			ui.RequestMessageBox( IDS_ERROR_NETWORK_TITLE, IDS_ERROR_NETWORK, uiIDA, 1, ProfileManager.GetPrimaryPad(), NULL, NULL, app.GetStringTable());
 			// 		}
 			// 		else
 			{		
 				// Not signed in to PSN
-				UINT uiIDA[1];
+				uint32_t uiIDA[1];
 				uiIDA[0] = IDS_PRO_NOTONLINE_ACCEPT;
 				ui.RequestMessageBox( IDS_PRO_NOTONLINE_TITLE, IDS_PRO_NOTONLINE_TEXT, uiIDA, 1, ProfileManager.GetPrimaryPad(), &MustSignInReturnedPresenceInvite, NULL, app.GetStringTable(), NULL, 0, false);
 			}

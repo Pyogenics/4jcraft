@@ -879,7 +879,7 @@ void PSVitaLeaderboardManager::fromBinary(SceNpScoreComment **out, void *in)
 void PSVitaLeaderboardManager::toBase32(SceNpScoreComment *out, void *in)
 {
 	ZeroMemory(out,sizeof(SceNpScoreComment));
-	PBYTE bytes = (PBYTE) in;
+	uint8_t* bytes = (uint8_t*) in;
 	char *chars = out->utf8Comment;
 
 	for (int i = 0; i < SCE_NP_SCORE_COMMENT_MAXLEN; i++)
@@ -910,7 +910,7 @@ void PSVitaLeaderboardManager::toBase32(SceNpScoreComment *out, void *in)
 
 void PSVitaLeaderboardManager::fromBase32(void *out, SceNpScoreComment *in)
 {
-	PBYTE bytes = (PBYTE) out;
+	uint8_t* bytes = (uint8_t*) out;
 	ZeroMemory(bytes, RECORD_SIZE);
 
 	fromSymbols(in->utf8Comment);

@@ -109,7 +109,7 @@ private:
 	// Host only connection class
 	static ServerConnection *s_serverConnection;
 
-	BYTE networkPlayerSmallId;
+	uint8_t networkPlayerSmallId;
 public:	
 	C4JThread::Event* m_socketClosedEvent;
 
@@ -121,7 +121,7 @@ public:
 	Socket(bool response = false);								// 4J - Create a local socket, for end 0 or 1 of a connection
 	Socket(INetworkPlayer *player, bool response  = false, bool hostLocal = false);		// 4J - Create a socket for an INetworkPlayer
 	SocketAddress *getRemoteSocketAddress();
-	void pushDataToQueue(const BYTE * pbData, DWORD dwDataSize, bool fromHost = true);
+	void pushDataToQueue(const uint8_t * pbData, uint32_t dwDataSize, bool fromHost = true);
 	static void addIncomingSocket(Socket *socket);
 	InputStream *getInputStream(bool isServerConnection);
 	void setSoTimeout(int a );
@@ -132,5 +132,5 @@ public:
 	bool isLocal() { return m_hostLocal; }
 
 	bool isClosing() { return m_endClosed[SOCKET_CLIENT_END] || m_endClosed[SOCKET_SERVER_END]; }
-	BYTE getSmallId() { return networkPlayerSmallId; }
+	uint8_t getSmallId() { return networkPlayerSmallId; }
 };

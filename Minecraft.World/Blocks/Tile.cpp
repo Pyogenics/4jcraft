@@ -201,7 +201,7 @@ Tile *Tile::stairs_quartz = NULL;
 
 Tile *Tile::woolCarpet = NULL;
 
-DWORD Tile::tlsIdxShape = TlsAlloc();
+uint32_t Tile::tlsIdxShape = TlsAlloc();
 
 Tile::ThreadStorage::ThreadStorage()
 {

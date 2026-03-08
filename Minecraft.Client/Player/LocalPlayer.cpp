@@ -1139,12 +1139,12 @@ void LocalPlayer::onCrafted(std::shared_ptr<ItemInstance> item)
 	}
 }
 
-void LocalPlayer::setAndBroadcastCustomSkin(DWORD skinId)
+void LocalPlayer::setAndBroadcastCustomSkin(uint32_t skinId)
 {
 	setCustomSkin(skinId);
 }
 
-void LocalPlayer::setAndBroadcastCustomCape(DWORD capeId)
+void LocalPlayer::setAndBroadcastCustomCape(uint32_t capeId)
 {
 	setCustomCape(capeId);
 }

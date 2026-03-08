@@ -59,10 +59,10 @@ public:
 // 	};
 
 	StringTable(void);
-	StringTable(PBYTE pbData, DWORD dwSize);
+	StringTable(uint8_t* pbData, uint32_t dwSize);
 	~StringTable(void);
 
-	void getData(PBYTE *ppbData, UINT *pdwSize);
+	void getData(uint8_t* *ppbData, uint32_t *pdwSize);
 
 	LPCWSTR getString(const std::wstring &id);
 	LPCWSTR getString(int id);
@@ -72,7 +72,7 @@ public:
 
 
 private:
-	//std::wstring getLangId(DWORD dwLanguage=0);
+	//std::wstring getLangId(uint32_t dwLanguage=0);
 
 };
 

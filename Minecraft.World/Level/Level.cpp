@@ -43,8 +43,8 @@
 #include "../../Minecraft.Client/Platform/PS3/PS3Extras/ShutdownManager.h"
 
 
-DWORD Level::tlsIdx = TlsAlloc();
-DWORD Level::tlsIdxLightCache = TlsAlloc();
+uint32_t Level::tlsIdx = TlsAlloc();
+uint32_t Level::tlsIdxLightCache = TlsAlloc();
 
 // 4J : WESTY : Added for time played stats.
 #include "../Headers/net.minecraft.stats.h"

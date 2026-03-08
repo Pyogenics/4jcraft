@@ -14,10 +14,10 @@ public:
 	PlayerUID m_offlineXuid, m_onlineXuid;			// 4J Added
 	char difficulty;	// 4J Added	
 	bool m_friendsOnlyUGC; // 4J Added
-	DWORD m_ugcPlayersVersion; // 4J Added
-	INT m_multiplayerInstanceId; //4J Added for sentient
-	BYTE m_playerIndex; // 4J Added
-	DWORD m_playerSkinId, m_playerCapeId; // 4J Added
+	uint32_t m_ugcPlayersVersion; // 4J Added
+	int32_t m_multiplayerInstanceId; //4J Added for sentient
+	uint8_t m_playerIndex; // 4J Added
+	uint32_t m_playerSkinId, m_playerCapeId; // 4J Added
 	bool m_isGuest; // 4J Added
 	bool m_newSeaLevel; // 4J Added
 	LevelType *m_pLevelType;
@@ -27,12 +27,12 @@ public:
 
 	// 1.8.2
 	int gameType;
-	BYTE mapHeight;
-	BYTE maxPlayers;
+	uint8_t mapHeight;
+	uint8_t maxPlayers;
 
 	LoginPacket();
-	LoginPacket(const std::wstring& userName, int clientVersion, LevelType *pLevelType, __int64 seed, int gameType, char dimension, BYTE mapHeight, BYTE maxPlayers, char difficulty, INT m_multiplayerInstanceId, BYTE playerIndex, bool newSeaLevel, unsigned int uiGamePrivileges, int xzSize, int hellScale); // Server -> Client
-	LoginPacket(const std::wstring& userName, int clientVersion, PlayerUID offlineXuid, PlayerUID onlineXuid, bool friendsOnlyUGC, DWORD ugcPlayersVersion, DWORD skinId, DWORD capeId, bool isGuest); // Client -> Server
+	LoginPacket(const std::wstring& userName, int clientVersion, LevelType *pLevelType, __int64 seed, int gameType, char dimension, uint8_t mapHeight, uint8_t maxPlayers, char difficulty, int32_t m_multiplayerInstanceId, uint8_t playerIndex, bool newSeaLevel, unsigned int uiGamePrivileges, int xzSize, int hellScale); // Server -> Client
+	LoginPacket(const std::wstring& userName, int clientVersion, PlayerUID offlineXuid, PlayerUID onlineXuid, bool friendsOnlyUGC, uint32_t ugcPlayersVersion, uint32_t skinId, uint32_t capeId, bool isGuest); // Client -> Server
 
 	virtual void read(DataInputStream *dis);
 	virtual void write(DataOutputStream *dos);

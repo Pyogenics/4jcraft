@@ -120,17 +120,17 @@ BOOL CConsoleMinecraftApp::ReadProductCodes()
 	HANDLE file = CreateFile("PSVita/PSVitaProductCodes.bin", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if( file == INVALID_HANDLE_VALUE )
 	{
-		DWORD error = GetLastError();
+		uint32_t error = GetLastError();
 		app.DebugPrintf("Failed to open ProductCodes.bin with error code %d (%x)\n", error, error);
 		return FALSE;
 	}
 
-	DWORD dwHigh=0;
-	DWORD dwFileSize = GetFileSize(file,&dwHigh);
+	uint32_t dwHigh=0;
+	uint32_t dwFileSize = GetFileSize(file,&dwHigh);
 
 	if(dwFileSize!=0)
 	{
-		DWORD bytesRead;
+		uint32_t bytesRead;
 
 		WRAPPED_READFILE(file,ProductCodes.chProductCode,PRODUCT_CODE_SIZE,&bytesRead,NULL);
 		WRAPPED_READFILE(file,ProductCodes.chSaveFolderPrefix,SAVEFOLDERPREFIX_SIZE,&bytesRead,NULL);
@@ -208,14 +208,14 @@ void CConsoleMinecraftApp::CaptureSaveThumbnail()
 {
 	RenderManager.CaptureThumbnail(&m_ThumbnailBuffer);
 }
-void CConsoleMinecraftApp::GetSaveThumbnail(PBYTE *ppbThumbnailData,DWORD *pdwThumbnailSize,PBYTE *ppbDataImage,DWORD *pdwSizeImage)
+void CConsoleMinecraftApp::GetSaveThumbnail(uint8_t* *ppbThumbnailData,uint32_t *pdwThumbnailSize,uint8_t* *ppbDataImage,uint32_t *pdwSizeImage)
 {
 	// on a save caused by a create world, the thumbnail capture won't have happened
 	if(m_ThumbnailBuffer.Allocated())
 	{
 		if( ppbThumbnailData )
 		{
-			*ppbThumbnailData= new BYTE [m_ThumbnailBuffer.GetBufferSize()];
+			*ppbThumbnailData= new uint8_t [m_ThumbnailBuffer.GetBufferSize()];
 			*pdwThumbnailSize=m_ThumbnailBuffer.GetBufferSize();
 			memcpy(*ppbThumbnailData,m_ThumbnailBuffer.GetBufferPointer(),*pdwThumbnailSize);
 		}
@@ -234,7 +234,7 @@ void CConsoleMinecraftApp::GetSaveThumbnail(PBYTE *ppbThumbnailData,DWORD *pdwTh
 	{
 		if( ppbDataImage )
 		{
-			*ppbDataImage= new BYTE [m_SaveImageBuffer.GetBufferSize()];
+			*ppbDataImage= new uint8_t [m_SaveImageBuffer.GetBufferSize()];
 			*pdwSizeImage=m_SaveImageBuffer.GetBufferSize();
 			memcpy(*ppbDataImage,m_SaveImageBuffer.GetBufferPointer(),*pdwSizeImage);
 		}
@@ -255,7 +255,7 @@ void CConsoleMinecraftApp::ReleaseSaveThumbnail()
 
 }
 
-void CConsoleMinecraftApp::GetScreenshot(int iPad,PBYTE *pbData,DWORD *pdwSize)
+void CConsoleMinecraftApp::GetScreenshot(int iPad,uint8_t* *pbData,uint32_t *pdwSize)
 {
 
 }
@@ -648,7 +648,7 @@ bool CConsoleMinecraftApp::UpgradeTrial()
 	}
 	else if(m_eCommerce_State==eCommerce_State_Error)
 	{
-		UINT uiIDA[1];
+		uint32_t uiIDA[1];
 		uiIDA[0]=IDS_CONFIRM_OK;
 		C4JStorage::EMessageResult result = ui.RequestMessageBox( IDS_PRO_UNLOCKGAME_TITLE, IDS_NO_DLCOFFERS, uiIDA,1,ProfileManager.GetPrimaryPad());
 		return true;
@@ -1195,7 +1195,7 @@ void CConsoleMinecraftApp::SaveDataTick()
 	//TRC - Quota Failure
 	if( errorType == C4JStorage::ESaveIncomplete_OutOfQuota )
 	{
-		UINT uiIDA[1];
+		uint32_t uiIDA[1];
 		uiIDA[0]=IDS_CONFIRM_OK;
 		C4JStorage::EMessageResult res = ui.RequestMessageBox( IDS_SAVE_INCOMPLETE_TITLE, IDS_SAVE_INCOMPLETE_EXPLANATION_QUOTA, uiIDA, 1, ProfileManager.GetPrimaryPad(), NULL, NULL, app.GetStringTable());
 		if( res != C4JStorage::EMessage_Busy )
@@ -1219,7 +1219,7 @@ void CConsoleMinecraftApp::Callback_SaveGameIncomplete(void *pParam, C4JStorage:
 	{
 		// 4J Stu - If it's quota then we definitely have to delete our saves, so don't show the system UI for this case
 		if(saveIncompleteType == C4JStorage::ESaveIncomplete_OutOfQuota) blocksRequired = -1;
-		UINT uiIDA[2];
+		uint32_t uiIDA[2];
 		uiIDA[0]=IDS_CONFIRM_OK;
 		uiIDA[1]=IDS_CONFIRM_CANCEL;
 		C4JStorage::EMessageResult res = ui.RequestMessageBox( IDS_SAVE_INCOMPLETE_TITLE, IDS_SAVE_INCOMPLETE_EXPLANATION_QUOTA, uiIDA, 2, ProfileManager.GetPrimaryPad(), &NoSaveSpaceReturned, (void *)blocksRequired, app.GetStringTable());
@@ -1483,7 +1483,7 @@ void CConsoleMinecraftApp::updateSaveDataDeleteDialog()
 								slotParam.sizeKiB
 								);
 
-							UINT uiIDA[] =
+							uint32_t uiIDA[] =
 							{
 								IDS_CONFIRM_CANCEL,
 								IDS_CONFIRM_OK

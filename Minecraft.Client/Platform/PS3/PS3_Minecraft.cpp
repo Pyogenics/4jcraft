@@ -108,7 +108,7 @@ char secureFileId[CELL_SAVEDATA_SECUREFILEID_SIZE] =
 //#define PROFILE_VERSION 3 // new version for the interim bug fix 166 TU
 #define NUM_PROFILE_VALUES	5
 #define NUM_PROFILE_SETTINGS 4
-DWORD dwProfileSettingsA[NUM_PROFILE_VALUES]=
+uint32_t dwProfileSettingsA[NUM_PROFILE_VALUES]=
 {
 #ifdef _XBOX
 	XPROFILE_OPTION_CONTROLLER_VIBRATION,
@@ -438,8 +438,8 @@ void LoadSysModule(uint16_t module, const char* moduleName)
 
 #define LOAD_PS3_MODULE(m) LoadSysModule(m, #m)
 
-int simpleMessageBoxCallback(	UINT uiTitle, UINT uiText, 
-								UINT *uiOptionA, UINT uiOptionC, DWORD dwPad,
+int simpleMessageBoxCallback(	uint32_t uiTitle, uint32_t uiText, 
+								uint32_t *uiOptionA, uint32_t uiOptionC, uint32_t dwPad,
 								int(*Func) (LPVOID,int,const C4JStorage::EMessageResult),
 								LPVOID lpParam )
 {
@@ -974,7 +974,7 @@ int main()
 	uint8_t *szTemp = mallocAndCreateUTF8ArrayFromString(IDS_NODEVICE_DECLINE);
 	StorageManager.SetContinueWithoutSavingMessage((char *)szTemp);
 	free(szTemp);
-	StorageManager.SetDefaultImages((PBYTE)baOptionsIcon.data, baOptionsIcon.length,(PBYTE)baSaveImage.data, baSaveImage.length,(PBYTE)baSaveThumbnail.data, baSaveThumbnail.length);
+	StorageManager.SetDefaultImages((uint8_t*)baOptionsIcon.data, baOptionsIcon.length,(uint8_t*)baSaveImage.data, baSaveImage.length,(uint8_t*)baSaveThumbnail.data, baSaveThumbnail.length);
 
 	if(baOptionsIcon.data!=NULL)
 	{
@@ -995,7 +995,7 @@ int main()
 	byteArray baSaveLoadIcon = app.getArchiveFile(wsName);
 	if(baSaveLoadIcon.data!=NULL)
 	{
-		StorageManager.SetSaveLoadIcon((PBYTE)baSaveLoadIcon.data, baSaveLoadIcon.length);
+		StorageManager.SetSaveLoadIcon((uint8_t*)baSaveLoadIcon.data, baSaveLoadIcon.length);
 		delete [] baSaveLoadIcon.data;
 	}
 
@@ -1065,7 +1065,7 @@ int main()
 
 #if 0
 
-	DWORD initData=0;
+	uint32_t initData=0;
 	// Set the default sound levels
 	pMinecraft->options->set(Options::Option::MUSIC,1.0f);
 	pMinecraft->options->set(Options::Option::SOUND,1.0f);
@@ -1395,9 +1395,9 @@ volatile size_t sizeCheckMin = 1160;
 volatile size_t sizeCheckMax = 1160;
 volatile int sectCheck = 48;
 CRITICAL_SECTION memCS;
-DWORD tlsIdx;
+uint32_t tlsIdx;
 
-LPVOID XMemAlloc(SIZE_T dwSize, DWORD dwAllocAttributes)
+LPVOID XMemAlloc(size_t dwSize, uint32_t dwAllocAttributes)
 {
 	if( !trackStarted )
 	{
@@ -1451,7 +1451,7 @@ void operator delete (void *p)
 	XMemFree(p,MAKE_XALLOC_ATTRIBUTES(0,FALSE,TRUE,FALSE,0,XALLOC_PHYSICAL_ALIGNMENT_DEFAULT,XALLOC_MEMPROTECT_READWRITE,FALSE,XALLOC_MEMTYPE_HEAP));
 }
 
-void WINAPI XMemFree(PVOID pAddress, DWORD dwAllocAttributes)
+void WINAPI XMemFree(PVOID pAddress, uint32_t dwAllocAttributes)
 {
 	bool special = false;
 	if( dwAllocAttributes == 0 )
@@ -1486,9 +1486,9 @@ void WINAPI XMemFree(PVOID pAddress, DWORD dwAllocAttributes)
 	LeaveCriticalSection(&memCS);
 }
 
-SIZE_T WINAPI XMemSize(
+size_t WINAPI XMemSize(
          PVOID pAddress,
-         DWORD dwAllocAttributes
+         uint32_t dwAllocAttributes
 )
 {
 	if( trackStarted )

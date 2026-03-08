@@ -8,7 +8,7 @@
 #include "../../Headers/net.minecraft.world.level.storage.h"
 #include "../../IO/Files/FileHeader.h"
 #include "OldChunkStorage.h"
-DWORD OldChunkStorage::tlsIdx = 0;
+uint32_t OldChunkStorage::tlsIdx = 0;
 OldChunkStorage::ThreadStorage *OldChunkStorage::tlsDefault = NULL;
 
 OldChunkStorage::ThreadStorage::ThreadStorage()

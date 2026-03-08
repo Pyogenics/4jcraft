@@ -18,7 +18,7 @@ class PlayerInfoPacket : public Packet, public std::enable_shared_from_this<Play
 
 		PlayerInfoPacket();
 		//PlayerInfoPacket(const std::wstring &name, bool add, int latency);
-		PlayerInfoPacket(BYTE networkSmallId, short playerColourIndex, unsigned int playerPrivileges = 0);
+		PlayerInfoPacket(uint8_t networkSmallId, short playerColourIndex, unsigned int playerPrivileges = 0);
 		PlayerInfoPacket(std::shared_ptr<ServerPlayer> player);
 
 		virtual void read(DataInputStream *dis);

@@ -25,7 +25,7 @@ private:
 	Icon *iconBack;
 	Icon *iconPlatform;
 
-	static DWORD tlsIdx;
+	static uint32_t tlsIdx;
 	// 4J - was just a static but implemented with TLS for our version
     static bool ignoreUpdate();	
 	static void ignoreUpdate(bool set);	

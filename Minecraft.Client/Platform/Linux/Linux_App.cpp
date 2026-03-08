@@ -37,14 +37,14 @@ void CConsoleMinecraftApp::FatalLoadError()
 void CConsoleMinecraftApp::CaptureSaveThumbnail()
 {
 }
-void CConsoleMinecraftApp::GetSaveThumbnail(PBYTE *pbData,DWORD *pdwSize)
+void CConsoleMinecraftApp::GetSaveThumbnail(uint8_t* *pbData,uint32_t *pdwSize)
 {
 }
 void CConsoleMinecraftApp::ReleaseSaveThumbnail()
 {
 }
 
-void CConsoleMinecraftApp::GetScreenshot(int iPad,PBYTE *pbData,DWORD *pdwSize)
+void CConsoleMinecraftApp::GetScreenshot(int iPad,uint8_t* *pbData,uint32_t *pdwSize)
 {
 }
 

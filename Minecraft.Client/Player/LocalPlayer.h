@@ -161,8 +161,8 @@ public:
 	// 4J Stu - Added to allow callback to tutorial to stay within Minecraft.Client
 	virtual void onCrafted(std::shared_ptr<ItemInstance> item);
 
-	virtual void setAndBroadcastCustomSkin(DWORD skinId);
-	virtual void setAndBroadcastCustomCape(DWORD capeId);
+	virtual void setAndBroadcastCustomSkin(uint32_t skinId);
+	virtual void setAndBroadcastCustomCape(uint32_t capeId);
 
 private:
 	bool isSolidBlock(int x, int y, int z);

@@ -2,7 +2,7 @@
 
 #ifdef __PS3__
 #ifdef SN_TARGET_PS3_SPU
-typedef unsigned int DWORD;
+typedef unsigned int uint32_t;
 typedef unsigned char byte;
 #include <float.h>
 #else 
@@ -62,7 +62,7 @@ private:
 public:
 // 	static void CreateNewThreadStorage(int bytes);
 private:
-// 	static DWORD tlsIdx;
+// 	static uint32_t tlsIdx;
 public:
  	static Tesselator_SPU *getInstance();
 

@@ -7,9 +7,9 @@ class Minecraft;
 class TexturePackRepository 
 {
 public:
-	static const DWORD DEFAULT_TEXTURE_PACK_ID = 0;
-	static const DWORD FOLDER_TEST_TEXTURE_PACK_ID = 1;
-	static const DWORD DLC_TEST_TEXTURE_PACK_ID = 2;
+	static const uint32_t DEFAULT_TEXTURE_PACK_ID = 0;
+	static const uint32_t FOLDER_TEST_TEXTURE_PACK_ID = 1;
+	static const uint32_t DLC_TEST_TEXTURE_PACK_ID = 2;
 private:
 	static TexturePack *DEFAULT_TEXTURE_PACK;
 	TexturePack *m_dummyTexturePack;
@@ -21,7 +21,7 @@ private:
 	std::vector<TexturePack *> *texturePacks;
 	std::vector<TexturePack *> m_texturePacksToDelete;
 
-	std::unordered_map<DWORD, TexturePack *> cacheById;
+	std::unordered_map<uint32_t, TexturePack *> cacheById;
 
 	TexturePack *selected;
 	TexturePack *lastSelected;
@@ -60,16 +60,16 @@ public:
 	bool isUsingDefaultSkin() { return selected == DEFAULT_TEXTURE_PACK; } // 4J Added
 	TexturePack *getDefault() { return DEFAULT_TEXTURE_PACK; } // 4J Added
 
-	std::vector< std::pair<DWORD,std::wstring> > *getTexturePackIdNames();
-	bool selectTexturePackById(DWORD id); // 4J Added
-	TexturePack *getTexturePackById(DWORD id); // 4J Added
+	std::vector< std::pair<uint32_t,std::wstring> > *getTexturePackIdNames();
+	bool selectTexturePackById(uint32_t id); // 4J Added
+	TexturePack *getTexturePackById(uint32_t id); // 4J Added
 
-	TexturePack *addTexturePackFromDLC(DLCPack *dlcPack, DWORD id);
+	TexturePack *addTexturePackFromDLC(DLCPack *dlcPack, uint32_t id);
 	void clearInvalidTexturePacks();
 	void updateUI();
 	bool needsUIUpdate();
 private:
-	void removeTexturePackById(DWORD id);
+	void removeTexturePackById(uint32_t id);
 public:
 	unsigned int getTexturePackCount();
 	TexturePack *getTexturePackByIndex(unsigned int index);

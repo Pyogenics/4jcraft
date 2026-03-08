@@ -16,7 +16,7 @@
 #include "../../../Minecraft.Client/Platform/PS3/PS3Extras/EdgeZLib.h"
 #endif //__PS3__
 
-DWORD Compression::tlsIdx = 0;
+uint32_t Compression::tlsIdx = 0;
 Compression::ThreadStorage *Compression::tlsDefault = NULL;
 
 Compression::ThreadStorage::ThreadStorage()
@@ -307,7 +307,7 @@ HRESULT Compression::Compress(void *pDestination, unsigned int *pDestSize, void 
 {
 	// Using zlib for x64 compression - 360 is using native 360 compression and PS3 a stubbed non-compressing version of this
 #if defined __ORBIS__ || defined _DURANGO || defined _WIN64 || defined __PSVITA__ || defined __linux__
-	SIZE_T destSize = (SIZE_T)(*pDestSize);
+	size_t destSize = (size_t)(*pDestSize);
 	int res = ::compress((Bytef *)pDestination, (uLongf *)&destSize, (Bytef *)pSource, SrcSize);
 	*pDestSize = (unsigned int)destSize;
 	return ( ( res == Z_OK ) ? S_OK : -1 );
@@ -317,7 +317,7 @@ HRESULT Compression::Compress(void *pDestination, unsigned int *pDestSize, void 
 	*pDestSize = (unsigned int)destSize;
 	return ( ( res ) ? S_OK : -1 );
 #else
-	SIZE_T destSize = (SIZE_T)(*pDestSize);
+	size_t destSize = (size_t)(*pDestSize);
 	HRESULT res = XMemCompress(compressionContext, pDestination, &destSize, pSource, SrcSize);
 	*pDestSize = (unsigned int)destSize;
 	return res;
@@ -335,7 +335,7 @@ HRESULT Compression::Decompress(void *pDestination, unsigned int *pDestSize, voi
 
 	// Using zlib for x64 compression - 360 is using native 360 compression and PS3 a stubbed non-compressing version of this
 #if defined __ORBIS__ || defined _DURANGO || defined _WIN64 || defined __PSVITA__ || defined __linux__
-	SIZE_T destSize = (SIZE_T)(*pDestSize);
+	size_t destSize = (size_t)(*pDestSize);
 	int res = ::uncompress((Bytef *)pDestination, (uLongf *)&destSize, (Bytef *)pSource, SrcSize);
 	*pDestSize = (unsigned int)destSize;
 	return ( ( res == Z_OK ) ? S_OK : -1 );
@@ -345,8 +345,8 @@ HRESULT Compression::Decompress(void *pDestination, unsigned int *pDestSize, voi
 	*pDestSize = (unsigned int)destSize;
 	return ( ( res ) ? S_OK : -1 );
 #else
-	SIZE_T destSize = (SIZE_T)(*pDestSize);
-	HRESULT res = XMemDecompress(decompressionContext, pDestination, (SIZE_T *)&destSize, pSource, SrcSize);
+	size_t destSize = (size_t)(*pDestSize);
+	HRESULT res = XMemDecompress(decompressionContext, pDestination, (size_t *)&destSize, pSource, SrcSize);
 	*pDestSize = (unsigned int)destSize;
 	return res;
 #endif
@@ -354,7 +354,7 @@ HRESULT Compression::Decompress(void *pDestination, unsigned int *pDestSize, voi
 
 // MGH -  same as VirtualDecompress in PSVitaStubs, but for use on other platforms (so no virtual mem stuff)
 #ifndef _XBOX
-VOID Compression::VitaVirtualDecompress(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize) // (LPVOID buf, SIZE_T dwSize, LPVOID dst)
+VOID Compression::VitaVirtualDecompress(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize) // (LPVOID buf, size_t dwSize, LPVOID dst)
 {
 	uint8_t *pSrc = (uint8_t *)pSource;
 	int Offset = 0;
@@ -401,8 +401,8 @@ HRESULT Compression::DecompressWithType(void *pDestination, unsigned int *pDestS
 	case eCompressionType_LZXRLE:
 		{
 #if (defined _XBOX || defined _DURANGO || defined _WIN64)
-			SIZE_T destSize = (SIZE_T)(*pDestSize);
-			HRESULT res = XMemDecompress(decompressionContext, pDestination, (SIZE_T *)&destSize, pSource, SrcSize);
+			size_t destSize = (size_t)(*pDestSize);
+			HRESULT res = XMemDecompress(decompressionContext, pDestination, (size_t *)&destSize, pSource, SrcSize);
 			*pDestSize = (unsigned int)destSize;
 			return res;
 #else
@@ -426,8 +426,8 @@ HRESULT Compression::DecompressWithType(void *pDestination, unsigned int *pDestS
 		if (pDestination != NULL)
 		{
 			// Read big-endian srcize from array
-			PBYTE pbDestSize = (PBYTE) pDestSize;
-			PBYTE pbSource = (PBYTE) pSource;
+			uint8_t* pbDestSize = (uint8_t*) pDestSize;
+			uint8_t* pbSource = (uint8_t*) pSource;
 			for (int i = 3; i >= 0; i--) {
 				pbDestSize[3-i] = pbSource[i];
 			}
@@ -442,7 +442,7 @@ HRESULT Compression::DecompressWithType(void *pDestination, unsigned int *pDestS
 			strm.next_out = uncompr.data;
 			strm.avail_out = uncompr.length;
 			// Skip those first 4 bytes
-			strm.next_in = (PBYTE) pSource + 4;
+			strm.next_in = (uint8_t*) pSource + 4;
 			strm.avail_in = SrcSize - 4;
 
 			int hr = inflateInit2(&strm, -15);

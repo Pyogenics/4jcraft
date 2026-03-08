@@ -71,8 +71,8 @@ private:
 
 	CRITICAL_SECTION m_lock;
 
-	void PrepareForWrite( FileEntry *file, DWORD nNumberOfBytesToWrite );
-	void MoveDataBeyond(FileEntry *file, DWORD nNumberOfBytesToWrite);
+	void PrepareForWrite( FileEntry *file, uint32_t nNumberOfBytesToWrite );
+	void MoveDataBeyond(FileEntry *file, uint32_t nNumberOfBytesToWrite);
 
 	bool GetNumericIdentifierFromName(const std::wstring &fileName, unsigned int *idOut);
 	std::wstring GetNameFromNumericIdentifier(unsigned int idIn);
@@ -83,10 +83,10 @@ public:
 	static int SaveRegionFilesCallback(LPVOID lpParam,bool bRes);
 	
 private:
-	void _init(const std::wstring &fileName, LPVOID pvSaveData, DWORD fileSize, ESavePlatform plat);
+	void _init(const std::wstring &fileName, LPVOID pvSaveData, uint32_t fileSize, ESavePlatform plat);
 
 public:
-	ConsoleSaveFileSplit(const std::wstring &fileName, LPVOID pvSaveData = NULL, DWORD fileSize = 0, bool forceCleanSave = false, ESavePlatform plat = SAVE_FILE_PLATFORM_LOCAL);
+	ConsoleSaveFileSplit(const std::wstring &fileName, LPVOID pvSaveData = NULL, uint32_t fileSize = 0, bool forceCleanSave = false, ESavePlatform plat = SAVE_FILE_PLATFORM_LOCAL);
 	ConsoleSaveFileSplit(ConsoleSaveFile *sourceSave, bool alreadySmallRegions = true, ProgressListener *progress = NULL);
 	virtual ~ConsoleSaveFileSplit();
 
@@ -95,10 +95,10 @@ public:
 	virtual FileEntry *createFile( const ConsoleSavePath &fileName );
 	virtual void deleteFile( FileEntry *file );
 
-	virtual void setFilePointer(FileEntry *file,LONG lDistanceToMove,PLONG lpDistanceToMoveHigh,DWORD dwMoveMethod);
-	virtual BOOL writeFile(	FileEntry *file, LPCVOID lpBuffer, DWORD nNumberOfBytesToWrite, LPDWORD lpNumberOfBytesWritten );
-	virtual BOOL zeroFile(FileEntry *file, DWORD nNumberOfBytesToWrite, LPDWORD lpNumberOfBytesWritten);
-	virtual BOOL readFile( FileEntry *file, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead );
+	virtual void setFilePointer(FileEntry *file,int32_t lDistanceToMove,int32_t* lpDistanceToMoveHigh,uint32_t dwMoveMethod);
+	virtual BOOL writeFile(	FileEntry *file, LPCVOID lpBuffer, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten );
+	virtual BOOL zeroFile(FileEntry *file, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten);
+	virtual BOOL readFile( FileEntry *file, LPVOID lpBuffer, uint32_t nNumberOfBytesToRead, uint32_t* lpNumberOfBytesRead );
 	virtual BOOL closeHandle( FileEntry *file );
 
 	virtual void finalizeWrite();

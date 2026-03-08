@@ -505,7 +505,7 @@ void SonyCommerce_Orbis::UpgradeTrialCallback2(LPVOID lpParam,int err)
 	pCommerce->CheckForTrialUpgradeKey();
 	if(err != SCE_OK)
 	{
-		UINT uiIDA[1];
+		uint32_t uiIDA[1];
 		uiIDA[0]=IDS_CONFIRM_OK;
 		C4JStorage::EMessageResult result = ui.RequestMessageBox( IDS_PRO_UNLOCKGAME_TITLE, IDS_NO_DLCOFFERS, uiIDA,1,ProfileManager.GetPrimaryPad());
 	}
@@ -535,7 +535,7 @@ void SonyCommerce_Orbis::UpgradeTrialCallback1(LPVOID lpParam,int err)
 	}
 	else
 	{
-		UINT uiIDA[1];
+		uint32_t uiIDA[1];
 		uiIDA[0]=IDS_CONFIRM_OK;
 		C4JStorage::EMessageResult result = ui.RequestMessageBox( IDS_PRO_UNLOCKGAME_TITLE, IDS_NO_DLCOFFERS, uiIDA,1,ProfileManager.GetPrimaryPad());
 		m_trialUpgradeCallbackFunc(m_trialUpgradeCallbackParam, m_errorCode);

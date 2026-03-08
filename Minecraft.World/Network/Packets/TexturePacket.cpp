@@ -22,7 +22,7 @@ TexturePacket::~TexturePacket()
 // 	}
 }
 
-TexturePacket::TexturePacket(const std::wstring &textureName, PBYTE pbData, DWORD dwBytes) 
+TexturePacket::TexturePacket(const std::wstring &textureName, uint8_t* pbData, uint32_t dwBytes) 
 {
 	this->textureName = textureName;
 	this->pbData = pbData;
@@ -37,13 +37,13 @@ void TexturePacket::handle(PacketListener *listener)
 void TexturePacket::read(DataInputStream *dis) //throws IOException
 {
 	textureName = dis->readUTF();
-	dwBytes = (DWORD)dis->readShort();
+	dwBytes = (uint32_t)dis->readShort();
 
 	if(dwBytes>0)
 	{
-		this->pbData= new BYTE [dwBytes];
+		this->pbData= new uint8_t [dwBytes];
 
-		for(DWORD i=0;i<dwBytes;i++)
+		for(uint32_t i=0;i<dwBytes;i++)
 		{
 			this->pbData[i] = dis->readByte();
 		}
@@ -54,7 +54,7 @@ void TexturePacket::write(DataOutputStream *dos) //throws IOException
 {
 	dos->writeUTF(textureName);
 	dos->writeShort((short)dwBytes);
-	for(DWORD i=0;i<dwBytes;i++)
+	for(uint32_t i=0;i<dwBytes;i++)
 	{
 		dos->writeByte(this->pbData[i]);
 	}

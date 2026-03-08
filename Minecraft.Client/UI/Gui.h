@@ -55,9 +55,9 @@ public:
     void displayClientMessage(int messageId, int iPad);
 
 	// 4J Added
-	DWORD getMessagesCount(int iPad) { return (int)guiMessages[iPad].size(); }
-	std::wstring getMessage(int iPad, DWORD index) { return guiMessages[iPad].at(index).string; }
-	float getOpacity(int iPad, DWORD index);
+	uint32_t getMessagesCount(int iPad) { return (int)guiMessages[iPad].size(); }
+	std::wstring getMessage(int iPad, uint32_t index) { return guiMessages[iPad].at(index).string; }
+	float getOpacity(int iPad, uint32_t index);
 
 	std::wstring getJukeboxMessage(int iPad) { return overlayMessageString; }
 	float getJukeboxOpacity(int iPad);

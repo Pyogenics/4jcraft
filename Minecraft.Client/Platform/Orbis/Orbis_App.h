@@ -68,10 +68,10 @@ public:
 	virtual void FatalLoadError();
 
 	virtual void CaptureSaveThumbnail();
-	virtual void GetSaveThumbnail(PBYTE*,DWORD*) {}; // NOT USED
-	virtual void GetSaveThumbnail(PBYTE *ppbThumbnailData,DWORD *pdwThumbnailSize,PBYTE *ppbDataImage,DWORD *pdwSizeImage);
+	virtual void GetSaveThumbnail(uint8_t**,uint32_t*) {}; // NOT USED
+	virtual void GetSaveThumbnail(uint8_t* *ppbThumbnailData,uint32_t *pdwThumbnailSize,uint8_t* *ppbDataImage,uint32_t *pdwSizeImage);
 	virtual void ReleaseSaveThumbnail();
-	virtual void GetScreenshot(int iPad,PBYTE *pbData,DWORD *pdwSize);
+	virtual void GetScreenshot(int iPad,uint8_t* *pbData,uint32_t *pdwSize);
 
 	int LoadLocalTMSFile(char *chTMSFile);
 	int LoadLocalDLCImage(SONYDLC *pDLCInfo);

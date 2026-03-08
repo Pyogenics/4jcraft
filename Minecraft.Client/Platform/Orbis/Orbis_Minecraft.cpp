@@ -53,7 +53,7 @@
 //#define PROFILE_VERSION 3 // new version for the interim bug fix 166 TU
 #define NUM_PROFILE_VALUES	5
 #define NUM_PROFILE_SETTINGS 4
-DWORD dwProfileSettingsA[NUM_PROFILE_VALUES]=
+uint32_t dwProfileSettingsA[NUM_PROFILE_VALUES]=
 {
 #ifdef _XBOX
 	XPROFILE_OPTION_CONTROLLER_VIBRATION,
@@ -393,7 +393,7 @@ ID3D11DepthStencilView* g_pDepthStencilView = NULL;
 ID3D11Texture2D*		g_pDepthStencilBuffer = NULL;
 
 //
-//  FUNCTION: WndProc(HWND, UINT, WPARAM, LPARAM)
+//  FUNCTION: WndProc(HWND, uint32_t, WPARAM, LPARAM)
 //
 //  PURPOSE:  Processes messages for the main window.
 //
@@ -402,7 +402,7 @@ ID3D11Texture2D*		g_pDepthStencilBuffer = NULL;
 //  WM_DESTROY	- post a quit message and return
 //
 //
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(HWND hWnd, uint32_t message, WPARAM wParam, LPARAM lParam)
 {
 	int wmId, wmEvent;
 	PAINTSTRUCT ps;
@@ -502,10 +502,10 @@ HRESULT InitDevice()
 
     RECT rc;
     GetClientRect( g_hWnd, &rc );
-    UINT width = rc.right - rc.left;
-    UINT height = rc.bottom - rc.top;
+    uint32_t width = rc.right - rc.left;
+    uint32_t height = rc.bottom - rc.top;
 
-    UINT createDeviceFlags = 0;
+    uint32_t createDeviceFlags = 0;
 #ifdef _DEBUG
     createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
@@ -516,7 +516,7 @@ HRESULT InitDevice()
         D3D_DRIVER_TYPE_WARP,
         D3D_DRIVER_TYPE_REFERENCE,
     };
-    UINT numDriverTypes = ARRAYSIZE( driverTypes );
+    uint32_t numDriverTypes = ARRAYSIZE( driverTypes );
 
     D3D_FEATURE_LEVEL featureLevels[] =
     {
@@ -524,7 +524,7 @@ HRESULT InitDevice()
         D3D_FEATURE_LEVEL_10_1,
         D3D_FEATURE_LEVEL_10_0,
     };
-	UINT numFeatureLevels = ARRAYSIZE( featureLevels );
+	uint32_t numFeatureLevels = ARRAYSIZE( featureLevels );
 
     DXGI_SWAP_CHAIN_DESC sd;
     ZeroMemory( &sd, sizeof( sd ) );
@@ -540,7 +540,7 @@ HRESULT InitDevice()
     sd.SampleDesc.Quality = 0;
     sd.Windowed = TRUE;
 
-    for( UINT driverTypeIndex = 0; driverTypeIndex < numDriverTypes; driverTypeIndex++ )
+    for( uint32_t driverTypeIndex = 0; driverTypeIndex < numDriverTypes; driverTypeIndex++ )
     {
         g_driverType = driverTypes[driverTypeIndex];
         hr = D3D11CreateDeviceAndSwapChain( NULL, g_driverType, NULL, createDeviceFlags, featureLevels, numFeatureLevels,
@@ -1010,7 +1010,7 @@ int main(int argc, const char *argv[] )
 		app.GAME_DEFINED_PROFILE_DATA_BYTES*XUSER_MAX_COUNT,
 		&app.uiGameDefinedDataChangedBitmask);
 
-	StorageManager.SetDefaultImages((PBYTE)baOptionsIcon.data, baOptionsIcon.length,(PBYTE)baSaveImage.data, baSaveImage.length,(PBYTE)baSaveThumbnail.data, baSaveThumbnail.length);
+	StorageManager.SetDefaultImages((uint8_t*)baOptionsIcon.data, baOptionsIcon.length,(uint8_t*)baSaveImage.data, baSaveImage.length,(uint8_t*)baSaveThumbnail.data, baSaveThumbnail.length);
 
 	// Set function to be called if a save game operation can't complete due to running out of storage space etc.
 	StorageManager.SetIncompleteSaveCallback(CConsoleMinecraftApp::Callback_SaveGameIncomplete, (LPVOID)&app);
@@ -1148,7 +1148,7 @@ int main(int argc, const char *argv[] )
 	app.InitialiseTips();
 #if 0
 
-	DWORD initData=0;
+	uint32_t initData=0;
 
 
 
@@ -1516,9 +1516,9 @@ volatile size_t sizeCheckMin = 1160;
 volatile size_t sizeCheckMax = 1160;
 volatile int sectCheck = 48;
 CRITICAL_SECTION memCS;
-DWORD tlsIdx;
+uint32_t tlsIdx;
 
-LPVOID XMemAlloc(SIZE_T dwSize, DWORD dwAllocAttributes)
+LPVOID XMemAlloc(size_t dwSize, uint32_t dwAllocAttributes)
 {
 	if( !trackStarted )
 	{
@@ -1572,7 +1572,7 @@ void operator delete (void *p)
 	XMemFree(p,MAKE_XALLOC_ATTRIBUTES(0,FALSE,TRUE,FALSE,0,XALLOC_PHYSICAL_ALIGNMENT_DEFAULT,XALLOC_MEMPROTECT_READWRITE,FALSE,XALLOC_MEMTYPE_HEAP));
 }
 
-void WINAPI XMemFree(PVOID pAddress, DWORD dwAllocAttributes)
+void WINAPI XMemFree(PVOID pAddress, uint32_t dwAllocAttributes)
 {
 	bool special = false;
 	if( dwAllocAttributes == 0 )
@@ -1608,9 +1608,9 @@ void WINAPI XMemFree(PVOID pAddress, DWORD dwAllocAttributes)
 	LeaveCriticalSection(&memCS);
 }
 
-SIZE_T WINAPI XMemSize(
+size_t WINAPI XMemSize(
          PVOID pAddress,
-         DWORD dwAllocAttributes
+         uint32_t dwAllocAttributes
 )
 {
 	if( trackStarted )

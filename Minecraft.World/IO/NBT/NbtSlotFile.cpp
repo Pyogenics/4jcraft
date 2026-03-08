@@ -29,7 +29,7 @@ NbtSlotFile::NbtSlotFile(File file)
         fileSlotMap[i] = new std::vector<int>;
     }
 
-	DWORD numberofBytesRead;
+	uint32_t numberofBytesRead;
     for (int fileSlot = 0; fileSlot < totalFileSlots; fileSlot++)
 	{
         seekSlotHeader(fileSlot);
@@ -49,7 +49,7 @@ NbtSlotFile::NbtSlotFile(File file)
 
 void NbtSlotFile::readHeader()
 {
-	DWORD numberOfBytesRead;
+	uint32_t numberOfBytesRead;
 	SetFilePointer(raf,0,0,FILE_BEGIN);
     int magic;
 	ReadFile(raf,&magic,4,&numberOfBytesRead,NULL);
@@ -62,7 +62,7 @@ void NbtSlotFile::readHeader()
 
 void NbtSlotFile::writeHeader()
 {
-	DWORD numberOfBytesWritten;
+	uint32_t numberOfBytesWritten;
 	short version = 0;
 	SetFilePointer(raf,0,0,FILE_BEGIN);
 	WriteFile(raf,&MAGIC_NUMBER,4,&numberOfBytesWritten,NULL);
@@ -84,7 +84,7 @@ void NbtSlotFile::seekSlot(int fileSlot)
 
 std::vector<CompoundTag *> *NbtSlotFile::readAll(int slot)
 {
-	DWORD numberOfBytesRead;
+	uint32_t numberOfBytesRead;
     std::vector<CompoundTag *> *tags = new std::vector<CompoundTag *>;
     std::vector<int> *fileSlots = fileSlotMap[slot];
     int skipped = 0;
@@ -161,7 +161,7 @@ int NbtSlotFile::getFreeSlot()
 }
 void NbtSlotFile::replaceSlot(int slot, std::vector<CompoundTag *> *tags)
 {
-	DWORD numberOfBytesWritten;
+	uint32_t numberOfBytesWritten;
 	toReplace = fileSlotMap[slot];
     fileSlotMap[slot] = new std::vector<int>();
 	

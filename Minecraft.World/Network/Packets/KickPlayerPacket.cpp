@@ -11,7 +11,7 @@ KickPlayerPacket::KickPlayerPacket()
 	m_networkSmallId = 0;
 }
 
-KickPlayerPacket::KickPlayerPacket(BYTE networkSmallId)
+KickPlayerPacket::KickPlayerPacket(uint8_t networkSmallId)
 {
 	m_networkSmallId = networkSmallId;
 }

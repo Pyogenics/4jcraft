@@ -193,8 +193,8 @@ BufferedImage::BufferedImage(DLCPack *dlcPack, const std::wstring& File, bool fi
 {
 	HRESULT hr;
 	std::wstring filePath = File;
-	BYTE *pbData = NULL;
-	DWORD dwBytes = 0;
+	uint8_t *pbData = NULL;
+	uint32_t dwBytes = 0;
 
 	for( int l = 0 ; l < 10; l++ )
 	{
@@ -264,7 +264,7 @@ BufferedImage::BufferedImage(DLCPack *dlcPack, const std::wstring& File, bool fi
 }
 
 
-BufferedImage::BufferedImage(BYTE *pbData, DWORD dwBytes)
+BufferedImage::BufferedImage(uint8_t *pbData, uint32_t dwBytes)
 {
 	int iCurrentByte=0;
 	for( int l = 0 ; l < 10; l++ )

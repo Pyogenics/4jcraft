@@ -108,7 +108,7 @@ bool File::_delete()
 	if( result == 0 )
 	{
 #if !defined(__linux__)
-		DWORD error = GetLastError();
+		uint32_t error = GetLastError();
 #ifndef _CONTENT_PACKAGE
 		printf( "File::_delete - Error code %d (%#0.8X)\n", error, error );
 #endif
@@ -176,7 +176,7 @@ bool File::mkdirs() const
 #ifdef _UNICODE
 		if( GetFileAttributes(  pathToHere.c_str() ) == -1 )
 		{
-			DWORD result = CreateDirectory( pathToHere.c_str(),  NULL);
+			uint32_t result = CreateDirectory( pathToHere.c_str(),  NULL);
 			if( result == 0 )
 			{
 				// Failed to create
@@ -194,7 +194,7 @@ bool File::mkdirs() const
 #else
 		if( GetFileAttributes(  wstringtofilename(pathToHere) ) == -1 )
 		{
-			DWORD result = CreateDirectory( wstringtofilename(pathToHere),  NULL);
+			uint32_t result = CreateDirectory( wstringtofilename(pathToHere),  NULL);
 			if( result == 0 )
 			{
 				// Failed to create
@@ -508,7 +508,7 @@ std::vector<File *> *File::listFiles(FileFilter *filter) const
 
 	WCHAR path[MAX_PATH];
 	WIN32_FIND_DATA wfd;
-	DWORD dwAttr = FILE_ATTRIBUTE_DIRECTORY;
+	uint32_t dwAttr = FILE_ATTRIBUTE_DIRECTORY;
 
 	swprintf( path, L"%ls\\*", getPath().c_str() );
 	HANDLE hFind = FindFirstFile( path, &wfd);
@@ -532,7 +532,7 @@ std::vector<File *> *File::listFiles(FileFilter *filter) const
 #else
 	char path[MAX_PATH];
 	WIN32_FIND_DATA wfd;
-	//DWORD dwAttr = FILE_ATTRIBUTE_DIRECTORY;
+	//uint32_t dwAttr = FILE_ATTRIBUTE_DIRECTORY;
 
 	sprintf( path, "%s\\*", wstringtofilename( getPath() ) );
 	HANDLE hFind = FindFirstFile( path, &wfd);

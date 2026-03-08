@@ -95,7 +95,7 @@ private:
 	void dumpStatsToTTY();
 
 #ifdef _XBOX
-	static void setLeaderboardProperty(XUSER_PROPERTY* prop, DWORD id, unsigned int value);
+	static void setLeaderboardProperty(XUSER_PROPERTY* prop, uint32_t id, unsigned int value);
 	static void setLeaderboardRating(XUSER_PROPERTY* prop, LONGLONG value);
 #endif
 

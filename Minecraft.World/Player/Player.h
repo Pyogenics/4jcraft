@@ -64,7 +64,7 @@ protected:
 	int jumpTriggerTime;
 
 public:
-	BYTE userType;
+	uint8_t userType;
 	int score;
 	float oBob, bob;
 	bool swinging;
@@ -396,14 +396,14 @@ public:
 	virtual int getTexture();		// 4J changed from std::wstring to int
 	void setPlayerDefaultSkin(EDefaultSkins skin);
 	EDefaultSkins getPlayerDefaultSkin()												{ return m_skinIndex; }
-	virtual void setCustomSkin(DWORD skinId);
-	DWORD getCustomSkin()																	{return m_dwSkinId; }
-	virtual void setCustomCape(DWORD capeId);
-	DWORD getCustomCape()																	{return m_dwCapeId; }
+	virtual void setCustomSkin(uint32_t skinId);
+	uint32_t getCustomSkin()																	{return m_dwSkinId; }
+	virtual void setCustomCape(uint32_t capeId);
+	uint32_t getCustomCape()																	{return m_dwCapeId; }
 
-	static DWORD getCapeIdFromPath(const std::wstring &cape);
-	static std::wstring getCapePathFromId(DWORD capeId);
-	static unsigned int getSkinAnimOverrideBitmask(DWORD skinId);
+	static uint32_t getCapeIdFromPath(const std::wstring &cape);
+	static std::wstring getCapePathFromId(uint32_t capeId);
+	static unsigned int getSkinAnimOverrideBitmask(uint32_t skinId);
 
 	// 4J Added
 	void setXuid(PlayerUID xuid);
@@ -413,8 +413,8 @@ public:
 	void setUUID(const std::wstring &UUID)															{ m_UUID = UUID; }
 	std::wstring getUUID()																			{ return m_UUID; }
 
-	void setPlayerIndex(DWORD dwIndex)														{ m_playerIndex = dwIndex; }
-	DWORD getPlayerIndex()																	{ return m_playerIndex; }
+	void setPlayerIndex(uint32_t dwIndex)														{ m_playerIndex = dwIndex; }
+	uint32_t getPlayerIndex()																	{ return m_playerIndex; }
 
 	void setIsGuest(bool bVal)																{ m_bIsGuest = bVal; }
 	bool isGuest()																			{ return m_bIsGuest; }
@@ -436,10 +436,10 @@ protected:
 
 private:
 	EDefaultSkins m_skinIndex;
-	DWORD m_dwSkinId,m_dwCapeId;
+	uint32_t m_dwSkinId,m_dwCapeId;
 
 	// 4J Added - Used to show which colour the player is on the map/behind their name
-	DWORD m_playerIndex;
+	uint32_t m_playerIndex;
 
 	// 4J-PB - to track debug options from the server player
 	unsigned int m_uiDebugOptions;

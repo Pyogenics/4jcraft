@@ -16,7 +16,7 @@
 #include "../../Platform/Xbox/XML/xmlFilesCallback.h"
 #endif
 
-DLCTexturePack::DLCTexturePack(DWORD id, DLCPack *pack, TexturePack *fallback) : AbstractTexturePack(id, NULL, pack->getName(), fallback)
+DLCTexturePack::DLCTexturePack(uint32_t id, DLCPack *pack, TexturePack *fallback) : AbstractTexturePack(id, NULL, pack->getName(), fallback)
 {
 	m_dlcInfoPack = pack;
 	m_dlcDataPack = NULL;
@@ -184,16 +184,16 @@ void DLCTexturePack::loadColourTable()
 	{
 		DLCUIDataFile *dataFile = (DLCUIDataFile *)m_dlcDataPack->getFile(DLCManager::e_DLCType_UIData, L"TexturePack.xzp");
 
-		DWORD dwSize = 0;
-		PBYTE pbData = dataFile->getData(dwSize);
+		uint32_t dwSize = 0;
+		uint8_t* pbData = dataFile->getData(dwSize);
 
-		const DWORD LOCATOR_SIZE = 256; // Use this to allocate space to hold a ResourceLocator string 
+		const uint32_t LOCATOR_SIZE = 256; // Use this to allocate space to hold a ResourceLocator string 
 		WCHAR szResourceLocator[ LOCATOR_SIZE ];
 		
 		// Try and load the HTMLColours.col based off the common XML first, before the deprecated xuiscene_colourtable	
 		swprintf(szResourceLocator, LOCATOR_SIZE,L"memory://%08X,%04X#HTMLColours.col",pbData, dwSize);
-		BYTE *data;
-		UINT dataLength;
+		uint8_t *data;
+		uint32_t dataLength;
 		if(XuiResourceLoadAll(szResourceLocator, &data, &dataLength) == S_OK)
 		{
 			m_colourTable->loadColoursFromData(data,dataLength);
@@ -267,12 +267,12 @@ void DLCTexturePack::loadData()
 
 
 
-std::wstring DLCTexturePack::getFilePath(DWORD packId, std::wstring filename, bool bAddDataFolder)
+std::wstring DLCTexturePack::getFilePath(uint32_t packId, std::wstring filename, bool bAddDataFolder)
 {
 	return app.getFilePath(packId,filename,bAddDataFolder);
 }
 
-int DLCTexturePack::packMounted(LPVOID pParam,int iPad,DWORD dwErr,DWORD dwLicenceMask)
+int DLCTexturePack::packMounted(LPVOID pParam,int iPad,uint32_t dwErr,uint32_t dwLicenceMask)
 {
 	DLCTexturePack *texturePack = (DLCTexturePack *)pParam;
 	texturePack->m_bLoadingData = false;
@@ -286,7 +286,7 @@ int DLCTexturePack::packMounted(LPVOID pParam,int iPad,DWORD dwErr,DWORD dwLicen
 		app.DebugPrintf("Mounted DLC for texture pack, attempting to load data\n");
 		texturePack->m_dlcDataPack = new DLCPack(texturePack->m_dlcInfoPack->getName(), dwLicenceMask);
 		texturePack->setHasAudio(false);
-		DWORD dwFilesProcessed = 0;
+		uint32_t dwFilesProcessed = 0;
 		// Load the DLC textures
 		std::wstring dataFilePath = texturePack->m_dlcInfoPack->getFullDataPath();
 		if(!dataFilePath.empty())
@@ -318,9 +318,9 @@ int DLCTexturePack::packMounted(LPVOID pParam,int iPad,DWORD dwErr,DWORD dwLicen
 
 					if( fileHandle != INVALID_HANDLE_VALUE )
 					{
-						DWORD dwFileSize = xzpPath.length();
-						DWORD bytesRead;
-						PBYTE pbData =  (PBYTE) new BYTE[dwFileSize];
+						uint32_t dwFileSize = xzpPath.length();
+						uint32_t bytesRead;
+						uint8_t* pbData =  (uint8_t*) new uint8_t[dwFileSize];
 						BOOL success = ReadFile(fileHandle,pbData,dwFileSize,&bytesRead,NULL);
 						CloseHandle(fileHandle);
 						if(success)
@@ -381,9 +381,9 @@ int DLCTexturePack::packMounted(LPVOID pParam,int iPad,DWORD dwErr,DWORD dwLicen
 
 								if( fileHandle != INVALID_HANDLE_VALUE )
 								{
-									DWORD dwFileSize = grf.length();
-									DWORD bytesRead;
-									PBYTE pbData =  (PBYTE) new BYTE[dwFileSize];
+									uint32_t dwFileSize = grf.length();
+									uint32_t bytesRead;
+									uint8_t* pbData =  (uint8_t*) new uint8_t[dwFileSize];
 									BOOL bSuccess = ReadFile(fileHandle,pbData,dwFileSize,&bytesRead,NULL);
 									if(bSuccess==FALSE)
 									{
@@ -433,8 +433,8 @@ int DLCTexturePack::packMounted(LPVOID pParam,int iPad,DWORD dwErr,DWORD dwLicen
 
 							if( fileHandle != INVALID_HANDLE_VALUE )
 							{
-								DWORD bytesRead,dwFileSize = GetFileSize(fileHandle,NULL);
-								PBYTE pbData =  (PBYTE) new BYTE[dwFileSize];
+								uint32_t bytesRead,dwFileSize = GetFileSize(fileHandle,NULL);
+								uint8_t* pbData =  (uint8_t*) new uint8_t[dwFileSize];
 								BOOL bSuccess = ReadFile(fileHandle,pbData,dwFileSize,&bytesRead,NULL);
 								if(bSuccess==FALSE)
 								{
@@ -517,10 +517,10 @@ void DLCTexturePack::loadUI()
 	{
 		DLCUIDataFile *dataFile = (DLCUIDataFile *)m_dlcDataPack->getFile(DLCManager::e_DLCType_UIData, L"TexturePack.xzp");
 
-		DWORD dwSize = 0;
-		PBYTE pbData = dataFile->getData(dwSize);
+		uint32_t dwSize = 0;
+		uint8_t* pbData = dataFile->getData(dwSize);
 
-		const DWORD LOCATOR_SIZE = 256; // Use this to allocate space to hold a ResourceLocator string 
+		const uint32_t LOCATOR_SIZE = 256; // Use this to allocate space to hold a ResourceLocator string 
 		WCHAR szResourceLocator[ LOCATOR_SIZE ];
 		swprintf(szResourceLocator, LOCATOR_SIZE,L"memory://%08X,%04X#skin_Minecraft.xur",pbData, dwSize);
 
@@ -591,10 +591,10 @@ std::wstring DLCTexturePack::getXuiRootPath()
 	{
 		DLCUIDataFile *dataFile = (DLCUIDataFile *)m_dlcDataPack->getFile(DLCManager::e_DLCType_UIData, L"TexturePack.xzp");
 
-		DWORD dwSize = 0;
-		PBYTE pbData = dataFile->getData(dwSize);
+		uint32_t dwSize = 0;
+		uint8_t* pbData = dataFile->getData(dwSize);
 
-		const DWORD LOCATOR_SIZE = 256; // Use this to allocate space to hold a ResourceLocator string 
+		const uint32_t LOCATOR_SIZE = 256; // Use this to allocate space to hold a ResourceLocator string 
 		WCHAR szResourceLocator[ LOCATOR_SIZE ];
 		swprintf(szResourceLocator, LOCATOR_SIZE,L"memory://%08X,%04X#",pbData, dwSize);
 		path = szResourceLocator;

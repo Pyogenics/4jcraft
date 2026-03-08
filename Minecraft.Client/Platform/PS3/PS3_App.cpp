@@ -120,17 +120,17 @@ BOOL CConsoleMinecraftApp::ReadProductCodes()
 	HANDLE file = CreateFile("PS3/PS3ProductCodes.bin", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if( file == INVALID_HANDLE_VALUE )
 	{
-		//DWORD error = GetLastError();
+		//uint32_t error = GetLastError();
 		app.DebugPrintf("Failed to open ProductCodes.bin\n");// with error code %d (%x)\n", error, error);
 		return FALSE;
 	}
 
-	DWORD dwHigh=0;
-	DWORD dwFileSize = GetFileSize(file,&dwHigh);
+	uint32_t dwHigh=0;
+	uint32_t dwFileSize = GetFileSize(file,&dwHigh);
 
 	if(dwFileSize!=0)
 	{
-		DWORD bytesRead;
+		uint32_t bytesRead;
 
 		WRAPPED_READFILE(file,ProductCodes.chProductCode,PRODUCT_CODE_SIZE,&bytesRead,NULL);
 		WRAPPED_READFILE(file,ProductCodes.chDiscProductCode,PRODUCT_CODE_SIZE,&bytesRead,NULL);
@@ -391,14 +391,14 @@ void CConsoleMinecraftApp::CaptureSaveThumbnail()
 	MemSect(0);
 }
 
-void CConsoleMinecraftApp::GetSaveThumbnail(PBYTE *ppbThumbnailData,DWORD *pdwThumbnailSize,PBYTE *ppbDataImage,DWORD *pdwSizeImage)
+void CConsoleMinecraftApp::GetSaveThumbnail(uint8_t* *ppbThumbnailData,uint32_t *pdwThumbnailSize,uint8_t* *ppbDataImage,uint32_t *pdwSizeImage)
 {
 	// on a save caused by a create world, the thumbnail capture won't have happened
 	if(m_ThumbnailBuffer.Allocated())
 	{
 		if( ppbThumbnailData )
 		{
-			*ppbThumbnailData= new BYTE [m_ThumbnailBuffer.GetBufferSize()];
+			*ppbThumbnailData= new uint8_t [m_ThumbnailBuffer.GetBufferSize()];
 			*pdwThumbnailSize=m_ThumbnailBuffer.GetBufferSize();
 			memcpy(*ppbThumbnailData,m_ThumbnailBuffer.GetBufferPointer(),*pdwThumbnailSize);
 		}
@@ -417,7 +417,7 @@ void CConsoleMinecraftApp::GetSaveThumbnail(PBYTE *ppbThumbnailData,DWORD *pdwTh
 	{
 		if( ppbDataImage )
 		{
-			*ppbDataImage= new BYTE [m_SaveImageBuffer.GetBufferSize()];
+			*ppbDataImage= new uint8_t [m_SaveImageBuffer.GetBufferSize()];
 			*pdwSizeImage=m_SaveImageBuffer.GetBufferSize();
 			memcpy(*ppbDataImage,m_SaveImageBuffer.GetBufferPointer(),*pdwSizeImage);
 		}
@@ -440,7 +440,7 @@ void CConsoleMinecraftApp::ReleaseSaveThumbnail()
 	}
 }
 
-void CConsoleMinecraftApp::GetScreenshot(int iPad,PBYTE *pbData,DWORD *pdwSize)
+void CConsoleMinecraftApp::GetScreenshot(int iPad,uint8_t* *pbData,uint32_t *pdwSize)
 {
 
 }
@@ -815,7 +815,7 @@ bool CConsoleMinecraftApp::UpgradeTrial()
 	}
 	else if(m_eCommerce_State==eCommerce_State_Error)
 	{
-		UINT uiIDA[1];
+		uint32_t uiIDA[1];
 		uiIDA[0]=IDS_CONFIRM_OK;
 		C4JStorage::EMessageResult result = ui.RequestMessageBox( IDS_PRO_UNLOCKGAME_TITLE, IDS_NO_DLCOFFERS, uiIDA,1,ProfileManager.GetPrimaryPad());
 		return true;
@@ -1248,7 +1248,7 @@ bool CConsoleMinecraftApp::CheckForEmptyStore(int iPad)
 
 	if(bEmptyStore)
 	{
-		UINT uiIDA[1];
+		uint32_t uiIDA[1];
 		uiIDA[0]=IDS_CONFIRM_OK;
 		C4JStorage::EMessageResult result = ui.RequestMessageBox( IDS_DOWNLOADABLE_CONTENT_OFFERS, IDS_NO_DLCOFFERS, uiIDA,1,iPad);
 	}

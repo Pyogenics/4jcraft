@@ -38,7 +38,7 @@ private:
 public:
 	static void CreateNewThreadStorage(int bytes);
 private:
-	static DWORD tlsIdx;
+	static uint32_t tlsIdx;
 public:
 	static Tesselator *getInstance();
 

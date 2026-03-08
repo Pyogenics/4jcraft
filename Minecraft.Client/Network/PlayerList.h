@@ -30,9 +30,9 @@ private:
 
 	// 4J Added
 	std::vector<PlayerUID> m_bannedXuids;
-	std::deque<BYTE> m_smallIdsToKick;
+	std::deque<uint8_t> m_smallIdsToKick;
 	CRITICAL_SECTION m_kickPlayersCS;
-	std::deque<BYTE> m_smallIdsToClose;
+	std::deque<uint8_t> m_smallIdsToClose;
 	CRITICAL_SECTION m_closePlayersCS;
 /* 4J - removed
 	Set<String> bans = new HashSet<String>();
@@ -119,8 +119,8 @@ public:
 	void setAllowCheatsForAllPlayers(bool allowCommands);
 
 	// 4J Added
-	void kickPlayerByShortId(BYTE networkSmallId);
-	void closePlayerConnectionBySmallId(BYTE networkSmallId);
+	void kickPlayerByShortId(uint8_t networkSmallId);
+	void closePlayerConnectionBySmallId(uint8_t networkSmallId);
 	bool isXuidBanned(PlayerUID xuid);
 	// AP added for Vita so the range can be increased once the level starts
 	void setViewDistance(int newViewDistance);

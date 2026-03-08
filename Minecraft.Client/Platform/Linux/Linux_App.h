@@ -12,9 +12,9 @@ public:
 	virtual void FatalLoadError();
 
 	virtual void CaptureSaveThumbnail();
-	virtual void GetSaveThumbnail(PBYTE*,DWORD*);
+	virtual void GetSaveThumbnail(uint8_t**,uint32_t*);
 	virtual void ReleaseSaveThumbnail();
-	virtual void GetScreenshot(int iPad,PBYTE *pbData,DWORD *pdwSize);
+	virtual void GetScreenshot(int iPad,uint8_t* *pbData,uint32_t *pdwSize);
 
 	virtual int LoadLocalTMSFile(WCHAR *wchTMSFile);
 	virtual int LoadLocalTMSFile(WCHAR *wchTMSFile, eFileExtensionType eExt);

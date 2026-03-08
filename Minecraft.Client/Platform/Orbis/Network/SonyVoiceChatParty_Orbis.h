@@ -38,7 +38,7 @@ private:
 		SceNpPartyRoomMemberId  m_roomID;
 		bool					m_voiceConnected;
 		bool					m_voiceMuted;
-		DWORD					m_lastTimeTalking;
+		uint32_t					m_lastTimeTalking;
 		bool					m_localUser;
 		bool					m_partyLeader;
 		MemberInfo() 

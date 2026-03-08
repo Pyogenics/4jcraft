@@ -1348,7 +1348,7 @@ void Gui::addMessage(const std::wstring& _string,int iPad,bool bIsDeathMessage)
 }
 
 // 4J Added
-float Gui::getOpacity(int iPad, DWORD index)
+float Gui::getOpacity(int iPad, uint32_t index)
 {
 	float opacityPercentage = 0;
 	if (guiMessages[iPad].size() > index && guiMessages[iPad][index].ticks < 20 * 10)

@@ -164,8 +164,8 @@ bool SonyVoiceChatParty_Orbis::isTalking( const PlayerUID& memberUID)
 	MemberInfo* pInfo = m_partyInfo.getMember(memberUID);
 	if(pInfo)
 	{
-		DWORD currTime = GetTickCount();
-		DWORD timeElapsed = currTime - pInfo->m_lastTimeTalking;
+		uint32_t currTime = GetTickCount();
+		uint32_t timeElapsed = currTime - pInfo->m_lastTimeTalking;
 		return (timeElapsed < 1000);
 	}
 	assert(0 && "Didn't find playerUID"); // 

@@ -19,10 +19,10 @@ class ByteArrayOutputStream;
 
 class Connection
 {
-	friend DWORD WINAPI runRead(LPVOID lpParam);
-	friend DWORD WINAPI runWrite(LPVOID lpParam);
-	friend DWORD WINAPI runSendAndQuit(LPVOID lpParam);
-	friend DWORD WINAPI runClose(LPVOID lpParam);
+	friend uint32_t WINAPI runRead(LPVOID lpParam);
+	friend uint32_t WINAPI runWrite(LPVOID lpParam);
+	friend uint32_t WINAPI runSendAndQuit(LPVOID lpParam);
+	friend uint32_t WINAPI runClose(LPVOID lpParam);
 
 private:
 	static const int SEND_BUFFER_SIZE = 1024 * 5;
@@ -68,7 +68,7 @@ private:
 	C4JThread::Event* m_hWakeReadThread;
 	C4JThread::Event* m_hWakeWriteThread;
 
-	DWORD saqThreadID, closeThreadID;
+	uint32_t saqThreadID, closeThreadID;
 
 	bool disconnected;
 	DisconnectPacket::eDisconnectReason disconnectReason;

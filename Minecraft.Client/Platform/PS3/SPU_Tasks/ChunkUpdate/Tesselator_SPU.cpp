@@ -166,7 +166,7 @@ float convertHFloatToFloat(hfloat hf)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// DWORD Tesselator_SPU::tlsIdx = TlsAlloc();
+// uint32_t Tesselator_SPU::tlsIdx = TlsAlloc();
 // 
 Tesselator_SPU *Tesselator_SPU::getInstance()
 {

@@ -132,7 +132,7 @@ void Socket::setPlayer(INetworkPlayer *player)
 	}
 }
 
-void Socket::pushDataToQueue(const BYTE * pbData, DWORD dwDataSize, bool fromHost /*= true*/)
+void Socket::pushDataToQueue(const uint8_t * pbData, uint32_t dwDataSize, bool fromHost /*= true*/)
 {
 	int queueIdx = SOCKET_CLIENT_END;
 	if(!fromHost)
@@ -516,7 +516,7 @@ void Socket::SocketOutputStreamNetwork::writeWithFlags(byteArray b, unsigned int
 
 			hostPlayer->SendData(socketPlayer, buffer.pbyData, buffer.dwDataSize, QNET_SENDDATA_RELIABLE | QNET_SENDDATA_SEQUENTIAL | flags);
 
-	// 		DWORD queueSize = hostPlayer->GetSendQueueSize( NULL, QNET_GETSENDQUEUESIZE_BYTES  );
+	// 		uint32_t queueSize = hostPlayer->GetSendQueueSize( NULL, QNET_GETSENDQUEUESIZE_BYTES  );
 	// 		if( queueSize > 24000 )
 	// 		{
 	// 			//printf("Queue size is: %d, forcing doWork()\n",queueSize);

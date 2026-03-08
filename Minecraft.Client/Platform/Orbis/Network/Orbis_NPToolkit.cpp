@@ -215,7 +215,7 @@ void OrbisNPToolkit::gameCustomDataCallback( const sce::Toolkit::NP::Event& even
 		{
 			app.DebugPrintf("gameCustomDataMessageResult error 0x%08x\n", m_messageData.getError());
 
-			UINT uiIDA[1] = { IDS_OK };
+			uint32_t uiIDA[1] = { IDS_OK };
 
 			switch(m_messageData.getError())
 			{

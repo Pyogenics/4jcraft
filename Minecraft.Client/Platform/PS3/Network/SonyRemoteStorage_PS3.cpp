@@ -341,7 +341,7 @@ bool SonyRemoteStorage_PS3::setDataInternal()
 	{
 		unsigned int uiHostOptions;
 		bool bHostOptionsRead;
-		DWORD uiTexturePack;
+		uint32_t uiTexturePack;
 		char seed[22];
 		app.GetImageTextData(m_thumbnailData, m_thumbnailDataSize,(unsigned char *)seed, uiHostOptions, bHostOptionsRead, uiTexturePack);
 

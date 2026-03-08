@@ -32,7 +32,7 @@ PreLoginPacket::PreLoginPacket(std::wstring userName)
 	m_netcodeVersion = 0;
 }
 
-PreLoginPacket::PreLoginPacket(std::wstring userName, PlayerUID *playerXuids, DWORD playerCount, BYTE friendsOnlyBits, DWORD ugcPlayersVersion,char *pszUniqueSaveName, DWORD serverSettings, BYTE hostIndex, DWORD texturePackId) 
+PreLoginPacket::PreLoginPacket(std::wstring userName, PlayerUID *playerXuids, uint32_t playerCount, uint8_t friendsOnlyBits, uint32_t ugcPlayersVersion,char *pszUniqueSaveName, uint32_t serverSettings, uint8_t hostIndex, uint32_t texturePackId) 
 {
 	this->loginKey = userName;
 	m_playerXuids = playerXuids;
@@ -63,20 +63,20 @@ void PreLoginPacket::read(DataInputStream *dis) //throws IOException
 	if( m_dwPlayerCount > 0 )
 	{
 		m_playerXuids = new PlayerUID[m_dwPlayerCount];
-		for(DWORD i = 0; i < m_dwPlayerCount; ++i)
+		for(uint32_t i = 0; i < m_dwPlayerCount; ++i)
 		{
 			m_playerXuids[i] = dis->readPlayerUID();
 		}
 	}
-	for(DWORD i = 0; i < m_iSaveNameLen; ++i)
+	for(uint32_t i = 0; i < m_iSaveNameLen; ++i)
 	{
 		m_szUniqueSaveName[i]=dis->readByte();
 	}
 	m_serverSettings = dis->readInt();
 	m_hostIndex = dis->readByte();
 	
-	INT texturePackId = dis->readInt();
-	m_texturePackId = *(DWORD *)&texturePackId;
+	int32_t texturePackId = dis->readInt();
+	m_texturePackId = *(uint32_t *)&texturePackId;
 
 	// Set the name of the map so we can check it for players banned lists
 	app.SetUniqueMapName((char *)m_szUniqueSaveName);
@@ -91,13 +91,13 @@ void PreLoginPacket::write(DataOutputStream *dos) //throws IOException
 	dos->writeByte(m_friendsOnlyBits);
 	dos->writeInt(m_ugcPlayersVersion);
 	dos->writeByte((uint8_t)m_dwPlayerCount);
-	for(DWORD i = 0; i < m_dwPlayerCount; ++i)
+	for(uint32_t i = 0; i < m_dwPlayerCount; ++i)
 	{
 		dos->writePlayerUID( m_playerXuids[i] );
 	}
 
 	app.DebugPrintf("*** PreLoginPacket::write - %s\n",m_szUniqueSaveName);
-	for(DWORD i = 0; i < m_iSaveNameLen; ++i)
+	for(uint32_t i = 0; i < m_iSaveNameLen; ++i)
 	{
 		dos->writeByte(m_szUniqueSaveName[i]);
 	}

@@ -68,13 +68,13 @@ void LoadPCMVoiceData()
 		char filename[64];
 		sprintf(filename, "voice%d.pcm", i+1);
 		HANDLE file = CreateFile(filename, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-		DWORD dwHigh=0;
+		uint32_t dwHigh=0;
 		g_loadedPCMVoiceDataSizes[i] = GetFileSize(file,&dwHigh);
 
 		if(g_loadedPCMVoiceDataSizes[i]!=0)
 		{
 			g_loadedPCMVoiceData[i] = new char[g_loadedPCMVoiceDataSizes[i]];
-			DWORD bytesRead;
+			uint32_t bytesRead;
 			BOOL bSuccess = ReadFile(file, g_loadedPCMVoiceData[i], g_loadedPCMVoiceDataSizes[i], &bytesRead, NULL);
 			assert(bSuccess);
 		}
@@ -420,8 +420,8 @@ void SonyVoiceChat_Orbis::sendPCMMicData()
 	memset( &portInfo, 0, sizeof(portInfo) );
 	uint16_t					frameGap = 0;
 
-	DWORD tick = GetTickCount();
-	static DWORD lastTick = 0;
+	uint32_t tick = GetTickCount();
+	static uint32_t lastTick = 0;
 	int numFrames = ceilf((tick - lastTick)/16.0f);
 	lastTick = tick;
 	readSize = 512 * numFrames;
@@ -667,8 +667,8 @@ void SonyVoiceChat_Orbis::tick()
 {
 	if(m_bInitialised)
 	{
-// 		DWORD tick = GetTickCount();
-// 		static DWORD lastTick = 0;
+// 		uint32_t tick = GetTickCount();
+// 		static uint32_t lastTick = 0;
 // 		app.DebugPrintf("Time since last voice tick : %d ms\n", tick - lastTick);
 // 		lastTick = tick;
 		g_frameNum++;

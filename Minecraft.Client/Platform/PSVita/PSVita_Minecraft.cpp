@@ -83,7 +83,7 @@
 //#define PROFILE_VERSION 3 // new version for the interim bug fix 166 TU
 #define NUM_PROFILE_VALUES	5
 #define NUM_PROFILE_SETTINGS 4
-DWORD dwProfileSettingsA[NUM_PROFILE_VALUES]=
+uint32_t dwProfileSettingsA[NUM_PROFILE_VALUES]=
 {
 #ifdef _XBOX
 	XPROFILE_OPTION_CONTROLLER_VIBRATION,
@@ -292,8 +292,8 @@ void debugSaveGameDirect()
 	thread->WaitForCompletion(1000);
 }
 
-int simpleMessageBoxCallback(	UINT uiTitle, UINT uiText, 
-							 UINT *uiOptionA, UINT uiOptionC, DWORD dwPad,
+int simpleMessageBoxCallback(	uint32_t uiTitle, uint32_t uiText, 
+							 uint32_t *uiOptionA, uint32_t uiOptionC, uint32_t dwPad,
 							 int(*Func) (LPVOID,int,const C4JStorage::EMessageResult),
 							 LPVOID lpParam )
 {
@@ -624,7 +624,7 @@ int main()
 		app.GAME_DEFINED_PROFILE_DATA_BYTES*XUSER_MAX_COUNT,
 		&app.uiGameDefinedDataChangedBitmask);
 
-	StorageManager.SetDefaultImages((PBYTE)baOptionsIcon.data, baOptionsIcon.length,(PBYTE)baSaveImage.data, baSaveImage.length,(PBYTE)baSaveThumbnail.data, baSaveThumbnail.length);
+	StorageManager.SetDefaultImages((uint8_t*)baOptionsIcon.data, baOptionsIcon.length,(uint8_t*)baSaveImage.data, baSaveImage.length,(uint8_t*)baSaveThumbnail.data, baSaveThumbnail.length);
 
 	if(baOptionsIcon.data!=NULL){ delete [] baOptionsIcon.data;	}
 	if(baSaveThumbnail.data!=NULL){	delete [] baSaveThumbnail.data; }
@@ -732,7 +732,7 @@ int main()
 	app.InitialiseTips();
 #if 0
 
-	DWORD initData=0;
+	uint32_t initData=0;
 
 #ifndef _FINAL_BUILD
 #ifndef _DEBUG

@@ -127,7 +127,7 @@ private:
 void XMemCpy(void *a, const void *b, size_t s);
 void XMemSet(void *a, int t, size_t s);
 void XMemSet128(void *a, int t, size_t s);
-void *XPhysicalAlloc(SIZE_T a, ULONG_PTR  b, ULONG_PTR c, DWORD d);
+void *XPhysicalAlloc(size_t a, ULONG_PTR  b, ULONG_PTR c, uint32_t d);
 void XPhysicalFree(void *a);
 
 class DLCManager;
@@ -194,11 +194,11 @@ const int XUSER_NAME_SIZE = 32;
 class IQNetPlayer
 {
 public:
-	BYTE GetSmallId();
-	void SendData(IQNetPlayer *player, const void *pvData, DWORD dwDataSize, DWORD dwFlags);
+	uint8_t GetSmallId();
+	void SendData(IQNetPlayer *player, const void *pvData, uint32_t dwDataSize, uint32_t dwFlags);
 	bool IsSameSystem(IQNetPlayer *player);
-	DWORD GetSendQueueSize( IQNetPlayer *player, DWORD dwFlags );
-	DWORD GetCurrentRtt();
+	uint32_t GetSendQueueSize( IQNetPlayer *player, uint32_t dwFlags );
+	uint32_t GetCurrentRtt();
 	bool IsHost();
 	bool IsGuest();
 	bool IsLocal();
@@ -206,7 +206,7 @@ public:
 	LPCWSTR GetGamertag();
 	int GetSessionIndex();
 	bool IsTalking();
-	bool IsMutedByLocalUser(DWORD dwUserIndex);
+	bool IsMutedByLocalUser(uint32_t dwUserIndex);
 	bool HasVoice();
 	bool HasCamera();
 	int GetUserIndex();
@@ -222,21 +222,21 @@ const int QNET_GETSENDQUEUESIZE_BYTES = 0;
 
 
 typedef struct {
-    BYTE bFlags;
-    BYTE bReserved;
-    WORD cProbesXmit;
-    WORD cProbesRecv;
-    WORD cbData;
-    BYTE *pbData;
-    WORD wRttMinInMsecs;
-    WORD wRttMedInMsecs;
-    DWORD dwUpBitsPerSec;
-    DWORD dwDnBitsPerSec;
+    uint8_t bFlags;
+    uint8_t bReserved;
+    uint16_t cProbesXmit;
+    uint16_t cProbesRecv;
+    uint16_t cbData;
+    uint8_t *pbData;
+    uint16_t wRttMinInMsecs;
+    uint16_t wRttMedInMsecs;
+    uint32_t dwUpBitsPerSec;
+    uint32_t dwDnBitsPerSec;
 } XNQOSINFO;
 
 typedef struct {
-    UINT cxnqos;
-    UINT cxnqosPending;
+    uint32_t cxnqos;
+    uint32_t cxnqosPending;
     XNQOSINFO axnqosinfo[1];
 } XNQOS;
 
@@ -247,25 +247,25 @@ typedef struct _XSESSION_SEARCHRESULT {
 } XSESSION_SEARCHRESULT, *PXSESSION_SEARCHRESULT;
 
 typedef struct {
-    DWORD dwContextId;
-    DWORD dwValue;
+    uint32_t dwContextId;
+    uint32_t dwValue;
 } XUSER_CONTEXT, *PXUSER_CONTEXT;
 
 typedef struct _XSESSION_SEARCHRESULT_HEADER {
-    DWORD dwSearchResults;
+    uint32_t dwSearchResults;
     XSESSION_SEARCHRESULT *pResults;
 } XSESSION_SEARCHRESULT_HEADER, *PXSESSION_SEARCHRESULT_HEADER;
 
 typedef struct _XONLINE_FRIEND {
     PlayerUID xuid;
     CHAR szGamertag[XUSER_NAME_SIZE];
-    DWORD dwFriendState;
+    uint32_t dwFriendState;
     SessionID sessionID;
-    DWORD dwTitleID;
+    uint32_t dwTitleID;
     FILETIME ftUserTime;
     SessionID xnkidInvite;
     FILETIME gameinviteTime;
-    DWORD cchRichPresence;
+    uint32_t cchRichPresence;
 //    WCHAR wszRichPresence[MAX_RICHPRESENCE_SIZE];
 } XONLINE_FRIEND, *PXONLINE_FRIEND;
 
@@ -295,16 +295,16 @@ typedef enum _QNET_STATE
 class IQNet
 {
 public:
-	HRESULT AddLocalPlayerByUserIndex(DWORD dwUserIndex);
+	HRESULT AddLocalPlayerByUserIndex(uint32_t dwUserIndex);
 	IQNetPlayer *GetHostPlayer();
-	IQNetPlayer *GetLocalPlayerByUserIndex(DWORD dwUserIndex);
-	IQNetPlayer *GetPlayerByIndex(DWORD dwPlayerIndex);
-	IQNetPlayer *GetPlayerBySmallId(BYTE SmallId);
+	IQNetPlayer *GetLocalPlayerByUserIndex(uint32_t dwUserIndex);
+	IQNetPlayer *GetPlayerByIndex(uint32_t dwPlayerIndex);
+	IQNetPlayer *GetPlayerBySmallId(uint8_t SmallId);
 	IQNetPlayer *GetPlayerByXuid(PlayerUID xuid);
-	DWORD GetPlayerCount();
+	uint32_t GetPlayerCount();
 	QNET_STATE GetState();
 	bool IsHost();
-	HRESULT JoinGameFromInviteInfo(DWORD dwUserIndex, DWORD dwUserMask, const INVITE_INFO *pInviteInfo);
+	HRESULT JoinGameFromInviteInfo(uint32_t dwUserIndex, uint32_t dwUserMask, const INVITE_INFO *pInviteInfo);
 	void HostGame();
 	void EndGame();
 
@@ -338,7 +338,7 @@ const int INVALID_XUID = 0;
 
 // typedef struct _STRING_VERIFY_RESPONSE
 // {
-//     WORD wNumStrings;
+//     uint16_t wNumStrings;
 //     HRESULT *pStringResult;
 // } STRING_VERIFY_RESPONSE;
 
@@ -350,7 +350,7 @@ typedef int XCONTENTDEVICEID;
 typedef struct _XCONTENT_DATA
 {
     XCONTENTDEVICEID DeviceID;
-    DWORD dwContentType;
+    uint32_t dwContentType;
     WCHAR szDisplayName[XCONTENT_MAX_DISPLAYNAME_LENGTH];
     CHAR szFileName[XCONTENT_MAX_FILENAME_LENGTH];
 } XCONTENT_DATA, *PXCONTENT_DATA;
@@ -363,24 +363,24 @@ typedef struct _XMARKETPLACE_CONTENTOFFER_INFO
 {
     ULONGLONG qwOfferID;
     ULONGLONG qwPreviewOfferID;
-    DWORD dwOfferNameLength;
+    uint32_t dwOfferNameLength;
     WCHAR *wszOfferName;
-    DWORD dwOfferType;
-    BYTE contentId[XMARKETPLACE_CONTENT_ID_LEN];
+    uint32_t dwOfferType;
+    uint8_t contentId[XMARKETPLACE_CONTENT_ID_LEN];
     BOOL fIsUnrestrictedLicense;
-    DWORD dwLicenseMask;
-    DWORD dwTitleID;
-    DWORD dwContentCategory;
-    DWORD dwTitleNameLength;
+    uint32_t dwLicenseMask;
+    uint32_t dwTitleID;
+    uint32_t dwContentCategory;
+    uint32_t dwTitleNameLength;
     WCHAR *wszTitleName;
     BOOL fUserHasPurchased;
-    DWORD dwPackageSize;
-    DWORD dwInstallSize;
-    DWORD dwSellTextLength;
+    uint32_t dwPackageSize;
+    uint32_t dwInstallSize;
+    uint32_t dwSellTextLength;
     WCHAR *wszSellText;
-    DWORD dwAssetID;
-    DWORD dwPurchaseQuantity;
-    DWORD dwPointsPrice;
+    uint32_t dwAssetID;
+    uint32_t dwPurchaseQuantity;
+    uint32_t dwPointsPrice;
 } XMARKETPLACE_CONTENTOFFER_INFO, *PXMARKETPLACE_CONTENTOFFER_INFO;
 
 typedef enum
@@ -402,7 +402,7 @@ const int QNET_SENDDATA_SEQUENTIAL = 0;
 
 struct XRNM_SEND_BUFFER
 {
-	DWORD dwDataSize;
+	uint32_t dwDataSize;
 	uint8_t *pbyData;
 };
 
@@ -413,15 +413,15 @@ const int D3DPT_QUADLIST = 0;
 
 typedef struct _XUSER_SIGNIN_INFO {
 	PlayerUID                 xuid;
-    DWORD dwGuestNumber;
+    uint32_t dwGuestNumber;
 } XUSER_SIGNIN_INFO, *PXUSER_SIGNIN_INFO;
 
 #define XUSER_GET_SIGNIN_INFO_ONLINE_XUID_ONLY      0x00000001
 #define XUSER_GET_SIGNIN_INFO_OFFLINE_XUID_ONLY     0x00000002
 
-DWORD XUserGetSigninInfo(
-         DWORD dwUserIndex,
-         DWORD dwFlags,
+uint32_t XUserGetSigninInfo(
+         uint32_t dwUserIndex,
+         uint32_t dwFlags,
          PXUSER_SIGNIN_INFO pSigninInfo
 );
 
@@ -429,7 +429,7 @@ class CXuiStringTable
 {
 public:
 	LPCWSTR Lookup(LPCWSTR szId);
-	LPCWSTR Lookup(UINT nIndex);
+	LPCWSTR Lookup(uint32_t nIndex);
 	void Clear();
 	HRESULT Load(LPCWSTR szId);
 };
@@ -447,38 +447,38 @@ typedef enum _XMEMCODEC_TYPE
 HRESULT XMemDecompress(
          XMEMDECOMPRESSION_CONTEXT Context,
          VOID *pDestination,
-         SIZE_T *pDestSize,
+         size_t *pDestSize,
           VOID *pSource,
-         SIZE_T SrcSize
+         size_t SrcSize
 );
 
 
 HRESULT XMemCompress(
          XMEMCOMPRESSION_CONTEXT Context,
          VOID *pDestination,
-         SIZE_T *pDestSize,
+         size_t *pDestSize,
           VOID *pSource,
-         SIZE_T SrcSize
+         size_t SrcSize
 );
 
 HRESULT XMemCreateCompressionContext(
          XMEMCODEC_TYPE CodecType,
          const VOID *pCodecParams,
-         DWORD Flags,
+         uint32_t Flags,
          XMEMCOMPRESSION_CONTEXT *pContext
 );
 
 HRESULT XMemCreateDecompressionContext(
          XMEMCODEC_TYPE CodecType,
          const VOID *pCodecParams,
-         DWORD Flags,
+         uint32_t Flags,
          XMEMDECOMPRESSION_CONTEXT *pContext
 );
 
 typedef struct _XMEMCODEC_PARAMETERS_LZX {
-    DWORD Flags;
-    DWORD WindowSize;
-    DWORD CompressionPartitionSize;
+    uint32_t Flags;
+    uint32_t WindowSize;
+    uint32_t CompressionPartitionSize;
 } XMEMCODEC_PARAMETERS_LZX;
 
 void XMemDestroyCompressionContext(XMEMCOMPRESSION_CONTEXT Context);
@@ -486,26 +486,26 @@ void XMemDestroyDecompressionContext(XMEMDECOMPRESSION_CONTEXT Context);
 #endif
 
 typedef struct {
-    BYTE type;
+    uint8_t type;
     union {
-        LONG nData;
+        int32_t nData;
         LONGLONG i64Data;
         double dblData;
         struct {
-            DWORD cbData;
+            uint32_t cbData;
             LPWSTR pwszData;
         }string;
         float fData;
         struct {
-            DWORD cbData;
-            PBYTE pbData;
+            uint32_t cbData;
+            uint8_t* pbData;
         }binary;
         FILETIME ftData;
     };
 } XUSER_DATA, *PXUSER_DATA;
 
 typedef struct {
-    DWORD dwPropertyId;
+    uint32_t dwPropertyId;
     XUSER_DATA value;
 } XUSER_PROPERTY, *PXUSER_PROPERTY;
 
@@ -616,9 +616,9 @@ const int XC_LOCALE_LATIN_AMERICA		=240;
 
 
 #if !(defined _DURANGO || defined __PS3__ || defined __ORBIS__ || defined __PSVITA__)
-DWORD XGetLanguage();
-DWORD XGetLocale();
-DWORD XEnableGuestSignin(BOOL fEnable);
+uint32_t XGetLanguage();
+uint32_t XGetLocale();
+uint32_t XEnableGuestSignin(BOOL fEnable);
 #endif
 
 class D3DXVECTOR3

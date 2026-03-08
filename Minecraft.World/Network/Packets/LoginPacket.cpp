@@ -36,7 +36,7 @@ LoginPacket::LoginPacket()
 }
 
 // Client -> Server
-LoginPacket::LoginPacket(const std::wstring& userName, int clientVersion, PlayerUID offlineXuid, PlayerUID onlineXuid,  bool friendsOnlyUGC, DWORD ugcPlayersVersion, DWORD skinId, DWORD capeId, bool isGuest)
+LoginPacket::LoginPacket(const std::wstring& userName, int clientVersion, PlayerUID offlineXuid, PlayerUID onlineXuid,  bool friendsOnlyUGC, uint32_t ugcPlayersVersion, uint32_t skinId, uint32_t capeId, bool isGuest)
 {
 	this->userName = userName;
 	this->clientVersion = clientVersion;
@@ -65,7 +65,7 @@ LoginPacket::LoginPacket(const std::wstring& userName, int clientVersion, Player
 }
 
 // Server -> Client
-LoginPacket::LoginPacket(const std::wstring& userName, int clientVersion, LevelType *pLevelType, __int64 seed, int gameType, char dimension, BYTE mapHeight, BYTE maxPlayers, char difficulty, INT multiplayerInstanceId, BYTE playerIndex, bool newSeaLevel, unsigned int uiGamePrivileges, int xzSize, int hellScale) 
+LoginPacket::LoginPacket(const std::wstring& userName, int clientVersion, LevelType *pLevelType, __int64 seed, int gameType, char dimension, uint8_t mapHeight, uint8_t maxPlayers, char difficulty, int32_t multiplayerInstanceId, uint8_t playerIndex, bool newSeaLevel, unsigned int uiGamePrivileges, int xzSize, int hellScale) 
 {
 	this->userName = userName;
 	this->clientVersion = clientVersion;
@@ -115,10 +115,10 @@ void LoginPacket::read(DataInputStream *dis) //throws IOException
 	difficulty = (int)dis->readByte();
 	m_multiplayerInstanceId = dis->readInt();
 	m_playerIndex = (int)dis->readByte();
-	INT skinId = dis->readInt();
-	m_playerSkinId = *(DWORD *)&skinId;
-	INT capeId = dis->readInt();
-	m_playerCapeId = *(DWORD *)&capeId;
+	int32_t skinId = dis->readInt();
+	m_playerSkinId = *(uint32_t *)&skinId;
+	int32_t capeId = dis->readInt();
+	m_playerCapeId = *(uint32_t *)&capeId;
 	m_isGuest = dis->readBoolean();
 	m_newSeaLevel = dis->readBoolean();
 	m_uiGamePrivileges = dis->readInt();
@@ -178,5 +178,5 @@ int LoginPacket::getEstimatedSize()
 		length = (int)m_pLevelType->getGeneratorName().length();
 	}
 
-	return (int)(sizeof(int) + userName.length() + 4 + 6 + sizeof(__int64) + sizeof(char) + sizeof(int) + (2*sizeof(PlayerUID)) +1 + sizeof(char) + sizeof(BYTE) + sizeof(bool) + sizeof(bool) + length + sizeof(unsigned int));
+	return (int)(sizeof(int) + userName.length() + 4 + 6 + sizeof(__int64) + sizeof(char) + sizeof(int) + (2*sizeof(PlayerUID)) +1 + sizeof(char) + sizeof(uint8_t) + sizeof(bool) + sizeof(bool) + length + sizeof(unsigned int));
 }

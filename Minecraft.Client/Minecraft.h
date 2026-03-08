@@ -317,7 +317,7 @@ public:
 	CRITICAL_SECTION	m_setLevelCS;
 private:
 	// A bit field that store whether a particular quadrant is in the full tutorial or not
-	BYTE m_inFullTutorialBits;
+	uint8_t m_inFullTutorialBits;
 public:
 	bool isTutorial();
 	void playerStartedTutorial(int iPad);

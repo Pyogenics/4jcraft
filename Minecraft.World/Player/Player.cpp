@@ -620,7 +620,7 @@ void Player::setPlayerDefaultSkin(EDefaultSkins skin)
 	m_skinIndex = skin;
 }
 
-void Player::setCustomSkin(DWORD skinId)
+void Player::setCustomSkin(uint32_t skinId)
 {
 #ifndef _CONTENT_PACKAGE
 	wprintf(L"Attempting to set skin to %08X for player %ls\n", skinId, name.c_str() );
@@ -634,8 +634,8 @@ void Player::setCustomSkin(DWORD skinId)
 	if( !GET_IS_DLC_SKIN_FROM_BITMASK(skinId) )
 	{	
 		// GET_UGC_SKIN_ID_FROM_BITMASK will always be zero - this was for a possible custom skin editor skin 
-		DWORD ugcSkinIndex = GET_UGC_SKIN_ID_FROM_BITMASK(skinId);
-		DWORD defaultSkinIndex = GET_DEFAULT_SKIN_ID_FROM_BITMASK(skinId);
+		uint32_t ugcSkinIndex = GET_UGC_SKIN_ID_FROM_BITMASK(skinId);
+		uint32_t defaultSkinIndex = GET_DEFAULT_SKIN_ID_FROM_BITMASK(skinId);
 		if( ugcSkinIndex == 0 && defaultSkinIndex > 0 )
 		{
 			playerSkin = (EDefaultSkins) defaultSkinIndex;
@@ -666,7 +666,7 @@ void Player::setCustomSkin(DWORD skinId)
 
 	if(pDLCSkinFile!=NULL)
 	{
-	DWORD dwBoxC=pDLCSkinFile->getAdditionalBoxesCount();
+	uint32_t dwBoxC=pDLCSkinFile->getAdditionalBoxesCount();
 	if(dwBoxC!=0)
 	{
 	app.DebugPrintf("Got model parts from DLCskin for skin %X\n",m_dwSkinId);
@@ -699,7 +699,7 @@ void Player::setCustomSkin(DWORD skinId)
 
 }
 
-unsigned int Player::getSkinAnimOverrideBitmask(DWORD skinId)
+unsigned int Player::getSkinAnimOverrideBitmask(uint32_t skinId)
 {
 	unsigned long bitmask = 0L;
 	if( GET_IS_DLC_SKIN_FROM_BITMASK(skinId) )
@@ -751,7 +751,7 @@ void Player::setXuid(PlayerUID xuid)
 #endif
 }
 
-void Player::setCustomCape(DWORD capeId)
+void Player::setCustomCape(uint32_t capeId)
 {
 #ifndef _CONTENT_PACKAGE
 	wprintf(L"Attempting to set cape to %08X for player %s\n", capeId, name.c_str() );
@@ -801,7 +801,7 @@ void Player::setCustomCape(DWORD capeId)
 	}
 }
 
-DWORD Player::getCapeIdFromPath(const std::wstring &cape)
+uint32_t Player::getCapeIdFromPath(const std::wstring &cape)
 {
 	bool dlcCape = false; 
 	unsigned int capeId = 0;
@@ -827,9 +827,9 @@ DWORD Player::getCapeIdFromPath(const std::wstring &cape)
 	return capeId;
 }
 
-std::wstring Player::getCapePathFromId(DWORD capeId)
+std::wstring Player::getCapePathFromId(uint32_t capeId)
 {
-	// 4J Stu - This function maps the encoded DWORD we store in the player profile
+	// 4J Stu - This function maps the encoded uint32_t we store in the player profile
 	// to a filename that is stored as a memory texture and shared between systems in game
 	wchar_t chars[256];
 	if( GET_IS_DLC_SKIN_FROM_BITMASK(capeId) )
@@ -840,8 +840,8 @@ std::wstring Player::getCapePathFromId(DWORD capeId)
 	}
 	else
 	{
-		DWORD ugcCapeIndex = GET_UGC_SKIN_ID_FROM_BITMASK(capeId);
-		DWORD defaultCapeIndex = GET_DEFAULT_SKIN_ID_FROM_BITMASK(capeId);
+		uint32_t ugcCapeIndex = GET_UGC_SKIN_ID_FROM_BITMASK(capeId);
+		uint32_t defaultCapeIndex = GET_DEFAULT_SKIN_ID_FROM_BITMASK(capeId);
 		if( ugcCapeIndex == 0 )
 		{
 			swprintf(chars,256,L"defcape%08X.png",defaultCapeIndex);
@@ -2958,7 +2958,7 @@ std::vector<ModelPart *> *Player::GetAdditionalModelParts()
 
 			if(pDLCSkinFile!=NULL)
 			{
-				DWORD dwBoxC=pDLCSkinFile->getAdditionalBoxesCount();
+				uint32_t dwBoxC=pDLCSkinFile->getAdditionalBoxesCount();
 				if(dwBoxC!=0)
 				{
 					app.DebugPrintf("m_bCheckedForModelParts Got model parts from DLCskin for skin %X\n",m_dwSkinId);

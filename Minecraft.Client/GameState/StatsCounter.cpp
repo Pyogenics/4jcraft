@@ -142,7 +142,7 @@ void StatsCounter::parse(void* data)
 	assert( stats.size() == 0 );
 
 	//Pointer to current position in stat array
-	PBYTE pbData=(PBYTE)data;
+	uint8_t* pbData=(uint8_t*)data;
 	pbData+=sizeof(GAME_SETTINGS);
 	unsigned short* statData = (unsigned short*)pbData;//data + (STAT_DATA_OFFSET/sizeof(unsigned short));
 
@@ -215,9 +215,9 @@ void StatsCounter::save(int player, bool force)
 
 	//Retrieve the data pointer from the profile
 #if ( defined __PS3__ || defined __ORBIS__ || defined _DURANGO || defined __PSVITA__ )
-	PBYTE pbData = (PBYTE)StorageManager.GetGameDefinedProfileData(player);
+	uint8_t* pbData = (uint8_t*)StorageManager.GetGameDefinedProfileData(player);
 #else
-	PBYTE pbData = (PBYTE)ProfileManager.GetGameDefinedProfileData(player);
+	uint8_t* pbData = (uint8_t*)ProfileManager.GetGameDefinedProfileData(player);
 #endif
 	pbData+=sizeof(GAME_SETTINGS);
 	
@@ -283,7 +283,7 @@ void StatsCounter::save(int player, bool force)
 }
 
 #ifdef _XBOX
-void StatsCounter::setLeaderboardProperty(XUSER_PROPERTY* prop, DWORD id, unsigned int value)
+void StatsCounter::setLeaderboardProperty(XUSER_PROPERTY* prop, uint32_t id, unsigned int value)
 {
 	app.DebugPrintf("Setting property id: %d to value %d\n", id, value);
 	prop->dwPropertyId 	= id;

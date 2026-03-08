@@ -7,12 +7,12 @@ class TexturePacket : public Packet, public std::enable_shared_from_this<Texture
 {
 public:
 	std::wstring textureName;
-	PBYTE pbData;
-	DWORD dwBytes;
+	uint8_t* pbData;
+	uint32_t dwBytes;
 
 	TexturePacket();
 	~TexturePacket(); 
-	TexturePacket(const std::wstring &textureName, PBYTE pbData, DWORD dwBytes);
+	TexturePacket(const std::wstring &textureName, uint8_t* pbData, uint32_t dwBytes);
 
 	virtual void handle(PacketListener *listener);
 	virtual void read(DataInputStream *dis);
