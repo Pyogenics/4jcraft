@@ -3243,7 +3243,7 @@ void ClientConnection::handleUpdateProgress(std::shared_ptr<UpdateProgressPacket
 
 void ClientConnection::handleUpdateGameRuleProgressPacket(std::shared_ptr<UpdateGameRuleProgressPacket> packet)
 {
-	LPCWSTR string = app.GetGameRulesString(packet->m_messageId);
+	const wchar_t* string = app.GetGameRulesString(packet->m_messageId);
 	if(string != NULL)
 	{
 		std::wstring message(string);

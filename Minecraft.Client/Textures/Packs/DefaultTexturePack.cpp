@@ -18,7 +18,7 @@ void DefaultTexturePack::loadIcon()
 #ifdef _XBOX
 	// 4J Stu - Temporary only	
 	const uint32_t LOCATOR_SIZE = 256; // Use this to allocate space to hold a ResourceLocator string 
-	WCHAR szResourceLocator[ LOCATOR_SIZE ];
+	wchar_t szResourceLocator[ LOCATOR_SIZE ];
 
 	const ULONG_PTR c_ModuleHandle = (ULONG_PTR)GetModuleHandle(NULL);
 	swprintf(szResourceLocator, LOCATOR_SIZE ,L"section://%X,%ls#%ls",c_ModuleHandle,L"media", L"media/Graphics/TexturePackIcon.png");

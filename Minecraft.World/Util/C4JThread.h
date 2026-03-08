@@ -221,5 +221,5 @@ private:
 	static uint32_t WINAPI	entryPoint(LPVOID lpParam);
 #endif
 };
-void SetThreadName( uint32_t dwThreadID, LPCSTR szThreadName );
+void SetThreadName( uint32_t dwThreadID, const char* szThreadName );
 

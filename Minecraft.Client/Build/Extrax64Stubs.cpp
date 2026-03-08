@@ -54,7 +54,7 @@ CXuiStringTable StringTable;
 #if !defined(_XBOX_ONE) && !defined(__linux__)
 ATG::XMLParser::XMLParser() {}
 ATG::XMLParser::~XMLParser() {}
-HRESULT    ATG::XMLParser::ParseXMLBuffer( CONST CHAR* strBuffer, uint32_t uBufferSize ) { return S_OK; }   
+HRESULT    ATG::XMLParser::ParseXMLBuffer( CONST char* strBuffer, uint32_t uBufferSize ) { return S_OK; }   
 VOID ATG::XMLParser::RegisterSAXCallbackInterface( ISAXCallback *pISAXCallback ) {}
 #endif
 
@@ -66,7 +66,7 @@ bool	CSocialManager::IsTitleAllowedToPostImages() { return false; }
 bool	CSocialManager::PostLinkToSocialNetwork( ESocialNetwork eSocialNetwork, uint32_t dwUserIndex, bool bUsingKinect ) { return false; }
 bool	CSocialManager::PostImageToSocialNetwork( ESocialNetwork eSocialNetwork, uint32_t dwUserIndex, bool bUsingKinect ) { return false; }
 CSocialManager *CSocialManager::Instance() { return NULL; }
-void CSocialManager::SetSocialPostText(LPCWSTR Title, LPCWSTR Caption, LPCWSTR Desc) {};
+void CSocialManager::SetSocialPostText(const wchar_t* Title, const wchar_t* Caption, const wchar_t* Desc) {};
 #endif // !__linux__
 
 uint32_t XShowPartyUI(uint32_t dwUserIndex) { return 0; }
@@ -209,7 +209,7 @@ bool IQNetPlayer::IsHost() { return this == &IQNet::m_player[0]; }
 bool IQNetPlayer::IsGuest() { return false; }
 bool IQNetPlayer::IsLocal() { return true; }
 PlayerUID IQNetPlayer::GetXuid() { return INVALID_XUID; }
-LPCWSTR IQNetPlayer::GetGamertag() { static const wchar_t *test = L"stub"; return test; }
+const wchar_t* IQNetPlayer::GetGamertag() { static const wchar_t *test = L"stub"; return test; }
 int IQNetPlayer::GetSessionIndex() { return 0; }
 bool IQNetPlayer::IsTalking() { return false; }
 bool IQNetPlayer::IsMutedByLocalUser(uint32_t dwUserIndex) { return false; }
@@ -256,10 +256,10 @@ uint32_t XUserGetSigninInfo(
 	return 0;
 }
 
-LPCWSTR CXuiStringTable::Lookup(LPCWSTR szId) { return szId; }
-LPCWSTR CXuiStringTable::Lookup(uint32_t nIndex) { return L"String"; }
+const wchar_t* CXuiStringTable::Lookup(const wchar_t* szId) { return szId; }
+const wchar_t* CXuiStringTable::Lookup(uint32_t nIndex) { return L"String"; }
 void CXuiStringTable::Clear() {}
-HRESULT CXuiStringTable::Load(LPCWSTR szId) { return S_OK; }
+HRESULT CXuiStringTable::Load(const wchar_t* szId) { return S_OK; }
 
 uint32_t XUserAreUsersFriends( uint32_t dwUserIndex, PPlayerUID pXuids, uint32_t dwXuidCount, PBOOL pfResult, void *pOverlapped) { return 0; }
 
@@ -558,14 +558,14 @@ void				C_4JProfile::ShowProfileCard(int iPad, PlayerUID targetUid) {}
 #if defined(__linux__)
 C4JStorage::C4JStorage() {}
 void								C4JStorage::Tick() {}
-C4JStorage::EMessageResult			C4JStorage::RequestMessageBox(uint32_t uiTitle, uint32_t uiText, uint32_t *uiOptionA,uint32_t uiOptionC, uint32_t dwPad, int( *Func)(LPVOID,int,const C4JStorage::EMessageResult),LPVOID lpParam, C4JStringTable *pStringTable, WCHAR *pwchFormatString,uint32_t dwFocusButton) { return C4JStorage::EMessage_Undefined; }
+C4JStorage::EMessageResult			C4JStorage::RequestMessageBox(uint32_t uiTitle, uint32_t uiText, uint32_t *uiOptionA,uint32_t uiOptionC, uint32_t dwPad, int( *Func)(LPVOID,int,const C4JStorage::EMessageResult),LPVOID lpParam, C4JStringTable *pStringTable, wchar_t *pwchFormatString,uint32_t dwFocusButton) { return C4JStorage::EMessage_Undefined; }
 C4JStorage::EMessageResult			C4JStorage::GetMessageBoxResult()  { return C4JStorage::EMessage_Undefined; }
 bool								C4JStorage::SetSaveDevice(int( *Func)(LPVOID,const bool),LPVOID lpParam, bool bForceResetOfSaveDevice) { return true; }
-void								C4JStorage::Init(LPCWSTR pwchDefaultSaveName,char *pszSavePackName,int iMinimumSaveSize, int( *Func)(LPVOID, const ESavingMessage, int),LPVOID lpParam) {}
+void								C4JStorage::Init(const wchar_t* pwchDefaultSaveName,char *pszSavePackName,int iMinimumSaveSize, int( *Func)(LPVOID, const ESavingMessage, int),LPVOID lpParam) {}
 void								C4JStorage::ResetSaveData() {}
-void								C4JStorage::SetDefaultSaveNameForKeyboardDisplay(LPCWSTR pwchDefaultSaveName) {}
-void								C4JStorage::SetSaveTitle(LPCWSTR pwchDefaultSaveName) {}
-LPCWSTR								C4JStorage::GetSaveTitle() { return L""; }
+void								C4JStorage::SetDefaultSaveNameForKeyboardDisplay(const wchar_t* pwchDefaultSaveName) {}
+void								C4JStorage::SetSaveTitle(const wchar_t* pwchDefaultSaveName) {}
+const wchar_t*								C4JStorage::GetSaveTitle() { return L""; }
 bool								C4JStorage::GetSaveUniqueNumber(int32_t *piVal) { return true; }
 bool								C4JStorage::GetSaveUniqueFilename(char *pszName) { return true; }
 void								C4JStorage::SetSaveUniqueFilename(char *szFilename) { }
@@ -576,7 +576,7 @@ unsigned int						C4JStorage::GetSaveSize() { return 0; }
 void								C4JStorage::GetSaveData(void *pvData,unsigned int *pulBytes) {}
 PVOID								C4JStorage::AllocateSaveData(unsigned int ulBytes) { return new char[ulBytes]; }
 void								C4JStorage::SaveSaveData(unsigned int ulBytes,uint8_t* pbThumbnail,uint32_t cbThumbnail,uint8_t* pbTextData, uint32_t dwTextLen) {}
-void								C4JStorage::CopySaveDataToNewSave(uint8_t* pbThumbnail,uint32_t cbThumbnail,WCHAR *wchNewName,int ( *Func)(LPVOID lpParam, bool), LPVOID lpParam) {}
+void								C4JStorage::CopySaveDataToNewSave(uint8_t* pbThumbnail,uint32_t cbThumbnail,wchar_t *wchNewName,int ( *Func)(LPVOID lpParam, bool), LPVOID lpParam) {}
 void								C4JStorage::SetSaveDeviceSelected(unsigned int uiPad,bool bSelected) {}
 bool								C4JStorage::GetSaveDeviceSelected(unsigned int iPad) { return true; }
 C4JStorage::ELoadGameStatus			C4JStorage::DoesSaveExist(bool *pbExists) { return C4JStorage::ELoadGame_Idle; }
@@ -602,16 +602,16 @@ uint32_t								C4JStorage::InstallOffer(int iOfferIDC,ULONGLONG *ullOfferIDA,in
 uint32_t								C4JStorage::GetAvailableDLCCount( int iPad) { return 0; }
 XCONTENT_DATA&						C4JStorage::GetDLC(uint32_t dw) { static XCONTENT_DATA retval = {0}; return retval; }
 C4JStorage::EDLCStatus				C4JStorage::GetInstalledDLC(int iPad,int( *Func)(LPVOID, int, int),LPVOID lpParam) { return C4JStorage::EDLC_Idle; }
-uint32_t								C4JStorage::MountInstalledDLC(int iPad,uint32_t dwDLC,int( *Func)(LPVOID, int, uint32_t,uint32_t),LPVOID lpParam,LPCSTR szMountDrive) { return 0; }
-uint32_t								C4JStorage::UnmountInstalledDLC(LPCSTR szMountDrive) { return 0; }
-C4JStorage::ETMSStatus				C4JStorage::ReadTMSFile(int iQuadrant,eGlobalStorage eStorageFacility,C4JStorage::eTMS_FileType eFileType, WCHAR *pwchFilename,uint8_t **ppBuffer,uint32_t *pdwBufferSize,int( *Func)(LPVOID, WCHAR *,int, bool, int),LPVOID lpParam, int iAction) { return C4JStorage::ETMSStatus_Idle; }
-bool								C4JStorage::WriteTMSFile(int iQuadrant,eGlobalStorage eStorageFacility,WCHAR *pwchFilename,uint8_t *pBuffer,uint32_t dwBufferSize) { return true; }
-bool								C4JStorage::DeleteTMSFile(int iQuadrant,eGlobalStorage eStorageFacility,WCHAR *pwchFilename) { return true; }
-void								C4JStorage::StoreTMSPathName(WCHAR *pwchName) {}
+uint32_t								C4JStorage::MountInstalledDLC(int iPad,uint32_t dwDLC,int( *Func)(LPVOID, int, uint32_t,uint32_t),LPVOID lpParam,const char* szMountDrive) { return 0; }
+uint32_t								C4JStorage::UnmountInstalledDLC(const char* szMountDrive) { return 0; }
+C4JStorage::ETMSStatus				C4JStorage::ReadTMSFile(int iQuadrant,eGlobalStorage eStorageFacility,C4JStorage::eTMS_FileType eFileType, wchar_t *pwchFilename,uint8_t **ppBuffer,uint32_t *pdwBufferSize,int( *Func)(LPVOID, wchar_t *,int, bool, int),LPVOID lpParam, int iAction) { return C4JStorage::ETMSStatus_Idle; }
+bool								C4JStorage::WriteTMSFile(int iQuadrant,eGlobalStorage eStorageFacility,wchar_t *pwchFilename,uint8_t *pBuffer,uint32_t dwBufferSize) { return true; }
+bool								C4JStorage::DeleteTMSFile(int iQuadrant,eGlobalStorage eStorageFacility,wchar_t *pwchFilename) { return true; }
+void								C4JStorage::StoreTMSPathName(wchar_t *pwchName) {}
 unsigned int						C4JStorage::CRC(unsigned char *buf, int len) { return 0; }
 
 struct PTMSPP_FILEDATA;
-C4JStorage::ETMSStatus				C4JStorage::TMSPP_ReadFile(int iPad,C4JStorage::eGlobalStorage eStorageFacility,C4JStorage::eTMS_FILETYPEVAL eFileTypeVal,LPCSTR szFilename,int( *Func)(LPVOID,int,int,PTMSPP_FILEDATA, LPCSTR)/*=NULL*/,LPVOID lpParam/*=NULL*/, int iUserData/*=0*/) {return C4JStorage::ETMSStatus_Idle;}
+C4JStorage::ETMSStatus				C4JStorage::TMSPP_ReadFile(int iPad,C4JStorage::eGlobalStorage eStorageFacility,C4JStorage::eTMS_FILETYPEVAL eFileTypeVal,const char* szFilename,int( *Func)(LPVOID,int,int,PTMSPP_FILEDATA, const char*)/*=NULL*/,LPVOID lpParam/*=NULL*/, int iUserData/*=0*/) {return C4JStorage::ETMSStatus_Idle;}
 #endif // _WINDOWS64
 
 #endif // __PS3__

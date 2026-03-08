@@ -46,7 +46,7 @@ private:
 	uint32_t		m_dwAccessKeyTextSize;
 
 	// Pointer to the social network access key text buffer.
-	LPWSTR		m_pAccessKeyText;
+	wchar_t*		m_pAccessKeyText;
 	*/
 
 	// The various states of the manager.
@@ -121,7 +121,7 @@ public:
 	// Post a test image to social network.
 	bool	PostImageToSocialNetwork( ESocialNetwork eSocialNetwork, uint32_t dwUserIndex, bool bUsingKinect );
 
-	void	SetSocialPostText(LPCWSTR Title, LPCWSTR Caption, LPCWSTR Desc);
+	void	SetSocialPostText(const wchar_t* Title, const wchar_t* Caption, const wchar_t* Desc);
 
 	// WESTY : Not sure if we even need to get social access key!
 /*
@@ -130,9 +130,9 @@ public:
 	*/
 
 private:
-	WCHAR m_wchTitleA[MAX_SOCIALPOST_CAPTION+1];
-	WCHAR m_wchCaptionA[MAX_SOCIALPOST_CAPTION+1];
-	WCHAR m_wchDescA[MAX_SOCIALPOST_DESC+1];
+	wchar_t m_wchTitleA[MAX_SOCIALPOST_CAPTION+1];
+	wchar_t m_wchCaptionA[MAX_SOCIALPOST_CAPTION+1];
+	wchar_t m_wchDescA[MAX_SOCIALPOST_DESC+1];
 
 };
 

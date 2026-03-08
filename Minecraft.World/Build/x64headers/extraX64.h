@@ -203,7 +203,7 @@ public:
 	bool IsGuest();
 	bool IsLocal();
 	PlayerUID GetXuid();
-	LPCWSTR GetGamertag();
+	const wchar_t* GetGamertag();
 	int GetSessionIndex();
 	bool IsTalking();
 	bool IsMutedByLocalUser(uint32_t dwUserIndex);
@@ -258,7 +258,7 @@ typedef struct _XSESSION_SEARCHRESULT_HEADER {
 
 typedef struct _XONLINE_FRIEND {
     PlayerUID xuid;
-    CHAR szGamertag[XUSER_NAME_SIZE];
+    char szGamertag[XUSER_NAME_SIZE];
     uint32_t dwFriendState;
     SessionID sessionID;
     uint32_t dwTitleID;
@@ -266,7 +266,7 @@ typedef struct _XONLINE_FRIEND {
     SessionID xnkidInvite;
     FILETIME gameinviteTime;
     uint32_t cchRichPresence;
-//    WCHAR wszRichPresence[MAX_RICHPRESENCE_SIZE];
+//    wchar_t wszRichPresence[MAX_RICHPRESENCE_SIZE];
 } XONLINE_FRIEND, *PXONLINE_FRIEND;
 
 class IQNetCallbacks
@@ -351,8 +351,8 @@ typedef struct _XCONTENT_DATA
 {
     XCONTENTDEVICEID DeviceID;
     uint32_t dwContentType;
-    WCHAR szDisplayName[XCONTENT_MAX_DISPLAYNAME_LENGTH];
-    CHAR szFileName[XCONTENT_MAX_FILENAME_LENGTH];
+    wchar_t szDisplayName[XCONTENT_MAX_DISPLAYNAME_LENGTH];
+    char szFileName[XCONTENT_MAX_FILENAME_LENGTH];
 } XCONTENT_DATA, *PXCONTENT_DATA;
 #endif //__PS3__
 
@@ -364,7 +364,7 @@ typedef struct _XMARKETPLACE_CONTENTOFFER_INFO
     ULONGLONG qwOfferID;
     ULONGLONG qwPreviewOfferID;
     uint32_t dwOfferNameLength;
-    WCHAR *wszOfferName;
+    wchar_t *wszOfferName;
     uint32_t dwOfferType;
     uint8_t contentId[XMARKETPLACE_CONTENT_ID_LEN];
     BOOL fIsUnrestrictedLicense;
@@ -372,12 +372,12 @@ typedef struct _XMARKETPLACE_CONTENTOFFER_INFO
     uint32_t dwTitleID;
     uint32_t dwContentCategory;
     uint32_t dwTitleNameLength;
-    WCHAR *wszTitleName;
+    wchar_t *wszTitleName;
     BOOL fUserHasPurchased;
     uint32_t dwPackageSize;
     uint32_t dwInstallSize;
     uint32_t dwSellTextLength;
-    WCHAR *wszSellText;
+    wchar_t *wszSellText;
     uint32_t dwAssetID;
     uint32_t dwPurchaseQuantity;
     uint32_t dwPointsPrice;
@@ -428,10 +428,10 @@ uint32_t XUserGetSigninInfo(
 class CXuiStringTable
 {
 public:
-	LPCWSTR Lookup(LPCWSTR szId);
-	LPCWSTR Lookup(uint32_t nIndex);
+	const wchar_t* Lookup(const wchar_t* szId);
+	const wchar_t* Lookup(uint32_t nIndex);
 	void Clear();
-	HRESULT Load(LPCWSTR szId);
+	HRESULT Load(const wchar_t* szId);
 };
 
 #if !defined(__ORBIS__) && !defined(_XBOX_ONE)
@@ -493,7 +493,7 @@ typedef struct {
         double dblData;
         struct {
             uint32_t cbData;
-            LPWSTR pwszData;
+            wchar_t* pwszData;
         }string;
         float fData;
         struct {

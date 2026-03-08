@@ -952,19 +952,19 @@ int main()
 	if(StorageManager.GetBootTypeDisc())
 	{
 		std::wstring wsTemp = app.GetString(IDS_GAMENAME);
-		WCHAR wchTemp[64];
+		wchar_t wchTemp[64];
 		wsTemp.append(L" (");
 		mbstowcs(wchTemp,app.GetDiscProductCode(),64);
 		wsTemp.append(wchTemp);
 		wsTemp.append(L")");
-		StorageManager.SetGameSaveFolderTitle((WCHAR *)(wsTemp.c_str()));
+		StorageManager.SetGameSaveFolderTitle((wchar_t *)(wsTemp.c_str()));
 	}
 	else
 	{
-		StorageManager.SetGameSaveFolderTitle((WCHAR *)app.GetString(IDS_GAMENAME));//"Minecraft: PlayStation®3 Edition");//GAMENAME);
+		StorageManager.SetGameSaveFolderTitle((wchar_t *)app.GetString(IDS_GAMENAME));//"Minecraft: PlayStation®3 Edition");//GAMENAME);
 	}
-	StorageManager.SetSaveCacheFolderTitle((WCHAR *)app.GetString(IDS_SAVECACHEFILE));//"Minecraft: PlayStation®3 Edition");//GAMENAME);
-	StorageManager.SetOptionsFolderTitle((WCHAR *)app.GetString(IDS_OPTIONSFILE));//"Minecraft: PlayStation®3 Edition");//GAMENAME);
+	StorageManager.SetSaveCacheFolderTitle((wchar_t *)app.GetString(IDS_SAVECACHEFILE));//"Minecraft: PlayStation®3 Edition");//GAMENAME);
+	StorageManager.SetOptionsFolderTitle((wchar_t *)app.GetString(IDS_OPTIONSFILE));//"Minecraft: PlayStation®3 Edition");//GAMENAME);
 	StorageManager.SetGameSaveFolderPrefix(app.GetSaveFolderPrefix());
 	StorageManager.SetMaxSaves(99);
 	byteArray baOptionsIcon = app.getArchiveFile(L"DefaultOptionsImage320x176.png");

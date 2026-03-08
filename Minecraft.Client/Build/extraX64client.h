@@ -16,7 +16,7 @@ uint32_t XBackgroundDownloadSetMode(
 #define XPARTY_MAX_USERS 4
 typedef struct _XPARTY_USER_INFO {
 	PlayerUID Xuid;
-	CHAR GamerTag[XUSER_NAME_SIZE];
+	char GamerTag[XUSER_NAME_SIZE];
 	uint32_t dwUserIndex;
  //   XONLINE_NAT_TYPE NatType;
 	uint32_t dwTitleId;
@@ -80,7 +80,7 @@ typedef struct _XUSER_STATS_ROW {
 	PlayerUID xuid;
 	uint32_t dwRank;
 	LONGLONG i64Rating;
-	CHAR szGamertag[XUSER_NAME_SIZE];
+	char szGamertag[XUSER_NAME_SIZE];
 	uint32_t dwNumColumns;
 	PXUSER_STATS_COLUMN pColumns;
 } XUSER_STATS_ROW, *PXUSER_STATS_ROW;

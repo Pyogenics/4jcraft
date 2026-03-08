@@ -64,10 +64,10 @@ public:
 
 	void getData(uint8_t* *ppbData, uint32_t *pdwSize);
 
-	LPCWSTR getString(const std::wstring &id);
-	LPCWSTR getString(int id);
+	const wchar_t* getString(const std::wstring &id);
+	const wchar_t* getString(int id);
 
-	//static LPCWSTR m_wchLocaleCode[LOCALE_COUNT];
+	//static const wchar_t* m_wchLocaleCode[LOCALE_COUNT];
 
 
 

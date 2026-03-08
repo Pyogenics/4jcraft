@@ -607,9 +607,9 @@ int main()
 	// defaults
 	StorageManager.ResetSaveData();
 	StorageManager.SetSaveTitle(L"Default Save");
-	StorageManager.SetGameSaveFolderTitle((WCHAR *)app.GetString(IDS_GAMENAME));
-	StorageManager.SetSaveCacheFolderTitle((WCHAR *)app.GetString(IDS_SAVECACHEFILE));
-	StorageManager.SetOptionsFolderTitle((WCHAR *)app.GetString(IDS_OPTIONSFILE));
+	StorageManager.SetGameSaveFolderTitle((wchar_t *)app.GetString(IDS_GAMENAME));
+	StorageManager.SetSaveCacheFolderTitle((wchar_t *)app.GetString(IDS_SAVECACHEFILE));
+	StorageManager.SetOptionsFolderTitle((wchar_t *)app.GetString(IDS_OPTIONSFILE));
 	StorageManager.SetGameSaveFolderPrefix(app.GetSaveFolderPrefix());	
 	StorageManager.SetMaxSaves(99);
 

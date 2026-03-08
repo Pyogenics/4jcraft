@@ -414,7 +414,7 @@ std::vector<File *> *File::listFiles() const
 #endif // __linux__
 
 #ifdef _UNICODE
-	WCHAR path[MAX_PATH];
+	wchar_t path[MAX_PATH];
 	swprintf( path, L"%ls\\*", getPath().c_str() );
 	HANDLE hFind = FindFirstFile( path, &wfd);
 	if(hFind != INVALID_HANDLE_VALUE)
@@ -506,7 +506,7 @@ std::vector<File *> *File::listFiles(FileFilter *filter) const
 
 #ifdef _UNICODE
 
-	WCHAR path[MAX_PATH];
+	wchar_t path[MAX_PATH];
 	WIN32_FIND_DATA wfd;
 	uint32_t dwAttr = FILE_ATTRIBUTE_DIRECTORY;
 

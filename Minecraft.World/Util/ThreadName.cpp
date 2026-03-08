@@ -4,12 +4,12 @@
 
 typedef struct tagTHREADNAME_INFO {
     uint32_t dwType;     // Must be 0x1000
-    LPCSTR szName;    // Pointer to name (in user address space)
+    const char* szName;    // Pointer to name (in user address space)
     uint32_t dwThreadID; // Thread ID (-1 for caller thread)
     uint32_t dwFlags;    // Reserved for future use; must be zero
 } THREADNAME_INFO;
 
-void SetThreadName( uint32_t dwThreadID, LPCSTR szThreadName )
+void SetThreadName( uint32_t dwThreadID, const char* szThreadName )
 {
 #ifndef __PS3__
     THREADNAME_INFO info;

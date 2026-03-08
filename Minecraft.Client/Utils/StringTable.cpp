@@ -125,7 +125,7 @@ void StringTable::getData(uint8_t* *ppData, uint32_t *pSize)
 	*pSize = src.length;
 }
 
-LPCWSTR StringTable::getString(const std::wstring &id)
+const wchar_t* StringTable::getString(const std::wstring &id)
 {
 #ifndef _CONTENT_PACKAGE
 	if (isStatic)
@@ -147,7 +147,7 @@ LPCWSTR StringTable::getString(const std::wstring &id)
 	}
 }
 
-LPCWSTR StringTable::getString(int id)
+const wchar_t* StringTable::getString(int id)
 {
 #ifndef _CONTENT_PACKAGE
 	if (!isStatic)
@@ -159,7 +159,7 @@ LPCWSTR StringTable::getString(int id)
 
 	if (id < m_stringsVec.size())
 	{
-		LPCWSTR pwchString=m_stringsVec.at(id).c_str();
+		const wchar_t* pwchString=m_stringsVec.at(id).c_str();
 		return pwchString;
 	}
 	else

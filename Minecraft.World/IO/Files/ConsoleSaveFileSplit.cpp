@@ -1512,9 +1512,9 @@ void ConsoleSaveFileSplit::DebugFlushToFile(void *compressedData /*= NULL*/, uns
 
 #ifdef _UNICODE
 	std::wstring wtemp = targetFileDir.getPath() + std::wstring(fileName);
-	LPCWSTR lpFileName =  wtemp.c_str();
+	const wchar_t* lpFileName =  wtemp.c_str();
 #else
-	LPCSTR lpFileName = wstringtofilename( targetFileDir.getPath() + std::wstring(fileName) );
+	const char* lpFileName = wstringtofilename( targetFileDir.getPath() + std::wstring(fileName) );
 #endif
 
 	HANDLE hSaveFile = CreateFile( lpFileName, GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_FLAG_RANDOM_ACCESS, NULL);

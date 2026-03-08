@@ -987,10 +987,10 @@ int main(int argc, const char *argv[] )
 
 
 
-	StorageManager.SetGameSaveFolderTitle((WCHAR *)app.GetString(IDS_GAMENAME));
-	StorageManager.SetSaveCacheFolderTitle((WCHAR *)app.GetString(IDS_SAVECACHEFILE));
-	StorageManager.SetOptionsFolderTitle((WCHAR *)app.GetString(IDS_OPTIONSFILE));
-	StorageManager.SetCorruptSaveName((WCHAR *)app.GetString(IDS_CORRUPTSAVE_TITLE));
+	StorageManager.SetGameSaveFolderTitle((wchar_t *)app.GetString(IDS_GAMENAME));
+	StorageManager.SetSaveCacheFolderTitle((wchar_t *)app.GetString(IDS_SAVECACHEFILE));
+	StorageManager.SetOptionsFolderTitle((wchar_t *)app.GetString(IDS_OPTIONSFILE));
+	StorageManager.SetCorruptSaveName((wchar_t *)app.GetString(IDS_CORRUPTSAVE_TITLE));
 #if (defined _FINAL_BUILD) || (defined _ART_BUILD)
 	StorageManager.SetGameSaveFolderPrefix(app.GetSaveFolderPrefix());		
 #else
@@ -1472,7 +1472,7 @@ std::string std::wstring_to_utf8 (const std::wstring& str)
 uint8_t *mallocAndCreateUTF8ArrayFromString(int iID)
 {
 	int result;
-	LPCWSTR wchString=app.GetString(iID);
+	const wchar_t* wchString=app.GetString(iID);
 
 	std::wstring srcString = wchString;
 	std::string dstString = std::wstring_to_utf8(srcString);

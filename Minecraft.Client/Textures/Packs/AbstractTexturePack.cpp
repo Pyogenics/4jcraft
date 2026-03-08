@@ -39,7 +39,7 @@ void AbstractTexturePack::loadIcon()
 #ifdef _XBOX
 	// 4J Stu - Temporary only	
 	const uint32_t LOCATOR_SIZE = 256; // Use this to allocate space to hold a ResourceLocator string 
-	WCHAR szResourceLocator[ LOCATOR_SIZE ];
+	wchar_t szResourceLocator[ LOCATOR_SIZE ];
 
 	const ULONG_PTR c_ModuleHandle = (ULONG_PTR)GetModuleHandle(NULL);
 	swprintf(szResourceLocator, LOCATOR_SIZE ,L"section://%X,%ls#%ls",c_ModuleHandle,L"media", L"media/Graphics/TexturePackIcon.png");
@@ -55,7 +55,7 @@ void AbstractTexturePack::loadComparison()
 #ifdef _XBOX
 	// 4J Stu - Temporary only	
 	const uint32_t LOCATOR_SIZE = 256; // Use this to allocate space to hold a ResourceLocator string 
-	WCHAR szResourceLocator[ LOCATOR_SIZE ];
+	wchar_t szResourceLocator[ LOCATOR_SIZE ];
 
 	const ULONG_PTR c_ModuleHandle = (ULONG_PTR)GetModuleHandle(NULL);
 	swprintf(szResourceLocator, LOCATOR_SIZE ,L"section://%X,%ls#%ls",c_ModuleHandle,L"media", L"media/Graphics/DefaultPack_Comparison.png");
@@ -231,7 +231,7 @@ void AbstractTexturePack::loadDefaultUI()
 
 	// Load new skin
 	const uint32_t LOCATOR_SIZE = 256; // Use this to allocate space to hold a ResourceLocator string 
-	WCHAR szResourceLocator[ LOCATOR_SIZE ];
+	wchar_t szResourceLocator[ LOCATOR_SIZE ];
 
 	swprintf(szResourceLocator, LOCATOR_SIZE,L"section://%X,%ls#%ls",c_ModuleHandle,L"media", L"media/skin_Minecraft.xur");
 	
@@ -282,7 +282,7 @@ void AbstractTexturePack::loadDefaultHTMLColourTable()
 	const ULONG_PTR c_ModuleHandle = (ULONG_PTR)GetModuleHandle(NULL);
 
 	const uint32_t LOCATOR_SIZE = 256; // Use this to allocate space to hold a ResourceLocator string 
-	WCHAR szResourceLocator[ LOCATOR_SIZE ];
+	wchar_t szResourceLocator[ LOCATOR_SIZE ];
 
 	// Try and load the HTMLColours.col based off the common XML first, before the deprecated xuiscene_colourtable	
 	wsprintfW(szResourceLocator,L"section://%X,%s#%s",c_ModuleHandle,L"media", L"media/HTMLColours.col");
@@ -324,7 +324,7 @@ void AbstractTexturePack::loadHTMLColourTableFromXuiScene(HXUIOBJ hObj)
 
 	while(HRESULT_SUCCEEDED(hr) && child != NULL)
 	{
-		LPCWSTR childName;
+		const wchar_t* childName;
 		XuiElementGetId(child,&childName);
 		m_colourTable->setColour(childName,XuiTextElementGetText(child));
 
@@ -338,7 +338,7 @@ void AbstractTexturePack::loadHTMLColourTableFromXuiScene(HXUIOBJ hObj)
 		//	}
 		//}
 
-		//LPCWSTR stringValue = XuiTextElementGetText(child);
+		//const wchar_t* stringValue = XuiTextElementGetText(child);
 
 		//m_htmlColourTable[colourIndex] = XuiTextElementGetText(child);
 
@@ -367,7 +367,7 @@ std::wstring AbstractTexturePack::getXuiRootPath()
 
 	// Load new skin
 	const uint32_t LOCATOR_SIZE = 256; // Use this to allocate space to hold a ResourceLocator string 
-	WCHAR szResourceLocator[ LOCATOR_SIZE ];
+	wchar_t szResourceLocator[ LOCATOR_SIZE ];
 
 	swprintf(szResourceLocator, LOCATOR_SIZE,L"section://%X,%ls#%ls",c_ModuleHandle,L"media", L"media/");
 	return szResourceLocator;

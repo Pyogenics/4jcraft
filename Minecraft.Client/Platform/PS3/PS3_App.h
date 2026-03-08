@@ -77,11 +77,11 @@ public:
 	virtual void ReadBannedList(int iPad, eTMSAction action=(eTMSAction)0, bool bCallback=false) {}
 
 
-	virtual int LoadLocalTMSFile(WCHAR *wchTMSFile);
-	virtual int LoadLocalTMSFile(WCHAR *wchTMSFile, eFileExtensionType eExt);
+	virtual int LoadLocalTMSFile(wchar_t *wchTMSFile);
+	virtual int LoadLocalTMSFile(wchar_t *wchTMSFile, eFileExtensionType eExt);
 
 	virtual void FreeLocalTMSFiles(eTMSFileType eType);
-	virtual int GetLocalTMSFileIndex(WCHAR *wchTMSFile,bool bFilenameIncludesExtension,eFileExtensionType eEXT=eFileExtensionType_PNG);
+	virtual int GetLocalTMSFileIndex(wchar_t *wchTMSFile,bool bFilenameIncludesExtension,eFileExtensionType eEXT=eFileExtensionType_PNG);
 
 	// CHAT/UGC restriction - MOVED TO THE PROFILE LIB - 			ProfileManager.GetChatAndContentRestrictions
 
@@ -174,7 +174,7 @@ public:
 	char *GetDiscPatchUsrDir();
 	bool GetBootedFromDiscPatch();
 	void SetBootedFromDiscPatch();
-	bool IsFileInPatchList(LPCSTR lpFileName);
+	bool IsFileInPatchList(const char* lpFileName);
 	char * GetBDUsrDirPath(const char *pchFilename);
 
 	SonyRemoteStorage* getRemoteStorage() { return m_pRemoteStorage; }

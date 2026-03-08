@@ -206,7 +206,7 @@ void CConsoleMinecraftApp::ExitGame()
 void CConsoleMinecraftApp::FatalLoadError()
 {
 	wchar_t *aStrings[3];
-	LPCWSTR wszButtons[1];
+	const wchar_t* wszButtons[1];
 
 	app.DebugPrintf("CConsoleMinecraftApp::FatalLoadError\n");
 
@@ -445,18 +445,18 @@ void CConsoleMinecraftApp::GetScreenshot(int iPad,uint8_t* *pbData,uint32_t *pdw
 
 }
 
-int CConsoleMinecraftApp::GetLocalTMSFileIndex(WCHAR *wchTMSFile,bool bFilenameIncludesExtension,eFileExtensionType eEXT)
+int CConsoleMinecraftApp::GetLocalTMSFileIndex(wchar_t *wchTMSFile,bool bFilenameIncludesExtension,eFileExtensionType eEXT)
 {
 	return -1;
 }
 
 
-int CConsoleMinecraftApp::LoadLocalTMSFile(WCHAR *wchTMSFile)
+int CConsoleMinecraftApp::LoadLocalTMSFile(wchar_t *wchTMSFile)
 {
 	return -1;
 }
 
-int CConsoleMinecraftApp::LoadLocalTMSFile(WCHAR *wchTMSFile, eFileExtensionType eExt)
+int CConsoleMinecraftApp::LoadLocalTMSFile(wchar_t *wchTMSFile, eFileExtensionType eExt)
 {
 	return -1;
 }
@@ -1184,7 +1184,7 @@ char *PatchFilelist[] =
 	NULL
 };
 
-bool CConsoleMinecraftApp::IsFileInPatchList(LPCSTR lpFileName)
+bool CConsoleMinecraftApp::IsFileInPatchList(const char* lpFileName)
 {
 	int i = 0;
 	app.DebugPrintf("*** CConsoleMinecraftApp::IsFileInPatchList\n");

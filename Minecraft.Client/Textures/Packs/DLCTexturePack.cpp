@@ -188,7 +188,7 @@ void DLCTexturePack::loadColourTable()
 		uint8_t* pbData = dataFile->getData(dwSize);
 
 		const uint32_t LOCATOR_SIZE = 256; // Use this to allocate space to hold a ResourceLocator string 
-		WCHAR szResourceLocator[ LOCATOR_SIZE ];
+		wchar_t szResourceLocator[ LOCATOR_SIZE ];
 		
 		// Try and load the HTMLColours.col based off the common XML first, before the deprecated xuiscene_colourtable	
 		swprintf(szResourceLocator, LOCATOR_SIZE,L"memory://%08X,%04X#HTMLColours.col",pbData, dwSize);
@@ -356,7 +356,7 @@ int DLCTexturePack::packMounted(LPVOID pParam,int iPad,uint32_t dwErr,uint32_t d
 							{
 #if defined(_UNICODE) && !defined(__linux__)
 								std::wstring path = grf.getPath();
-								const WCHAR *pchFilename=path.c_str();
+								const wchar_t *pchFilename=path.c_str();
 								HANDLE fileHandle = CreateFile(
 									pchFilename, // file name
 									GENERIC_READ, // access mode
@@ -408,7 +408,7 @@ int DLCTexturePack::packMounted(LPVOID pParam,int iPad,uint32_t dwErr,uint32_t d
 						{
 #if defined(_UNICODE) && !defined(__linux__)
 							std::wstring path = grf.getPath();
-							const WCHAR *pchFilename=path.c_str();
+							const wchar_t *pchFilename=path.c_str();
 							HANDLE fileHandle = CreateFile(
 								pchFilename, // file name
 								GENERIC_READ, // access mode
@@ -521,7 +521,7 @@ void DLCTexturePack::loadUI()
 		uint8_t* pbData = dataFile->getData(dwSize);
 
 		const uint32_t LOCATOR_SIZE = 256; // Use this to allocate space to hold a ResourceLocator string 
-		WCHAR szResourceLocator[ LOCATOR_SIZE ];
+		wchar_t szResourceLocator[ LOCATOR_SIZE ];
 		swprintf(szResourceLocator, LOCATOR_SIZE,L"memory://%08X,%04X#skin_Minecraft.xur",pbData, dwSize);
 
 		XuiFreeVisuals(L"");
@@ -595,7 +595,7 @@ std::wstring DLCTexturePack::getXuiRootPath()
 		uint8_t* pbData = dataFile->getData(dwSize);
 
 		const uint32_t LOCATOR_SIZE = 256; // Use this to allocate space to hold a ResourceLocator string 
-		WCHAR szResourceLocator[ LOCATOR_SIZE ];
+		wchar_t szResourceLocator[ LOCATOR_SIZE ];
 		swprintf(szResourceLocator, LOCATOR_SIZE,L"memory://%08X,%04X#",pbData, dwSize);
 		path = szResourceLocator;
 	}

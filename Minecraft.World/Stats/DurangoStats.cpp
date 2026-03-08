@@ -1109,17 +1109,17 @@ void DurangoStats::setMultiplayerCorrelationId(Platform::String^ mcpId)
 	((DurangoStats*)GenericStats::getInstance())->multiplayerCorrelationId = mcpId;
 }
 
-LPCWSTR DurangoStats::getMultiplayerCorrelationId()
+const wchar_t* DurangoStats::getMultiplayerCorrelationId()
 {
 	return ((DurangoStats*)GenericStats::getInstance())->multiplayerCorrelationId->Data();
 }
 
-LPCWSTR DurangoStats::getUserId(std::shared_ptr<LocalPlayer> player)
+const wchar_t* DurangoStats::getUserId(std::shared_ptr<LocalPlayer> player)
 {
 	return getUserId(player->GetXboxPad());
 }
 
-LPCWSTR DurangoStats::getUserId(int iPad)
+const wchar_t* DurangoStats::getUserId(int iPad)
 {
 	static std::wstring cache = L"";
 	PlayerUID uid = INVALID_XUID;

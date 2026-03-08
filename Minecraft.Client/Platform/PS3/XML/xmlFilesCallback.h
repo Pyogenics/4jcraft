@@ -12,13 +12,13 @@ public:
 	virtual HRESULT  StartDocument() { return S_OK; };
 	virtual HRESULT  EndDocument() { return S_OK; };
 
-	virtual HRESULT  ElementBegin( CONST WCHAR* strName, uint32_t NameLen, CONST XMLAttribute *pAttributes, uint32_t NumAttributes )
+	virtual HRESULT  ElementBegin( CONST wchar_t* strName, uint32_t NameLen, CONST XMLAttribute *pAttributes, uint32_t NumAttributes )
 	{
-		WCHAR wTemp[35] = L"";
-		WCHAR wAttName[32] = L"";
-		WCHAR wNameXUID[32] = L"";
-		WCHAR wNameSkin[32] = L"";
-		WCHAR wNameCloak[32] = L"";
+		wchar_t wTemp[35] = L"";
+		wchar_t wAttName[32] = L"";
+		wchar_t wNameXUID[32] = L"";
+		wchar_t wNameSkin[32] = L"";
+		wchar_t wNameCloak[32] = L"";
 		PlayerUID xuid=0LL;
 
 
@@ -45,7 +45,7 @@ public:
 				{
 					if (pAttributes[i].ValueLen <= 32)
 					{
-						ZeroMemory(wTemp,sizeof(WCHAR)*35);
+						ZeroMemory(wTemp,sizeof(wchar_t)*35);
 						wcsncpy_s( wTemp, pAttributes[i].strValue, pAttributes[i].ValueLen);
 						xuid=_wcstoui64(wTemp,NULL,10);					
 					}
@@ -80,17 +80,17 @@ public:
 		}
 	};
 
-	virtual HRESULT  ElementContent( CONST WCHAR *strData, uint32_t DataLen, BOOL More ) {    return S_OK;   };
+	virtual HRESULT  ElementContent( CONST wchar_t *strData, uint32_t DataLen, BOOL More ) {    return S_OK;   };
 
-	virtual HRESULT  ElementEnd( CONST WCHAR *strName, uint32_t NameLen ){       return S_OK;    };
+	virtual HRESULT  ElementEnd( CONST wchar_t *strName, uint32_t NameLen ){       return S_OK;    };
 
 	virtual HRESULT  CDATABegin( )  { return S_OK; };
 
-	virtual HRESULT  CDATAData( CONST WCHAR *strCDATA, uint32_t CDATALen, BOOL bMore ){ return S_OK; };
+	virtual HRESULT  CDATAData( CONST wchar_t *strCDATA, uint32_t CDATALen, BOOL bMore ){ return S_OK; };
 
 	virtual HRESULT  CDATAEnd( ){ return S_OK; };
 
-	virtual VOID     Error( HRESULT hError, CONST CHAR *strMessage )    {     app.DebugPrintf("Error when Parsing xuids.XML\n");    };
+	virtual VOID     Error( HRESULT hError, CONST char *strMessage )    {     app.DebugPrintf("Error when Parsing xuids.XML\n");    };
 
 };
 
@@ -100,14 +100,14 @@ public:
 	virtual HRESULT  StartDocument() { return S_OK; };
 	virtual HRESULT  EndDocument() { return S_OK; };
 
-	virtual HRESULT  ElementBegin( CONST WCHAR* strName, uint32_t NameLen, CONST XMLAttribute *pAttributes, uint32_t NumAttributes )
+	virtual HRESULT  ElementBegin( CONST wchar_t* strName, uint32_t NameLen, CONST XMLAttribute *pAttributes, uint32_t NumAttributes )
 	{
-		WCHAR wTemp[35] = L"";
-		WCHAR wAttName[32] = L"";
-		WCHAR wNameBanner[32] = L"";
-		WCHAR wType[32] = L"";
-		WCHAR wFirstSkin[32] = L"";
-		WCHAR wDataFile[32] = L"";
+		wchar_t wTemp[35] = L"";
+		wchar_t wAttName[32] = L"";
+		wchar_t wNameBanner[32] = L"";
+		wchar_t wType[32] = L"";
+		wchar_t wFirstSkin[32] = L"";
+		wchar_t wDataFile[32] = L"";
 		ULONGLONG ullFull=0ll;
 		ULONGLONG ullTrial=0ll;
 		int iGender=0;
@@ -138,7 +138,7 @@ public:
 				{
 					if (pAttributes[i].ValueLen <= 32)
 					{		
-						ZeroMemory(wTemp,sizeof(WCHAR)*35);
+						ZeroMemory(wTemp,sizeof(wchar_t)*35);
 						wcsncpy_s( wTemp, pAttributes[i].strValue, pAttributes[i].ValueLen);
 						ullFull=_wcstoui64(wTemp,NULL,16);
 					}
@@ -147,7 +147,7 @@ public:
 				{
 					if (pAttributes[i].ValueLen <= 32)
 					{
-						ZeroMemory(wTemp,sizeof(WCHAR)*35);
+						ZeroMemory(wTemp,sizeof(wchar_t)*35);
 						wcsncpy_s( wTemp, pAttributes[i].strValue, pAttributes[i].ValueLen);
 						ullTrial=_wcstoui64(wTemp,NULL,16);					
 					}
@@ -215,17 +215,17 @@ public:
 		}
 	};
 
-	virtual HRESULT  ElementContent( CONST WCHAR *strData, uint32_t DataLen, BOOL More ) {    return S_OK;   };
+	virtual HRESULT  ElementContent( CONST wchar_t *strData, uint32_t DataLen, BOOL More ) {    return S_OK;   };
 
-	virtual HRESULT  ElementEnd( CONST WCHAR *strName, uint32_t NameLen ){       return S_OK;    };
+	virtual HRESULT  ElementEnd( CONST wchar_t *strName, uint32_t NameLen ){       return S_OK;    };
 
 	virtual HRESULT  CDATABegin( )  { return S_OK; };
 
-	virtual HRESULT  CDATAData( CONST WCHAR *strCDATA, uint32_t CDATALen, BOOL bMore ){ return S_OK; };
+	virtual HRESULT  CDATAData( CONST wchar_t *strCDATA, uint32_t CDATALen, BOOL bMore ){ return S_OK; };
 
 	virtual HRESULT  CDATAEnd( ){ return S_OK; };
 
-	virtual VOID     Error( HRESULT hError, CONST CHAR *strMessage )    {     app.DebugPrintf("Error when Parsing DLC.XML\n");    };
+	virtual VOID     Error( HRESULT hError, CONST char *strMessage )    {     app.DebugPrintf("Error when Parsing DLC.XML\n");    };
 
 };
 
