@@ -407,7 +407,7 @@ void SparseDataStorage::addNewPlane(int y)
 
 		// Attempt to update the data & count atomically. This command will Only succeed if the data stored at
 		// dataAndCount is equal to lastDataAndCount, and will return the value present just before the write took place
-		int64_t lastDataAndCount2 = InterlockedCompareExchangeRelease64( (LONG64 *)&dataAndCount, newDataAndCount, lastDataAndCount );
+		int64_t lastDataAndCount2 = InterlockedCompareExchangeRelease64( (int64_t *)&dataAndCount, newDataAndCount, lastDataAndCount );
 		
 		if( lastDataAndCount2 == lastDataAndCount )
 		{
@@ -485,7 +485,7 @@ void SparseDataStorage::updateDataAndCount(int64_t newDataAndCount)
 
 		// Attempt to update the data & count atomically. This command will Only succeed if the data stored at
 		// dataAndCount is equal to lastDataAndCount, and will return the value present just before the write took place
-		int64_t lastDataAndCount2 = InterlockedCompareExchangeRelease64( (LONG64 *)&dataAndCount, newDataAndCount, lastDataAndCount );
+		int64_t lastDataAndCount2 = InterlockedCompareExchangeRelease64( (int64_t *)&dataAndCount, newDataAndCount, lastDataAndCount );
 		
 		if( lastDataAndCount2 == lastDataAndCount )
 		{
@@ -564,7 +564,7 @@ int SparseDataStorage::compress()
 
 		// Attempt to update the data & count atomically. This command will Only succeed if the data stored at
 		// dataAndCount is equal to lastDataAndCount, and will return the value present just before the write took place
-		int64_t lastDataAndCount2 = InterlockedCompareExchangeRelease64( (LONG64 *)&dataAndCount, newDataAndCount, lastDataAndCount );
+		int64_t lastDataAndCount2 = InterlockedCompareExchangeRelease64( (int64_t *)&dataAndCount, newDataAndCount, lastDataAndCount );
 
 		if( lastDataAndCount2 != lastDataAndCount )
 		{
