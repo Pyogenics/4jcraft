@@ -20,7 +20,7 @@ public:
     int64_t lastUse;
 
 private:
-    HANDLE channel;
+    void* channel;
 
 public:
     int64_t key;

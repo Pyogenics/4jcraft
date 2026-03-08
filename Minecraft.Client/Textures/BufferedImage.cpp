@@ -49,7 +49,7 @@ void BufferedImage::ByteFlip4(unsigned int &data)
 // 24-bits used (ie no alpha channel) whereas method 0 is a full 32-bit image with a valid alpha channel. 
 BufferedImage::BufferedImage(const std::wstring& File, bool filenameHasExtension /*=false*/, bool bTitleUpdateTexture /*=false*/, const std::wstring &drive /*=L""*/)
 {
-	HRESULT hr;
+	int32_t hr;
 	std::wstring wDrive;
 	std::wstring filePath;
 	filePath = File;
@@ -191,7 +191,7 @@ BufferedImage::BufferedImage(const std::wstring& File, bool filenameHasExtension
 
 BufferedImage::BufferedImage(DLCPack *dlcPack, const std::wstring& File, bool filenameHasExtension /*= false*/ )
 {
-	HRESULT hr;
+	int32_t hr;
 	std::wstring filePath = File;
 	uint8_t *pbData = NULL;
 	uint32_t dwBytes = 0;
@@ -274,7 +274,7 @@ BufferedImage::BufferedImage(uint8_t *pbData, uint32_t dwBytes)
 
 	D3DXIMAGE_INFO ImageInfo;
 	ZeroMemory(&ImageInfo,sizeof(D3DXIMAGE_INFO));
-	HRESULT hr=RenderManager.LoadTextureData(pbData,dwBytes,&ImageInfo,&data[0]);
+	int32_t hr=RenderManager.LoadTextureData(pbData,dwBytes,&ImageInfo,&data[0]);
 
 	if(hr==ERROR_SUCCESS) 
 	{

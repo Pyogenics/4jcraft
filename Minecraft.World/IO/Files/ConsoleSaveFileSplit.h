@@ -57,7 +57,7 @@ private:
 	std::wstring m_fileName;
 	bool m_autosave;
 
-//	HANDLE hHeap;
+//	void* hHeap;
 	static void *pvHeap;
 	static unsigned int pagesCommitted;
 #ifdef _LARGE_WORLDS

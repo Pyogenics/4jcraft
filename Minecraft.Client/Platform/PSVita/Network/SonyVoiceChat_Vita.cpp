@@ -67,7 +67,7 @@ void LoadPCMVoiceData()
 	{
 		char filename[64];
 		sprintf(filename, "voice%d.pcm", i+1);
-		HANDLE file = CreateFile(filename, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+		void* file = CreateFile(filename, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 		uint32_t dwHigh=0;
 		g_loadedPCMVoiceDataSizes[i] = GetFileSize(file,&dwHigh);
 

@@ -6,11 +6,11 @@ class ByteBuffer;
 class ZoneIo
 {
 private:
-    HANDLE channel;
+    void* channel;
     int64_t pos;
 
 public:
-	ZoneIo(HANDLE channel, int64_t pos);
+	ZoneIo(void* channel, int64_t pos);
     void write(byteArray bb, int size);
     void write(ByteBuffer *bb, int size);
     ByteBuffer *read(int size);

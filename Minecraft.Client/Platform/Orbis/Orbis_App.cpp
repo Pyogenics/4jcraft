@@ -133,8 +133,8 @@ BOOL CConsoleMinecraftApp::ReadProductCodes()
 	char chDLCTitle[64];
 
 	// 4J-PB - Read the file containing the product codes. This will be different for the SCEE/SCEA/SCEJ builds
-	//HANDLE file = CreateFile("orbis/DLCImages/TP01_360x360.png", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-	HANDLE file = CreateFile("orbis/PS4ProductCodes.bin", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	//void* file = CreateFile("orbis/DLCImages/TP01_360x360.png", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	void* file = CreateFile("orbis/PS4ProductCodes.bin", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if( file == INVALID_HANDLE_VALUE )
 	{
 		uint32_t error = GetLastError();
@@ -323,7 +323,7 @@ int CConsoleMinecraftApp::LoadLocalDLCImage(SONYDLC *pDLCInfo)
 
 	sprintf(pchFilename,"orbis/DLCImages/%s_360x360.png",pDLCInfo->chDLCPicname);
 	// 4J-PB - Read the file containing the product codes. This will be different for the SCEE/SCEA/SCEJ builds
-	HANDLE hFile = CreateFile(pchFilename, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	void* hFile = CreateFile(pchFilename, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
 	if( hFile == INVALID_HANDLE_VALUE )
 	{

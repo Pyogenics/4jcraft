@@ -295,7 +295,7 @@ typedef enum _QNET_STATE
 class IQNet
 {
 public:
-	HRESULT AddLocalPlayerByUserIndex(uint32_t dwUserIndex);
+	int32_t AddLocalPlayerByUserIndex(uint32_t dwUserIndex);
 	IQNetPlayer *GetHostPlayer();
 	IQNetPlayer *GetLocalPlayerByUserIndex(uint32_t dwUserIndex);
 	IQNetPlayer *GetPlayerByIndex(uint32_t dwPlayerIndex);
@@ -304,7 +304,7 @@ public:
 	uint32_t GetPlayerCount();
 	QNET_STATE GetState();
 	bool IsHost();
-	HRESULT JoinGameFromInviteInfo(uint32_t dwUserIndex, uint32_t dwUserMask, const INVITE_INFO *pInviteInfo);
+	int32_t JoinGameFromInviteInfo(uint32_t dwUserIndex, uint32_t dwUserMask, const INVITE_INFO *pInviteInfo);
 	void HostGame();
 	void EndGame();
 
@@ -324,8 +324,8 @@ void PIXEndNamedEvent();
 void PIXSetMarkerDeprecated(int a, const char *b, ...);
 #endif
 
-void XSetThreadProcessor(HANDLE a, int b);
-//BOOL XCloseHandle(HANDLE a);
+void XSetThreadProcessor(void* a, int b);
+//BOOL XCloseHandle(void* a);
 
 const int QNET_SENDDATA_LOW_PRIORITY = 0;
 const int QNET_SENDDATA_SECONDARY = 0;
@@ -339,7 +339,7 @@ const int INVALID_XUID = 0;
 // typedef struct _STRING_VERIFY_RESPONSE
 // {
 //     uint16_t wNumStrings;
-//     HRESULT *pStringResult;
+//     int32_t *pStringResult;
 // } STRING_VERIFY_RESPONSE;
 
 const int XCONTENT_MAX_DISPLAYNAME_LENGTH = 256;
@@ -431,7 +431,7 @@ public:
 	const wchar_t* Lookup(const wchar_t* szId);
 	const wchar_t* Lookup(uint32_t nIndex);
 	void Clear();
-	HRESULT Load(const wchar_t* szId);
+	int32_t Load(const wchar_t* szId);
 };
 
 #if !defined(__ORBIS__) && !defined(_XBOX_ONE)
@@ -444,7 +444,7 @@ typedef enum _XMEMCODEC_TYPE
     XMEMCODEC_LZX = 1
 } XMEMCODEC_TYPE;
 
-HRESULT XMemDecompress(
+int32_t XMemDecompress(
          XMEMDECOMPRESSION_CONTEXT Context,
          void *pDestination,
          size_t *pDestSize,
@@ -453,7 +453,7 @@ HRESULT XMemDecompress(
 );
 
 
-HRESULT XMemCompress(
+int32_t XMemCompress(
          XMEMCOMPRESSION_CONTEXT Context,
          void *pDestination,
          size_t *pDestSize,
@@ -461,14 +461,14 @@ HRESULT XMemCompress(
          size_t SrcSize
 );
 
-HRESULT XMemCreateCompressionContext(
+int32_t XMemCreateCompressionContext(
          XMEMCODEC_TYPE CodecType,
          const void *pCodecParams,
          uint32_t Flags,
          XMEMCOMPRESSION_CONTEXT *pContext
 );
 
-HRESULT XMemCreateDecompressionContext(
+int32_t XMemCreateDecompressionContext(
          XMEMCODEC_TYPE CodecType,
          const void *pCodecParams,
          uint32_t Flags,

@@ -81,7 +81,7 @@ public:
 	#elif defined __PSVITA__
 		SceUID m_event;
 	#else
-		HANDLE m_event;
+		void* m_event;
 	#endif // __PS3__
 	};
 
@@ -117,7 +117,7 @@ public:
 #elif defined __PSVITA__
 		SceUID m_events;
 #else
-		HANDLE*				m_events;
+		void**				m_events;
 #endif // __PS3__
 	};
 
@@ -216,7 +216,7 @@ private:
 	static SceInt32	entryPoint(SceSize argSize, void *pArgBlock);
 #else
 	uint32_t m_threadID;
-	HANDLE m_threadHandle;
+	void* m_threadHandle;
 	Event			*m_completionFlag;
 	static uint32_t WINAPI	entryPoint(void* lpParam);
 #endif

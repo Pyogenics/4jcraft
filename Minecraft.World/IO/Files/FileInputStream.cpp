@@ -34,7 +34,7 @@ FileInputStream::FileInputStream(const File &file)
 		NULL // Unsupported
 		);
 #elif defined(__linux__)
-	m_fileHandle = (HANDLE)(intptr_t)open(pchFilename, O_RDONLY);
+	m_fileHandle = (void*)(intptr_t)open(pchFilename, O_RDONLY);
 #else
 	m_fileHandle = CreateFile(
 		pchFilename, // file name
@@ -186,7 +186,7 @@ void FileInputStream::close()
 {
 	if(m_fileHandle==INVALID_HANDLE_VALUE)
 	{
-		//printf("\n\nFileInputStream::close - TRYING TO CLOSE AN INVALID FILE HANDLE\n\n");
+		//printf("\n\nFileInputStream::close - TRYING TO CLOSE AN INVALID FILE void*\n\n");
 		return;
 	}	
 	

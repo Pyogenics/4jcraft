@@ -15,5 +15,5 @@ public:
 	virtual void flush() {}
 
 private:
-	HANDLE m_fileHandle;
+	void* m_fileHandle;
 };

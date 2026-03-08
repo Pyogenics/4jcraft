@@ -24,7 +24,7 @@ private:
 	static byteArray emptySector;
 
 	File *fileName;
-	//HANDLE file;
+	//void* file;
 	ConsoleSaveFile *m_saveFile;
 
 	int *offsets;

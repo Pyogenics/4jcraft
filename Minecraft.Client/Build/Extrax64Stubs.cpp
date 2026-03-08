@@ -54,7 +54,7 @@ CXuiStringTable StringTable;
 #if !defined(_XBOX_ONE) && !defined(__linux__)
 ATG::XMLParser::XMLParser() {}
 ATG::XMLParser::~XMLParser() {}
-HRESULT    ATG::XMLParser::ParseXMLBuffer( CONST char* strBuffer, uint32_t uBufferSize ) { return S_OK; }   
+int32_t    ATG::XMLParser::ParseXMLBuffer( CONST char* strBuffer, uint32_t uBufferSize ) { return S_OK; }   
 void ATG::XMLParser::RegisterSAXCallbackInterface( ISAXCallback *pISAXCallback ) {}
 #endif
 
@@ -71,7 +71,7 @@ void CSocialManager::SetSocialPostText(const wchar_t* Title, const wchar_t* Capt
 
 uint32_t XShowPartyUI(uint32_t dwUserIndex) { return 0; }
 uint32_t XShowFriendsUI(uint32_t dwUserIndex) { return 0; }
-HRESULT XPartyGetUserList(XPARTY_USER_LIST *pUserList) { return S_OK; }
+int32_t XPartyGetUserList(XPARTY_USER_LIST *pUserList) { return S_OK; }
 uint32_t XContentGetThumbnail(uint32_t dwUserIndex, const XCONTENT_DATA *pContentData,  uint8_t* pbThumbnail,  uint32_t* pcbThumbnail,  PXOVERLAPPED *pOverlapped) { return 0; }
 void XShowAchievementsUI(int i) {}
 uint32_t XBackgroundDownloadSetMode(XBACKGROUND_DOWNLOAD_MODE Mode) { return 0; }
@@ -227,7 +227,7 @@ IQNetPlayer IQNet::m_player[4];
 
 bool _bQNetStubGameRunning = false;
 
-HRESULT IQNet::AddLocalPlayerByUserIndex(uint32_t dwUserIndex){ return S_OK; }
+int32_t IQNet::AddLocalPlayerByUserIndex(uint32_t dwUserIndex){ return S_OK; }
 IQNetPlayer *IQNet::GetHostPlayer() { return &m_player[0]; }
 IQNetPlayer *IQNet::GetLocalPlayerByUserIndex(uint32_t dwUserIndex) { return &m_player[dwUserIndex]; } 
 IQNetPlayer *IQNet::GetPlayerByIndex(uint32_t dwPlayerIndex) { return &m_player[0]; }
@@ -236,15 +236,15 @@ IQNetPlayer *IQNet::GetPlayerByXuid(PlayerUID xuid){ return &m_player[0]; }
 uint32_t IQNet::GetPlayerCount() { return 1; }
 QNET_STATE IQNet::GetState() { return _bQNetStubGameRunning ? QNET_STATE_GAME_PLAY : QNET_STATE_IDLE; }
 bool IQNet::IsHost() { return true; }
-HRESULT IQNet::JoinGameFromInviteInfo(uint32_t dwUserIndex, uint32_t dwUserMask, const INVITE_INFO *pInviteInfo) { return S_OK; }
+int32_t IQNet::JoinGameFromInviteInfo(uint32_t dwUserIndex, uint32_t dwUserMask, const INVITE_INFO *pInviteInfo) { return S_OK; }
 void IQNet::HostGame() { _bQNetStubGameRunning = true; }
 void IQNet::EndGame() { _bQNetStubGameRunning = false; }
 
 uint32_t MinecraftDynamicConfigurations::GetTrialTime() { return DYNAMIC_CONFIG_DEFAULT_TRIAL_TIME; }
 
-void XSetThreadProcessor(HANDLE a, int b) {}
+void XSetThreadProcessor(void* a, int b) {}
 // #if !(defined __PS3__) && !(defined __ORBIS__)
-// BOOL XCloseHandle(HANDLE a) { return CloseHandle(a); }
+// BOOL XCloseHandle(void* a) { return CloseHandle(a); }
 // #endif // __PS3__
 
 uint32_t XUserGetSigninInfo(
@@ -259,13 +259,13 @@ uint32_t XUserGetSigninInfo(
 const wchar_t* CXuiStringTable::Lookup(const wchar_t* szId) { return szId; }
 const wchar_t* CXuiStringTable::Lookup(uint32_t nIndex) { return L"String"; }
 void CXuiStringTable::Clear() {}
-HRESULT CXuiStringTable::Load(const wchar_t* szId) { return S_OK; }
+int32_t CXuiStringTable::Load(const wchar_t* szId) { return S_OK; }
 
 uint32_t XUserAreUsersFriends( uint32_t dwUserIndex, PPlayerUID pXuids, uint32_t dwXuidCount, PBOOL pfResult, void *pOverlapped) { return 0; }
 
 #if defined __ORBIS__ || defined __PS3__ || defined _XBOX_ONE
 #else
-HRESULT XMemDecompress(
+int32_t XMemDecompress(
          XMEMDECOMPRESSION_CONTEXT Context,
          void *pDestination,
          size_t *pDestSize,
@@ -296,7 +296,7 @@ HRESULT XMemDecompress(
 	}
 }
 
-HRESULT XMemCompress(
+int32_t XMemCompress(
          XMEMCOMPRESSION_CONTEXT Context,
          void *pDestination,
          size_t *pDestSize,
@@ -327,7 +327,7 @@ HRESULT XMemCompress(
 	}
 }
 
-HRESULT XMemCreateCompressionContext(
+int32_t XMemCreateCompressionContext(
          XMEMCODEC_TYPE CodecType,
          CONST void *pCodecParams,
          uint32_t Flags,
@@ -337,7 +337,7 @@ HRESULT XMemCreateCompressionContext(
 	/*
 	COMPRESSOR_HANDLE Compressor    = NULL;
 
-	HRESULT hr = CreateCompressor(
+	int32_t hr = CreateCompressor(
 		COMPRESS_ALGORITHM_XPRESS_HUFF, //  Compression Algorithm
 		NULL,                           //  Optional allocation routine
 		&Compressor);                   //  Handle
@@ -348,7 +348,7 @@ HRESULT XMemCreateCompressionContext(
 	return 0;
 }
 
-HRESULT XMemCreateDecompressionContext(
+int32_t XMemCreateDecompressionContext(
          XMEMCODEC_TYPE CodecType,
          CONST void *pCodecParams,
          uint32_t Flags,
@@ -358,7 +358,7 @@ HRESULT XMemCreateDecompressionContext(
 	/*
 	DECOMPRESSOR_HANDLE  Decompressor    = NULL;
 
-	HRESULT hr = CreateDecompressor(
+	int32_t hr = CreateDecompressor(
 		COMPRESS_ALGORITHM_XPRESS_HUFF, //  Compression Algorithm
 		NULL,                           //  Optional allocation routine
 		&Decompressor);                   //  Handle
@@ -507,7 +507,7 @@ void				C_4JProfile::SetSignInChangeCallback(void ( *Func)(void*, bool, unsigned
 void				C_4JProfile::SetNotificationsCallback(void ( *Func)(void*, uint32_t, unsigned int),void* lpParam) {}
 bool				C_4JProfile::RegionIsNorthAmerica(void) { return false; }
 bool				C_4JProfile::LocaleIsUSorCanada(void) { return false; }
-HRESULT				C_4JProfile::GetLiveConnectionStatus() { return S_OK; }
+int32_t				C_4JProfile::GetLiveConnectionStatus() { return S_OK; }
 bool				C_4JProfile::IsSystemUIDisplayed() { return false; }
 void				C_4JProfile::SetProfileReadErrorCallback(void ( *Func)(void*), void* lpParam) {}
 int( *defaultOptionsCallback)(void*,C_4JProfile::PROFILESETTINGS *, const int iPad) = NULL;
@@ -582,7 +582,7 @@ bool								C4JStorage::GetSaveDeviceSelected(unsigned int iPad) { return true; 
 C4JStorage::ELoadGameStatus			C4JStorage::DoesSaveExist(bool *pbExists) { return C4JStorage::ELoadGame_Idle; }
 bool								C4JStorage::EnoughSpaceForAMinSaveGame() { return true; }
 void								C4JStorage::SetSaveMessageVPosition(float fY) {}
-//C4JStorage::ESGIStatus				C4JStorage::GetSavesInfo(int iPad,bool ( *Func)(void*, int, CACHEINFOSTRUCT *, int, HRESULT),void* lpParam,char *pszSavePackName) { return C4JStorage::ESGIStatus_Idle; }
+//C4JStorage::ESGIStatus				C4JStorage::GetSavesInfo(int iPad,bool ( *Func)(void*, int, CACHEINFOSTRUCT *, int, int32_t),void* lpParam,char *pszSavePackName) { return C4JStorage::ESGIStatus_Idle; }
 C4JStorage::ESaveGameState			C4JStorage::GetSavesInfo(int iPad,int ( *Func)(void* lpParam,SAVE_DETAILS *pSaveDetails,const bool),void* lpParam,char *pszSavePackName) { return C4JStorage::ESaveGame_Idle; }
 
 void								C4JStorage::GetSaveCacheFileInfo(uint32_t dwFile,XCONTENT_DATA &xContentData) {}
@@ -618,9 +618,9 @@ C4JStorage::ETMSStatus				C4JStorage::TMSPP_ReadFile(int iPad,C4JStorage::eGloba
 
 /////////////////////////////////////////////////////// Sentient manager
 
-HRESULT CSentientManager::Init() { return S_OK; }
-HRESULT CSentientManager::Tick() { return S_OK; }
-HRESULT CSentientManager::Flush() { return S_OK; }
+int32_t CSentientManager::Init() { return S_OK; }
+int32_t CSentientManager::Tick() { return S_OK; }
+int32_t CSentientManager::Flush() { return S_OK; }
 BOOL CSentientManager::RecordPlayerSessionStart(uint32_t dwUserId) { return true; }
 BOOL CSentientManager::RecordPlayerSessionExit(uint32_t dwUserId, int exitStatus) { return true; }
 BOOL CSentientManager::RecordHeartBeat(uint32_t dwUserId) { return true; }

@@ -24,7 +24,7 @@ void DefaultTexturePack::loadIcon()
 	swprintf(szResourceLocator, LOCATOR_SIZE ,L"section://%X,%ls#%ls",c_ModuleHandle,L"media", L"media/Graphics/TexturePackIcon.png");
 
 	uint32_t size = 0;
-	HRESULT hr = XuiResourceLoadAllNoLoc(szResourceLocator, &m_iconData, &size);
+	int32_t hr = XuiResourceLoadAllNoLoc(szResourceLocator, &m_iconData, &size);
 	m_iconSize = size;
 #else
 	if(app.hasArchiveFile(L"Graphics\\TexturePackIcon.png"))

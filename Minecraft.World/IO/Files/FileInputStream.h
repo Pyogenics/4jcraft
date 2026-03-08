@@ -15,6 +15,6 @@ public:
 	virtual int64_t skip(int64_t n);
 
 private:
-	HANDLE m_fileHandle;
+	void* m_fileHandle;
 
 };

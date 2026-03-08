@@ -29,7 +29,7 @@ CustomLevelSource::CustomLevelSource(Level *level, int64_t seed, bool generateSt
 	std::string path = "GAME:\\GameRules\\heightmap.bin";
 #endif
 #endif
-	HANDLE file = CreateFile(path.c_str(), GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	void* file = CreateFile(path.c_str(), GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if( file == INVALID_HANDLE_VALUE )
 	{
 		app.FatalLoadError();

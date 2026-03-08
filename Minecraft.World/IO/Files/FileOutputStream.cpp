@@ -42,7 +42,7 @@ FileOutputStream::FileOutputStream(const File &file) : m_fileHandle( INVALID_HAN
 	char* convertedPath = new char[path.size() + 1];
 	std::wcstombs(convertedPath, path.c_str(), path.size() + 1);
 
-	m_fileHandle = (HANDLE)(intptr_t)open(convertedPath, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
+	m_fileHandle = (void*)(intptr_t)open(convertedPath, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
 	delete[] convertedPath;
 #else
 	m_fileHandle = CreateFile(

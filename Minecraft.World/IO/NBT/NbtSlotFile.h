@@ -14,7 +14,7 @@ private:
     static const int FILE_SLOT_HEADER_SIZE = 12;
     static const int FILE_SLOT_SIZE = 500;
 
-    HANDLE raf;
+    void* raf;
     std::vector<int> **fileSlotMap;
 	int fileSlotMapLength;
     std::vector<int> freeFileSlots;

@@ -416,7 +416,7 @@ std::vector<File *> *File::listFiles() const
 #ifdef _UNICODE
 	wchar_t path[MAX_PATH];
 	swprintf( path, L"%ls\\*", getPath().c_str() );
-	HANDLE hFind = FindFirstFile( path, &wfd);
+	void* hFind = FindFirstFile( path, &wfd);
 	if(hFind != INVALID_HANDLE_VALUE)
 	{
 		int count = 0;
@@ -434,7 +434,7 @@ std::vector<File *> *File::listFiles() const
 #else
 	char path[MAX_PATH];
 	sprintf( path, "%s\\*", wstringtofilename( getPath() ) );
-	HANDLE hFind = FindFirstFile( path, &wfd);
+	void* hFind = FindFirstFile( path, &wfd);
 	if(hFind != INVALID_HANDLE_VALUE)
 	{
 		//int count = 0;
@@ -511,7 +511,7 @@ std::vector<File *> *File::listFiles(FileFilter *filter) const
 	uint32_t dwAttr = FILE_ATTRIBUTE_DIRECTORY;
 
 	swprintf( path, L"%ls\\*", getPath().c_str() );
-	HANDLE hFind = FindFirstFile( path, &wfd);
+	void* hFind = FindFirstFile( path, &wfd);
 	if(hFind != INVALID_HANDLE_VALUE)
 	{
 		int count = 0;
@@ -535,7 +535,7 @@ std::vector<File *> *File::listFiles(FileFilter *filter) const
 	//uint32_t dwAttr = FILE_ATTRIBUTE_DIRECTORY;
 
 	sprintf( path, "%s\\*", wstringtofilename( getPath() ) );
-	HANDLE hFind = FindFirstFile( path, &wfd);
+	void* hFind = FindFirstFile( path, &wfd);
 	if(hFind != INVALID_HANDLE_VALUE)
 	{
 		//int count = 0;

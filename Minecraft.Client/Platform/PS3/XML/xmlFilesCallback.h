@@ -9,10 +9,10 @@ using namespace ATG;
 class xmlMojangCallback : public ATG::ISAXCallback
 {
 public:
-	virtual HRESULT  StartDocument() { return S_OK; };
-	virtual HRESULT  EndDocument() { return S_OK; };
+	virtual int32_t  StartDocument() { return S_OK; };
+	virtual int32_t  EndDocument() { return S_OK; };
 
-	virtual HRESULT  ElementBegin( CONST wchar_t* strName, uint32_t NameLen, CONST XMLAttribute *pAttributes, uint32_t NumAttributes )
+	virtual int32_t  ElementBegin( CONST wchar_t* strName, uint32_t NameLen, CONST XMLAttribute *pAttributes, uint32_t NumAttributes )
 	{
 		wchar_t wTemp[35] = L"";
 		wchar_t wAttName[32] = L"";
@@ -80,27 +80,27 @@ public:
 		}
 	};
 
-	virtual HRESULT  ElementContent( CONST wchar_t *strData, uint32_t DataLen, BOOL More ) {    return S_OK;   };
+	virtual int32_t  ElementContent( CONST wchar_t *strData, uint32_t DataLen, BOOL More ) {    return S_OK;   };
 
-	virtual HRESULT  ElementEnd( CONST wchar_t *strName, uint32_t NameLen ){       return S_OK;    };
+	virtual int32_t  ElementEnd( CONST wchar_t *strName, uint32_t NameLen ){       return S_OK;    };
 
-	virtual HRESULT  CDATABegin( )  { return S_OK; };
+	virtual int32_t  CDATABegin( )  { return S_OK; };
 
-	virtual HRESULT  CDATAData( CONST wchar_t *strCDATA, uint32_t CDATALen, BOOL bMore ){ return S_OK; };
+	virtual int32_t  CDATAData( CONST wchar_t *strCDATA, uint32_t CDATALen, BOOL bMore ){ return S_OK; };
 
-	virtual HRESULT  CDATAEnd( ){ return S_OK; };
+	virtual int32_t  CDATAEnd( ){ return S_OK; };
 
-	virtual void     Error( HRESULT hError, CONST char *strMessage )    {     app.DebugPrintf("Error when Parsing xuids.XML\n");    };
+	virtual void     Error( int32_t hError, CONST char *strMessage )    {     app.DebugPrintf("Error when Parsing xuids.XML\n");    };
 
 };
 
 class xmlDLCInfoCallback : public ATG::ISAXCallback
 {
 public:
-	virtual HRESULT  StartDocument() { return S_OK; };
-	virtual HRESULT  EndDocument() { return S_OK; };
+	virtual int32_t  StartDocument() { return S_OK; };
+	virtual int32_t  EndDocument() { return S_OK; };
 
-	virtual HRESULT  ElementBegin( CONST wchar_t* strName, uint32_t NameLen, CONST XMLAttribute *pAttributes, uint32_t NumAttributes )
+	virtual int32_t  ElementBegin( CONST wchar_t* strName, uint32_t NameLen, CONST XMLAttribute *pAttributes, uint32_t NumAttributes )
 	{
 		wchar_t wTemp[35] = L"";
 		wchar_t wAttName[32] = L"";
@@ -215,17 +215,17 @@ public:
 		}
 	};
 
-	virtual HRESULT  ElementContent( CONST wchar_t *strData, uint32_t DataLen, BOOL More ) {    return S_OK;   };
+	virtual int32_t  ElementContent( CONST wchar_t *strData, uint32_t DataLen, BOOL More ) {    return S_OK;   };
 
-	virtual HRESULT  ElementEnd( CONST wchar_t *strName, uint32_t NameLen ){       return S_OK;    };
+	virtual int32_t  ElementEnd( CONST wchar_t *strName, uint32_t NameLen ){       return S_OK;    };
 
-	virtual HRESULT  CDATABegin( )  { return S_OK; };
+	virtual int32_t  CDATABegin( )  { return S_OK; };
 
-	virtual HRESULT  CDATAData( CONST wchar_t *strCDATA, uint32_t CDATALen, BOOL bMore ){ return S_OK; };
+	virtual int32_t  CDATAData( CONST wchar_t *strCDATA, uint32_t CDATALen, BOOL bMore ){ return S_OK; };
 
-	virtual HRESULT  CDATAEnd( ){ return S_OK; };
+	virtual int32_t  CDATAEnd( ){ return S_OK; };
 
-	virtual void     Error( HRESULT hError, CONST char *strMessage )    {     app.DebugPrintf("Error when Parsing DLC.XML\n");    };
+	virtual void     Error( int32_t hError, CONST char *strMessage )    {     app.DebugPrintf("Error when Parsing DLC.XML\n");    };
 
 };
 

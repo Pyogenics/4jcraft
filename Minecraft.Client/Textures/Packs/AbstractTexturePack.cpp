@@ -45,7 +45,7 @@ void AbstractTexturePack::loadIcon()
 	swprintf(szResourceLocator, LOCATOR_SIZE ,L"section://%X,%ls#%ls",c_ModuleHandle,L"media", L"media/Graphics/TexturePackIcon.png");
 
 	uint32_t size = 0;
-	HRESULT hr = XuiResourceLoadAllNoLoc(szResourceLocator, &m_iconData, &size);
+	int32_t hr = XuiResourceLoadAllNoLoc(szResourceLocator, &m_iconData, &size);
 	m_iconSize = size;
 #endif
 }
@@ -61,7 +61,7 @@ void AbstractTexturePack::loadComparison()
 	swprintf(szResourceLocator, LOCATOR_SIZE ,L"section://%X,%ls#%ls",c_ModuleHandle,L"media", L"media/Graphics/DefaultPack_Comparison.png");
 
 	uint32_t size = 0;
-	HRESULT hr = XuiResourceLoadAllNoLoc(szResourceLocator, &m_comparisonData, &size);
+	int32_t hr = XuiResourceLoadAllNoLoc(szResourceLocator, &m_comparisonData, &size);
 	m_comparisonSize = size;
 #endif
 }
@@ -298,7 +298,7 @@ void AbstractTexturePack::loadDefaultHTMLColourTable()
 	{
 		wsprintfW(szResourceLocator,L"section://%X,%s#%s",c_ModuleHandle,L"media", L"media/");
 		HXUIOBJ hScene;
-		HRESULT hr = XuiSceneCreate(szResourceLocator,L"xuiscene_colourtable.xur", NULL, &hScene);
+		int32_t hr = XuiSceneCreate(szResourceLocator,L"xuiscene_colourtable.xur", NULL, &hScene);
 
 		if(HRESULT_SUCCEEDED(hr))
 		{
@@ -320,7 +320,7 @@ void AbstractTexturePack::loadDefaultHTMLColourTable()
 void AbstractTexturePack::loadHTMLColourTableFromXuiScene(HXUIOBJ hObj)
 {
 	HXUIOBJ child;
-	HRESULT hr = XuiElementGetFirstChild(hObj, &child);
+	int32_t hr = XuiElementGetFirstChild(hObj, &child);
 
 	while(HRESULT_SUCCEEDED(hr) && child != NULL)
 	{

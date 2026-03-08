@@ -1517,7 +1517,7 @@ void ConsoleSaveFileSplit::DebugFlushToFile(void *compressedData /*= NULL*/, uns
 	const char* lpFileName = wstringtofilename( targetFileDir.getPath() + std::wstring(fileName) );
 #endif
 
-	HANDLE hSaveFile = CreateFile( lpFileName, GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_FLAG_RANDOM_ACCESS, NULL);
+	void* hSaveFile = CreateFile( lpFileName, GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_FLAG_RANDOM_ACCESS, NULL);
 
 	if(compressedData != NULL && compressedDataSize > 0)
 	{

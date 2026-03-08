@@ -117,7 +117,7 @@ BOOL CConsoleMinecraftApp::ReadProductCodes()
 	char chDLCTitle[64];
 
 	// 4J-PB - Read the file containing the product codes. This will be different for the SCEE/SCEA/SCEJ builds
-	HANDLE file = CreateFile("PSVita/PSVitaProductCodes.bin", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	void* file = CreateFile("PSVita/PSVitaProductCodes.bin", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if( file == INVALID_HANDLE_VALUE )
 	{
 		uint32_t error = GetLastError();

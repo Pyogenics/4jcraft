@@ -866,7 +866,7 @@ void ConsoleSaveFileOriginal::DebugFlushToFile(void *compressedData /*= NULL*/, 
 	const char* lpFileName = wstringtofilename( targetFileDir.getPath() + std::wstring(fileName) );
 #endif
 #ifndef __PSVITA__
-	HANDLE hSaveFile = CreateFile( lpFileName, GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_FLAG_RANDOM_ACCESS, NULL);
+	void* hSaveFile = CreateFile( lpFileName, GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_FLAG_RANDOM_ACCESS, NULL);
 #endif
 
 	if(compressedData != NULL && compressedDataSize > 0)

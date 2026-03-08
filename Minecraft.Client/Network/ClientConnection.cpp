@@ -3178,7 +3178,7 @@ void ClientConnection::handleCustomPayload(std::shared_ptr<CustomPayloadPacket> 
 			if( XuiClassDerivesFrom( objClass, thisClass ) )
 			{
 				CXuiSceneTrading *screen;
-				HRESULT hr = XuiObjectFromHandle(scene, (void **) &screen);
+				int32_t hr = XuiObjectFromHandle(scene, (void **) &screen);
 				if (FAILED(hr)) return;
 				trader = screen->getMerchant();
 			}

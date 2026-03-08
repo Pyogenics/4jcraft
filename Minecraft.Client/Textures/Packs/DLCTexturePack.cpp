@@ -205,7 +205,7 @@ void DLCTexturePack::loadColourTable()
 
 		swprintf(szResourceLocator, LOCATOR_SIZE,L"memory://%08X,%04X#xuiscene_colourtable.xur",pbData, dwSize);
 		HXUIOBJ hScene;
-		HRESULT hr = XuiSceneCreate(szResourceLocator,szResourceLocator, NULL, &hScene);
+		int32_t hr = XuiSceneCreate(szResourceLocator,szResourceLocator, NULL, &hScene);
 
 		if(HRESULT_SUCCEEDED(hr))
 		{
@@ -306,7 +306,7 @@ int DLCTexturePack::packMounted(void* pParam,int iPad,uint32_t dwErr,uint32_t dw
 				if(xzpPath.exists())
 				{
 					const char *pchFilename=wstringtofilename(xzpPath.getPath());
-					HANDLE fileHandle = CreateFile(
+					void* fileHandle = CreateFile(
 						pchFilename, // file name
 						GENERIC_READ, // access mode
 						0, // share mode // TODO 4J Stu - Will we need to share file? Probably not but...
@@ -357,7 +357,7 @@ int DLCTexturePack::packMounted(void* pParam,int iPad,uint32_t dwErr,uint32_t dw
 #if defined(_UNICODE) && !defined(__linux__)
 								std::wstring path = grf.getPath();
 								const wchar_t *pchFilename=path.c_str();
-								HANDLE fileHandle = CreateFile(
+								void* fileHandle = CreateFile(
 									pchFilename, // file name
 									GENERIC_READ, // access mode
 									0, // share mode // TODO 4J Stu - Will we need to share file? Probably not but...
@@ -368,7 +368,7 @@ int DLCTexturePack::packMounted(void* pParam,int iPad,uint32_t dwErr,uint32_t dw
 									);
 #else
 								const char *pchFilename=wstringtofilename(grf.getPath());
-								HANDLE fileHandle = CreateFile(
+								void* fileHandle = CreateFile(
 									pchFilename, // file name
 									GENERIC_READ, // access mode
 									0, // share mode // TODO 4J Stu - Will we need to share file? Probably not but...
@@ -409,7 +409,7 @@ int DLCTexturePack::packMounted(void* pParam,int iPad,uint32_t dwErr,uint32_t dw
 #if defined(_UNICODE) && !defined(__linux__)
 							std::wstring path = grf.getPath();
 							const wchar_t *pchFilename=path.c_str();
-							HANDLE fileHandle = CreateFile(
+							void* fileHandle = CreateFile(
 								pchFilename, // file name
 								GENERIC_READ, // access mode
 								0, // share mode // TODO 4J Stu - Will we need to share file? Probably not but...
@@ -420,7 +420,7 @@ int DLCTexturePack::packMounted(void* pParam,int iPad,uint32_t dwErr,uint32_t dw
 								);
 #else
 							const char *pchFilename=wstringtofilename(grf.getPath());
-							HANDLE fileHandle = CreateFile(
+							void* fileHandle = CreateFile(
 								pchFilename, // file name
 								GENERIC_READ, // access mode
 								0, // share mode // TODO 4J Stu - Will we need to share file? Probably not but...
@@ -527,7 +527,7 @@ void DLCTexturePack::loadUI()
 		XuiFreeVisuals(L"");
 
 
-		HRESULT hr = app.LoadSkin(szResourceLocator,NULL);//L"TexturePack");
+		int32_t hr = app.LoadSkin(szResourceLocator,NULL);//L"TexturePack");
 		if(HRESULT_SUCCEEDED(hr))
 		{
 			bUILoaded = true;

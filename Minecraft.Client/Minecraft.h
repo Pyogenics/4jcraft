@@ -89,7 +89,7 @@ private:
 	bool reloadTextures;
 public:
 	Level *oldLevel; // 4J Stu added to keep a handle on an old level so we can delete it
-	//HANDLE m_hPlayerRespawned; // 4J Added so we can wait in menus until it is done (for async in multiplayer)
+	//void* m_hPlayerRespawned; // 4J Added so we can wait in menus until it is done (for async in multiplayer)
 public:
 
 	MultiPlayerLevel *level;

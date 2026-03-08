@@ -33,7 +33,7 @@ typedef struct _XPARTY_USER_LIST {
 
 uint32_t XShowPartyUI(uint32_t dwUserIndex);
 uint32_t XShowFriendsUI(uint32_t dwUserIndex);
-HRESULT XPartyGetUserList(XPARTY_USER_LIST *pUserList);
+int32_t XPartyGetUserList(XPARTY_USER_LIST *pUserList);
 
 uint32_t XContentGetThumbnail(uint32_t dwUserIndex, const XCONTENT_DATA *pContentData,  uint8_t* pbThumbnail,  uint32_t* pcbThumbnail,  PXOVERLAPPED *pOverlapped);
 

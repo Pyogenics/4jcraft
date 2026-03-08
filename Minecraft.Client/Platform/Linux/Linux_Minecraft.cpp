@@ -257,7 +257,7 @@ void DefineActions(void)
 }
 
 #if 0
-HRESULT InitD3D( IDirect3DDevice9 **ppDevice,
+int32_t InitD3D( IDirect3DDevice9 **ppDevice,
 D3DPRESENT_PARAMETERS *pd3dPP )
 {
 IDirect3D9 *pD3D;
@@ -427,9 +427,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //--------------------------------------------------------------------------------------
 // Create Direct3D device and swap chain
 //--------------------------------------------------------------------------------------
-HRESULT InitDevice()
+int32_t InitDevice()
 {
-    HRESULT hr = S_OK;
+    int32_t hr = S_OK;
 
     RECT rc;
     GetClientRect( g_hWnd, &rc );

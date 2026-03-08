@@ -60,7 +60,7 @@ Compression *Compression::getCompression()
 	return tls->compression;
 }
 
-HRESULT Compression::CompressLZXRLE(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize)
+int32_t Compression::CompressLZXRLE(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize)
 {
 	EnterCriticalSection(&rleCompressLock);
 	//static unsigned char rleBuf[1024*100];
@@ -119,7 +119,7 @@ HRESULT Compression::CompressLZXRLE(void *pDestination, unsigned int *pDestSize,
 	return S_OK;
 }
 
-HRESULT Compression::CompressRLE(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize)
+int32_t Compression::CompressRLE(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize)
 {
 	EnterCriticalSection(&rleCompressLock);
 	//static unsigned char rleBuf[1024*100];
@@ -186,7 +186,7 @@ HRESULT Compression::CompressRLE(void *pDestination, unsigned int *pDestSize, vo
 	return S_OK;
 }
 
-HRESULT Compression::DecompressLZXRLE(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize)
+int32_t Compression::DecompressLZXRLE(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize)
 {
 	EnterCriticalSection(&rleDecompressLock);
 	// 4J Stu - Fix for #13676 - Crash: Crash while attempting to load a world after updating TU
@@ -258,7 +258,7 @@ HRESULT Compression::DecompressLZXRLE(void *pDestination, unsigned int *pDestSiz
 	return S_OK;
 }
 
-HRESULT Compression::DecompressRLE(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize)
+int32_t Compression::DecompressRLE(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize)
 {
 	EnterCriticalSection(&rleDecompressLock);
 	
@@ -303,7 +303,7 @@ HRESULT Compression::DecompressRLE(void *pDestination, unsigned int *pDestSize, 
 }
 
 
-HRESULT Compression::Compress(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize)
+int32_t Compression::Compress(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize)
 {
 	// Using zlib for x64 compression - 360 is using native 360 compression and PS3 a stubbed non-compressing version of this
 #if defined __ORBIS__ || defined _DURANGO || defined _WIN64 || defined __PSVITA__ || defined __linux__
@@ -318,13 +318,13 @@ HRESULT Compression::Compress(void *pDestination, unsigned int *pDestSize, void 
 	return ( ( res ) ? S_OK : -1 );
 #else
 	size_t destSize = (size_t)(*pDestSize);
-	HRESULT res = XMemCompress(compressionContext, pDestination, &destSize, pSource, SrcSize);
+	int32_t res = XMemCompress(compressionContext, pDestination, &destSize, pSource, SrcSize);
 	*pDestSize = (unsigned int)destSize;
 	return res;
 #endif
 }
 
-HRESULT Compression::Decompress(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize)
+int32_t Compression::Decompress(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize)
 {
 
 	if(m_decompressType != m_localDecompressType)	// check if we're decompressing data from a different platform
@@ -346,7 +346,7 @@ HRESULT Compression::Decompress(void *pDestination, unsigned int *pDestSize, voi
 	return ( ( res ) ? S_OK : -1 );
 #else
 	size_t destSize = (size_t)(*pDestSize);
-	HRESULT res = XMemDecompress(decompressionContext, pDestination, (size_t *)&destSize, pSource, SrcSize);
+	int32_t res = XMemDecompress(decompressionContext, pDestination, (size_t *)&destSize, pSource, SrcSize);
 	*pDestSize = (unsigned int)destSize;
 	return res;
 #endif
@@ -389,7 +389,7 @@ void Compression::VitaVirtualDecompress(void *pDestination, unsigned int *pDestS
 #endif
 
 
-HRESULT Compression::DecompressWithType(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize)
+int32_t Compression::DecompressWithType(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize)
 {
 	switch(m_decompressType)
 	{
@@ -402,7 +402,7 @@ HRESULT Compression::DecompressWithType(void *pDestination, unsigned int *pDestS
 		{
 #if (defined _XBOX || defined _DURANGO || defined _WIN64)
 			size_t destSize = (size_t)(*pDestSize);
-			HRESULT res = XMemDecompress(decompressionContext, pDestination, (size_t *)&destSize, pSource, SrcSize);
+			int32_t res = XMemDecompress(decompressionContext, pDestination, (size_t *)&destSize, pSource, SrcSize);
 			*pDestSize = (unsigned int)destSize;
 			return res;
 #else

@@ -122,7 +122,7 @@ byteArray ArchiveFile::getFile(const std::wstring &filename)
 #else
 
 #if defined(_UNICODE) && !defined(__linux__)
-		HANDLE hfile = CreateFile(	m_sourcefile.getPath().c_str(), 
+		void* hfile = CreateFile(	m_sourcefile.getPath().c_str(), 
 			GENERIC_READ,
 			0,
 			NULL,
@@ -132,7 +132,7 @@ byteArray ArchiveFile::getFile(const std::wstring &filename)
 			);
 #else
 		app.DebugPrintf("Createfile archive\n");
-		HANDLE hfile = CreateFile(	wstringtofilename(m_sourcefile.getPath()), 
+		void* hfile = CreateFile(	wstringtofilename(m_sourcefile.getPath()), 
 			GENERIC_READ,
 			0,
 			NULL,

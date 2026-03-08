@@ -39,12 +39,12 @@ public:
 	static Compression *getCompression();
 
 public:
-	HRESULT Compress(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize);
-	HRESULT Decompress(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize);
-	HRESULT CompressLZXRLE(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize);
-	HRESULT DecompressLZXRLE(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize);
-	HRESULT CompressRLE(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize);
-	HRESULT DecompressRLE(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize);
+	int32_t Compress(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize);
+	int32_t Decompress(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize);
+	int32_t CompressLZXRLE(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize);
+	int32_t DecompressLZXRLE(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize);
+	int32_t CompressRLE(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize);
+	int32_t DecompressRLE(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize);
 #ifndef _XBOX
 	static void VitaVirtualDecompress(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize);
 #endif
@@ -57,7 +57,7 @@ public:
 	~Compression();
 private:
 
-	HRESULT DecompressWithType(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize);
+	int32_t DecompressWithType(void *pDestination, unsigned int *pDestSize, void *pSource, unsigned int SrcSize);
 
 #if defined __ORBIS__ || defined __PS3__
 #else

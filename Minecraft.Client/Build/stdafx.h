@@ -41,7 +41,7 @@
 #include "../Platform/Orbis/OrbisExtras/OrbisTypes.h"
 #include "../Platform/Orbis/OrbisExtras/OrbisStubs.h"
 #include "../Platform/Orbis/OrbisExtras/OrbisMaths.h"
-#define HRESULT_SUCCEEDED(hr) (((HRESULT)(hr)) >= 0)
+#define HRESULT_SUCCEEDED(hr) (((int32_t)(hr)) >= 0)
 #elif defined __PSVITA__
 #include <stdio.h>
 #include <stdlib.h>
@@ -82,7 +82,7 @@ typedef unsigned int64_t uint64_t;
 #include <DirectXMath.h>
 using namespace DirectX; 
 
-#define HRESULT_SUCCEEDED(hr) (((HRESULT)(hr)) >= 0)
+#define HRESULT_SUCCEEDED(hr) (((int32_t)(hr)) >= 0)
 
 #endif
 
@@ -98,7 +98,7 @@ using namespace DirectX;
 using namespace DirectX; 
 #include <pix.h>
 #include "../Platform/Durango/DurangoExtras/DurangoStubs.h"
-#define HRESULT_SUCCEEDED(hr) (((HRESULT)(hr)) >= 0)
+#define HRESULT_SUCCEEDED(hr) (((int32_t)(hr)) >= 0)
 #endif
 
 
@@ -114,7 +114,7 @@ typedef XINVITE_INFO INVITE_INFO;
 typedef XUID PlayerUID;
 typedef XNKID SessionID;
 typedef XUID GameSessionUID;
-#define HRESULT_SUCCEEDED(hr) (((HRESULT)(hr)) >= 0)
+#define HRESULT_SUCCEEDED(hr) (((int32_t)(hr)) >= 0)
 
 #include "../Minecraft.Client/xbox/network/extra.h"
 #else

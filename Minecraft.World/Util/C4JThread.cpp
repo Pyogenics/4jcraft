@@ -628,7 +628,7 @@ C4JThread::EventArray::EventArray( int size, EMode mode/* = e_modeAutoClear*/)
 	char name[1] = {0};
 	m_events = sceKernelCreateEventFlag( name, SCE_KERNEL_EVF_ATTR_TH_FIFO | SCE_KERNEL_EVF_ATTR_MULTI, 0, NULL);
 #else
-	m_events = new HANDLE[size];
+	m_events = new void*[size];
 	for(int i=0;i<size;i++)
 	{
 		m_events[i]  = CreateEvent(NULL, (m_mode == e_modeManualClear), FALSE, NULL );
