@@ -93,7 +93,7 @@ void PlayerChunkMap::PlayerChunk::remove(std::shared_ptr<ServerPlayer> player)
     players.erase(it);
     if (players.size() == 0)
 	{
-        __int64 id = (pos.x + 0x7fffffffLL) | ((pos.z + 0x7fffffffLL) << 32);
+        int64_t id = (pos.x + 0x7fffffffLL) | ((pos.z + 0x7fffffffLL) << 32);
 		AUTO_VAR(it, parent->chunks.find(id));
 		if( it != parent->chunks.end() )
 		{
@@ -433,13 +433,13 @@ void PlayerChunkMap::tick()
 
 bool PlayerChunkMap::hasChunk(int x, int z)
 {
-    __int64 id = (x + 0x7fffffffLL) | ((z + 0x7fffffffLL) << 32);
+    int64_t id = (x + 0x7fffffffLL) | ((z + 0x7fffffffLL) << 32);
 	return chunks.find(id) != chunks.end();
 }
 
 PlayerChunkMap::PlayerChunk *PlayerChunkMap::getChunk(int x, int z, bool create)
 {
-    __int64 id = (x + 0x7fffffffLL) | ((z + 0x7fffffffLL) << 32);
+    int64_t id = (x + 0x7fffffffLL) | ((z + 0x7fffffffLL) << 32);
 	AUTO_VAR(it, chunks.find(id));
 
 	PlayerChunk *chunk = NULL;
@@ -460,7 +460,7 @@ PlayerChunkMap::PlayerChunk *PlayerChunkMap::getChunk(int x, int z, bool create)
 // queue a request for it to be created.
 void PlayerChunkMap::getChunkAndAddPlayer(int x, int z, std::shared_ptr<ServerPlayer> player)
 {
-    __int64 id = (x + 0x7fffffffLL) | ((z + 0x7fffffffLL) << 32);
+    int64_t id = (x + 0x7fffffffLL) | ((z + 0x7fffffffLL) << 32);
 	AUTO_VAR(it, chunks.find(id));
 
 	if( it != chunks.end() )
@@ -487,7 +487,7 @@ void PlayerChunkMap::getChunkAndRemovePlayer(int x, int z, std::shared_ptr<Serve
 			return;
 		}
 	}
-    __int64 id = (x + 0x7fffffffLL) | ((z + 0x7fffffffLL) << 32);
+    int64_t id = (x + 0x7fffffffLL) | ((z + 0x7fffffffLL) << 32);
 	AUTO_VAR(it, chunks.find(id));
 
 	if( it != chunks.end() )

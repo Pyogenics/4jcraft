@@ -80,7 +80,7 @@ public:
         tags[name] = (new IntTag(name,value));
     }
 
-    void putLong(const wchar_t * name, __int64 value)
+    void putLong(const wchar_t * name, int64_t value)
 	{
         tags[name] = (new LongTag(name,value));
     }
@@ -150,9 +150,9 @@ public:
         return ((IntTag *) tags[name])->data;
     }
 
-    __int64 getLong(const wchar_t * name)
+    int64_t getLong(const wchar_t * name)
 	{
-        if (tags.find(name) == tags.end()) return (__int64)0;
+        if (tags.find(name) == tags.end()) return (int64_t)0;
         return ((LongTag *) tags[name])->data;
     }
 

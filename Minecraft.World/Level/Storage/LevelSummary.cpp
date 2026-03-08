@@ -1,7 +1,7 @@
 #include "../../Build/stdafx.h"
 #include "LevelSummary.h"
 
-LevelSummary::LevelSummary(const std::wstring& levelId, const std::wstring& levelName, __int64 lastPlayed, __int64 sizeOnDisk,  GameType *gameMode, bool requiresConversion, bool hardcore, bool hasCheats) :
+LevelSummary::LevelSummary(const std::wstring& levelId, const std::wstring& levelName, int64_t lastPlayed, int64_t sizeOnDisk,  GameType *gameMode, bool requiresConversion, bool hardcore, bool hasCheats) :
 	levelId( levelId ),
 	levelName( levelName ),
 	lastPlayed( lastPlayed ),
@@ -23,7 +23,7 @@ std::wstring LevelSummary::getLevelName()
 	return levelName;
 }
 
-__int64 LevelSummary::getSizeOnDisk()
+int64_t LevelSummary::getSizeOnDisk()
 {
 	return sizeOnDisk;
 }
@@ -33,7 +33,7 @@ bool LevelSummary::isRequiresConversion()
 	return requiresConversion;
 }
 
-__int64 LevelSummary::getLastPlayed() 
+int64_t LevelSummary::getLastPlayed() 
 {
 	return lastPlayed;
 }

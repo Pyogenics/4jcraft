@@ -192,7 +192,7 @@ void ServerLevel::tick()
 		if (!somebodyWokeUp)
 		{
 			// skip time until new day
-			__int64 newTime = levelData->getTime() + TICKS_PER_DAY;
+			int64_t newTime = levelData->getTime() + TICKS_PER_DAY;
 
 			// 4J : WESTY : Changed so that time update goes through stats tracking update code.
 			//levelData->setTime(newTime - (newTime % TICKS_PER_DAY));
@@ -230,7 +230,7 @@ void ServerLevel::tick()
 
 	//4J - temporarily disabling saves as they are causing gameplay to generally stutter quite a lot
 
-	__int64 time = levelData->getTime() + 1;
+	int64_t time = levelData->getTime() + 1;
 // 4J Stu - Putting this back in, but I have reduced the number of chunks that save when not forced
 #ifdef _LARGE_WORLDS
 	if (time % (saveInterval) == (dimension->id + 1))
@@ -1139,9 +1139,9 @@ EntityTracker *ServerLevel::getTracker()
 	return tracker;
 }
 
-void ServerLevel::setTimeAndAdjustTileTicks(__int64 newTime)
+void ServerLevel::setTimeAndAdjustTileTicks(int64_t newTime)
 {
-	__int64 delta = newTime - levelData->getTime();
+	int64_t delta = newTime - levelData->getTime();
 	// 4J - can't directly adjust m_delay in a set as it has a const interator, since changing values in here might change the ordering of the elements in the set.
 	// Instead move to a vector, do the adjustment, put back in the set.
 	std::vector<TickNextTickData> temp;

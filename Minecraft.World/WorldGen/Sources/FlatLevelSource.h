@@ -25,7 +25,7 @@ private:
 	VillageFeature *villageFeature;// = new VillageFeature(1);
 
 public: 
-	FlatLevelSource(Level *level, __int64 seed, bool generateStructures);
+	FlatLevelSource(Level *level, int64_t seed, bool generateStructures);
 	~FlatLevelSource();
 
 private: void prepareHeights(byteArray blocks); 

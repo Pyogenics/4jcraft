@@ -574,7 +574,7 @@ bool File::isDirectory() const
 //Returns the length of the file denoted by this abstract pathname. The return value is unspecified if this pathname denotes a directory.
 //Returns:
 //The length, in bytes, of the file denoted by this abstract pathname, or 0L if the file does not exist
-__int64 File::length()
+int64_t File::length()
 {
 #ifdef __PS3__
 	//extern const char* getPS3HomePath();
@@ -687,7 +687,7 @@ __int64 File::length()
 //Returns:
 //A long value representing the time the file was last modified, measured in milliseconds since the epoch (00:00:00 GMT, January 1, 1970),
 //or 0L if the file does not exist or if an I/O error occurs
-__int64 File::lastModified()
+int64_t File::lastModified()
 {
 #if !defined(__linux__)
 	WIN32_FILE_ATTRIBUTE_DATA fileInfoBuffer;
@@ -722,7 +722,7 @@ __int64 File::lastModified()
 #else
 	struct stat fileStat;
 	if (stat(wstringtofilename(getPath()), &fileStat) == 0 && !S_ISDIR(fileStat.st_mode)) {
-		return static_cast<__int64>(fileStat.st_mtime);
+		return static_cast<int64_t>(fileStat.st_mtime);
 	} else {
 		return 0l;
 	}

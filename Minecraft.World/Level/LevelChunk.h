@@ -134,8 +134,8 @@ public:
 	void stopSharingTilesAndData();					// 4J added
 	virtual void reSyncLighting();					// 4J added
 	void startSharingTilesAndData(int forceMs = 0);	// 4J added
-	__int64 lastUnsharedTime;						// 4J added
-    __int64 lastSaveTime;
+	int64_t lastUnsharedTime;						// 4J added
+    int64_t lastSaveTime;
 	bool seenByPlayer;
 
 #ifdef _LARGE_WORLDS
@@ -213,7 +213,7 @@ public:
 	virtual bool testSetBlocksAndData(byteArray data, int x0, int y0, int z0, int x1, int y1, int z1, int p);	// 4J added
 	virtual void setCheckAllLight();
 
-    virtual Random *getRandom(__int64 l);
+    virtual Random *getRandom(int64_t l);
     virtual bool isEmpty();
     virtual void attemptCompression();
 

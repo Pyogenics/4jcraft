@@ -55,7 +55,7 @@ void System::arraycopy(arrayWithLength<int> src, unsigned int srcPos, arrayWithL
 // 
 //Returns:
 //The current value of the system timer, in nanoseconds.
-__int64 System::nanoTime()
+int64_t System::nanoTime()
 {
 #if !defined(__linux__)
 	return GetTickCount() * 1000000LL;
@@ -74,7 +74,7 @@ __int64 System::nanoTime()
 //
 //Returns:
 //the difference, measured in milliseconds, between the current time and midnight, January 1, 1970 UTC.
-__int64 System::currentTimeMillis()
+int64_t System::currentTimeMillis()
 {
 #ifdef __PS3__
 //	sys_time_get_current_time() obtains the elapsed time since Epoch (1970/01/01 00:00:00 UTC). 
@@ -83,7 +83,7 @@ __int64 System::currentTimeMillis()
 	sys_time_sec_t sec;
 	sys_time_nsec_t nsec;
 	sys_time_get_current_time(&sec, &nsec);
-	__int64 msec = (sec * 1000) + (nsec / (1000*1000));
+	int64_t msec = (sec * 1000) + (nsec / (1000*1000));
 	return msec;
 
 #elif defined __ORBIS__
@@ -96,7 +96,7 @@ __int64 System::currentTimeMillis()
 	return sceKernelGetProcessTimeWide() / 1000;
 /*	SceDateTime Time;
 	sceRtcGetCurrentClockLocalTime(&Time);
-	__int64 systTime = (((((((Time.day * 24) + Time.hour) * 60) + Time.minute) * 60) + Time.second) * 1000) + (Time.microsecond / 1000);
+	int64_t systTime = (((((((Time.day * 24) + Time.hour) * 60) + Time.minute) * 60) + Time.second) * 1000) + (Time.microsecond / 1000);
 	return systTime;*/
 #elif defined(__linux__)
 	struct timeval tv;
@@ -123,12 +123,12 @@ __int64 System::currentTimeMillis()
 }
 
 // 4J Stu - Added this so that we can use real-world timestamps in PSVita saves. Particularly required for the save transfers to be smooth
-__int64 System::currentRealTimeMillis()
+int64_t System::currentRealTimeMillis()
 {
 #ifdef __PSVITA__
 	SceDateTime Time;
 	sceRtcGetCurrentClockLocalTime(&Time);
-	__int64 systTime = (((((((Time.day * 24) + Time.hour) * 60) + Time.minute) * 60) + Time.second) * 1000) + (Time.microsecond / 1000);
+	int64_t systTime = (((((((Time.day * 24) + Time.hour) * 60) + Time.minute) * 60) + Time.second) * 1000) + (Time.microsecond / 1000);
 	return systTime;
 #else
 	return currentTimeMillis();
@@ -192,9 +192,9 @@ void System::ReverseINT(int *piVal)
 	pchVal1[3]=pchVal2[0];
 }
 
-void System::ReverseULONGLONG(__int64 *pullVal)
+void System::ReverseULONGLONG(int64_t *pullVal)
 {
-	__int64 ullValue=*pullVal;
+	int64_t ullValue=*pullVal;
 	unsigned char *pchVal1=(unsigned char *)pullVal;
 	unsigned char *pchVal2=(unsigned char *)&ullValue;
 

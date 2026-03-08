@@ -26,7 +26,7 @@ void BiomeSource::_init()
 	playerSpawnBiomes.push_back(Biome::jungleHills);
 }
 
-void BiomeSource::_init(__int64 seed, LevelType *generator)
+void BiomeSource::_init(int64_t seed, LevelType *generator)
 {
 	_init();
 
@@ -43,7 +43,7 @@ BiomeSource::BiomeSource()
 }
 
 // 4J added
-BiomeSource::BiomeSource(__int64 seed, LevelType *generator)
+BiomeSource::BiomeSource(int64_t seed, LevelType *generator)
 {
 	_init(seed, generator);
 }
@@ -408,13 +408,13 @@ void BiomeSource::update()
 
 // 4J added - find a seed for this biomesource that matches certain criteria
 #ifdef __PSVITA__
-__int64 BiomeSource::findSeed(LevelType *generator, bool* pServerRunning)	// MGH - added pRunning, so we can early out of this on Vita as it can take up to 60 secs
+int64_t BiomeSource::findSeed(LevelType *generator, bool* pServerRunning)	// MGH - added pRunning, so we can early out of this on Vita as it can take up to 60 secs
 #else
-__int64 BiomeSource::findSeed(LevelType *generator)	
+int64_t BiomeSource::findSeed(LevelType *generator)	
 #endif
 {
 
-	__int64 bestSeed = 0;
+	int64_t bestSeed = 0;
 
 	ProgressRenderer *mcprogress = Minecraft::GetInstance()->progressRenderer;
 	mcprogress->progressStage(IDS_PROGRESS_NEW_WORLD_SEED);
@@ -452,7 +452,7 @@ __int64 BiomeSource::findSeed(LevelType *generator)
 			// Just keeping trying to generate seeds until we find one that matches our criteria
 			do
 			{
-				__int64 seed = pr->nextLong();
+				int64_t seed = pr->nextLong();
 				BiomeSource *biomeSource = new BiomeSource(seed,generator);
 
 				biomeSource->getRawBiomeIndices(indices, biomeOffset, biomeOffset, biomeWidth, biomeWidth);

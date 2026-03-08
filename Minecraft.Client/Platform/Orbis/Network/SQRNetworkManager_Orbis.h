@@ -325,8 +325,8 @@ private:
 	static sce::Toolkit::NP::PresenceDetails		s_lastPresenceInfo;
 
 	static const int								MIN_PRESENCE_RESEND_TIME = 30 * 1000;		// Minimum presence send rate - doesn't seem possible to find out what this actually should be
-	static __int64									s_lastPresenceTime;
-	static __int64									s_resendPresenceTime;	
+	static int64_t									s_lastPresenceTime;
+	static int64_t									s_resendPresenceTime;	
 
 	static bool										s_presenceStatusDirty;
 	static bool										s_presenceDataDirty;

@@ -11,7 +11,7 @@ SetTimePacket::SetTimePacket()
 	time = 0;
 }
 
-SetTimePacket::SetTimePacket(__int64 time)
+SetTimePacket::SetTimePacket(int64_t time)
 {
 	this->time = time;
 }

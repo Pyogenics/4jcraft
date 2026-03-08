@@ -10,7 +10,7 @@ ChunkStorageProfilerDecorator::ChunkStorageProfilerDecorator(ChunkStorage *capsu
 
 LevelChunk *ChunkStorageProfilerDecorator::load(Level *level, int x, int z)
 {
-    __int64 nanoTime = System::nanoTime();
+    int64_t nanoTime = System::nanoTime();
     LevelChunk *chunk = capsulated->load(level, x, z);
     timeSpentLoading += System::nanoTime() - nanoTime;
     loadCount++;
@@ -20,7 +20,7 @@ LevelChunk *ChunkStorageProfilerDecorator::load(Level *level, int x, int z)
 
 void ChunkStorageProfilerDecorator::save(Level *level, LevelChunk *levelChunk)
 {
-    __int64 nanoTime = System::nanoTime();
+    int64_t nanoTime = System::nanoTime();
     capsulated->save(level, levelChunk);
     timeSpentSaving += System::nanoTime() - nanoTime;
     saveCount++;

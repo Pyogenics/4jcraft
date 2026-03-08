@@ -54,9 +54,9 @@
 //4J Added
 MinecraftServer *MinecraftServer::server = NULL;
 bool MinecraftServer::setTimeAtEndOfTick = false;
-__int64 MinecraftServer::setTime = 0;
+int64_t MinecraftServer::setTime = 0;
 bool MinecraftServer::setTimeOfDayAtEndOfTick = false;
-__int64 MinecraftServer::setTimeOfDay = 0;
+int64_t MinecraftServer::setTimeOfDay = 0;
 bool	MinecraftServer::m_bPrimaryPlayerSignedOut=false;
 bool	MinecraftServer::s_bServerHalted=false;
 bool	MinecraftServer::s_bSaveOnExitAnswered=false;
@@ -99,7 +99,7 @@ MinecraftServer::~MinecraftServer()
 {
 }
 
-bool MinecraftServer::initServer(__int64 seed, NetworkGameInitData *initData, uint32_t initSettings, bool findSeed)
+bool MinecraftServer::initServer(int64_t seed, NetworkGameInitData *initData, uint32_t initSettings, bool findSeed)
 {
 	// 4J - removed
 #if 0
@@ -201,7 +201,7 @@ bool MinecraftServer::initServer(__int64 seed, NetworkGameInitData *initData, ui
 			// TODO: Stop loading, add error message.
 		}
 
-        __int64 levelNanoTime = System::nanoTime();
+        int64_t levelNanoTime = System::nanoTime();
 
         std::wstring levelName = settings->getString(L"level-name", L"world");
 		std::wstring levelTypeString;
@@ -245,10 +245,10 @@ bool MinecraftServer::initServer(__int64 seed, NetworkGameInitData *initData, ui
 
 #if 0
         std::wstring levelSeedString = settings->getString(L"level-seed", L"");
-        __int64 levelSeed = (new Random())->nextLong();
+        int64_t levelSeed = (new Random())->nextLong();
         if (levelSeedString.length() > 0)
 		{
-			long newSeed = _fromString<__int64>(levelSeedString);
+			long newSeed = _fromString<int64_t>(levelSeedString);
 			if (newSeed != 0) {
 				levelSeed = newSeed;
 			}
@@ -378,7 +378,7 @@ void MinecraftServer::postProcessTerminate(ProgressRenderer *mcprogress)
 	DeleteCriticalSection(&m_postProcessCS);
 }
 
-bool MinecraftServer::loadLevel(LevelStorageSource *storageSource, const std::wstring& name, __int64 levelSeed, LevelType *pLevelType, NetworkGameInitData *initData)
+bool MinecraftServer::loadLevel(LevelStorageSource *storageSource, const std::wstring& name, int64_t levelSeed, LevelType *pLevelType, NetworkGameInitData *initData)
 {
 //	4J - TODO - do with new save stuff
 //    if (storageSource->requiresConversion(name))
@@ -521,7 +521,7 @@ bool MinecraftServer::loadLevel(LevelStorageSource *storageSource, const std::ws
 	m_postUpdateThread->Run();
 	app.DebugPrintf("[SRV] Post-processing thread started\n");
 
-	__int64 startTime = System::currentTimeMillis();
+	int64_t startTime = System::currentTimeMillis();
 
 	// 4J Stu - Added this to temporarily make starting games on vita faster
 #ifdef __PSVITA__
@@ -551,7 +551,7 @@ bool MinecraftServer::loadLevel(LevelStorageSource *storageSource, const std::ws
 		csf->closeHandle(fe);
 	}
 
-    __int64 lastTime = System::currentTimeMillis();
+    int64_t lastTime = System::currentTimeMillis();
 
 	// 4J Stu - This loop is changed in 1.0.1 to only process the first level (ie the overworld), but I think we still want to do them all
 	int i = 0;
@@ -567,7 +567,7 @@ bool MinecraftServer::loadLevel(LevelStorageSource *storageSource, const std::ws
 			}
 
 #if 0
-			__int64 lastStorageTickTime = System::currentTimeMillis();
+			int64_t lastStorageTickTime = System::currentTimeMillis();
 
 			// Test code to enable full creation of levels at start up
 			int halfsidelen = ( i == 0 ) ? 27 : 9;
@@ -590,7 +590,7 @@ bool MinecraftServer::loadLevel(LevelStorageSource *storageSource, const std::ws
 				}
 			}
 #else
-			__int64 lastStorageTickTime = System::currentTimeMillis();
+			int64_t lastStorageTickTime = System::currentTimeMillis();
             Pos *spawnPos = level->getSharedSpawnPos();
 			app.DebugPrintf("[SRV] dim=%d spawn=(%d,%d) r=%d\n", i, spawnPos->x, spawnPos->z, r);
 
@@ -609,7 +609,7 @@ bool MinecraftServer::loadLevel(LevelStorageSource *storageSource, const std::ws
 						return false;
 					}
 //					printf(">>>%d %d %d\n",i,x,z);
-//                    __int64 now = System::currentTimeMillis();
+//                    int64_t now = System::currentTimeMillis();
 //                    if (now < lastTime) lastTime = now;
 //                    if (now > lastTime + 1000)
 					{
@@ -1057,7 +1057,7 @@ CommandDispatcher *MinecraftServer::getCommandDispatcher()
 }
 
 extern int c0a, c0b, c1a, c1b, c1c, c2a, c2b;
-void MinecraftServer::run(__int64 seed, void *lpParameter)
+void MinecraftServer::run(int64_t seed, void *lpParameter)
 {
 	NetworkGameInitData *initData = NULL;
 	uint32_t initSettings = 0;
@@ -1088,18 +1088,18 @@ void MinecraftServer::run(__int64 seed, void *lpParameter)
 			}
 		}
 
-        __int64 lastTime = System::currentTimeMillis();
-        __int64 unprocessedTime = 0;
+        int64_t lastTime = System::currentTimeMillis();
+        int64_t unprocessedTime = 0;
         while (running && !s_bServerHalted)
 		{
-            __int64 now = System::currentTimeMillis();
+            int64_t now = System::currentTimeMillis();
 
 			// 4J Stu - When we pause the server, we don't want to count that as time passed
 			// 4J Stu - TU-1 hotifx - Remove this line. We want to make sure that we tick connections at the proper rate when paused
 			//Fix for #13191 - The host of a game can get a message informing them that the connection to the server has been lost
 			//if(m_isServerPaused) lastTime = now;
 
-            __int64 passedTime = now - lastTime;
+            int64_t passedTime = now - lastTime;
             if (passedTime > MS_PER_TICK * 40)
 			{
 //                logger.warning("Can't keep up! Did the system time change, or is the server overloaded?");
@@ -1125,13 +1125,13 @@ void MinecraftServer::run(__int64 seed, void *lpParameter)
 				else
 				{
 //					int tickcount = 0;
-//					__int64 beforeall = System::currentTimeMillis();
+//					int64_t beforeall = System::currentTimeMillis();
 					while (unprocessedTime > MS_PER_TICK)
 					{
 						unprocessedTime -= MS_PER_TICK;
-//						__int64 before = System::currentTimeMillis();
+//						int64_t before = System::currentTimeMillis();
 						tick();
-//						__int64 after = System::currentTimeMillis();
+//						int64_t after = System::currentTimeMillis();
 //						PIXReportCounter(L"Server time",(float)(after-before));
 
 						// 4J Ensure that the slow queue owner keeps cycling if it's not been used in a while
@@ -1148,7 +1148,7 @@ void MinecraftServer::run(__int64 seed, void *lpParameter)
 //							app.DebugPrintf("Not considering cycling: %d - %d -> %d > %d\n",time, s_slowQueueLastTime, (time - s_slowQueueLastTime), (2*MINECRAFT_SERVER_SLOW_QUEUE_DELAY));
 //						}
 					}
-//					__int64 afterall = System::currentTimeMillis();
+//					int64_t afterall = System::currentTimeMillis();
 //					PIXReportCounter(L"Server time all",(float)(afterall-beforeall));
 //					PIXReportCounter(L"Server ticks",(float)tickcount);
 				}
@@ -1492,11 +1492,11 @@ void MinecraftServer::tick()
                 players->broadcastAll( std::shared_ptr<SetTimePacket>( new SetTimePacket(level->getTime() ) ), level->dimension->id);
             }
 // #ifndef __PS3__
-			static __int64 stc = 0;
-			__int64 st0 = System::currentTimeMillis();
+			static int64_t stc = 0;
+			int64_t st0 = System::currentTimeMillis();
 			PIXBeginNamedEvent(0,"Level tick %d",i);
             ((Level *)level)->tick();
-			__int64 st1 = System::currentTimeMillis();
+			int64_t st1 = System::currentTimeMillis();
 			PIXEndNamedEvent();
 			PIXBeginNamedEvent(0,"Update lights %d",i);
 			// 4J - used to be in a while loop, but we don't want the server locking up for a big chunk of time (could end up trying to process 1,000,000 lights...)
@@ -1504,7 +1504,7 @@ void MinecraftServer::tick()
 //			printf("lights: %d\n",level->getLightsToUpdate());
             while(level->updateLights() )
 				;
-			__int64 st2 = System::currentTimeMillis();
+			int64_t st2 = System::currentTimeMillis();
 			PIXEndNamedEvent();
 			PIXBeginNamedEvent(0,"Entity tick %d",i);
 			// 4J added to stop ticking entities in levels when players are not in those levels.
@@ -1532,7 +1532,7 @@ void MinecraftServer::tick()
 			level->getTracker()->tick();
 			PIXEndNamedEvent();
 
-			__int64 st3 = System::currentTimeMillis();
+			int64_t st3 = System::currentTimeMillis();
 //			printf(">>>>>>>>>>>>>>>>>>>>>> Tick %d %d %d : %d\n", st1 - st0, st2 - st1, st3 - st2, st0 - stc );
 			stc = st0;
 // #endif// __PS3__
@@ -1577,7 +1577,7 @@ void MinecraftServer::handleConsoleInputs()
     }
 }
 
-void MinecraftServer::main(__int64 seed, void *lpParameter)
+void MinecraftServer::main(int64_t seed, void *lpParameter)
 {
 #if __PS3__
 	ShutdownManager::HasStarted(ShutdownManager::eServerThread );

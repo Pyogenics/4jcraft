@@ -20,7 +20,7 @@
     double radius = random->nextDouble() * 4 + 2;
     double fuss = random->nextDouble() * 0.6;
 
-    __int64 seed = random->nextLong();
+    int64_t seed = random->nextLong();
     random->setSeed(seed);
     std::vector<TilePos *> toRemove;
 

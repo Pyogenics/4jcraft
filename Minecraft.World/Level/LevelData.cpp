@@ -287,7 +287,7 @@ void LevelData::setTagData(CompoundTag *tag)
 	tag->putInt(L"HellScale", m_hellScale);
 }
 
-__int64 LevelData::getSeed() 
+int64_t LevelData::getSeed() 
 {
     return seed;
 }
@@ -329,12 +329,12 @@ int LevelData::getZStrongholdEndPortal()
 	return zStrongholdEndPortal;
 }
 
-__int64 LevelData::getTime()
+int64_t LevelData::getTime()
 {
     return time;
 }
 
-__int64 LevelData::getSizeOnDisk()
+int64_t LevelData::getSizeOnDisk()
 {
     return sizeOnDisk;
 }
@@ -350,7 +350,7 @@ CompoundTag *LevelData::getLoadedPlayerTag()
 //    return dimension;
 //}
 
-void LevelData::setSeed(__int64 seed)
+void LevelData::setSeed(int64_t seed)
 {
     this->seed = seed;
 }
@@ -411,12 +411,12 @@ void LevelData::setZStrongholdEndPortal(int zStrongholdEndPortal)
 	this->zStrongholdEndPortal = zStrongholdEndPortal;
 }
 
-void LevelData::setTime(__int64 time)
+void LevelData::setTime(int64_t time)
 {
     this->time = time;
 }
 
-void LevelData::setSizeOnDisk(__int64 sizeOnDisk)
+void LevelData::setSizeOnDisk(int64_t sizeOnDisk)
 {
     this->sizeOnDisk = sizeOnDisk;
 }
@@ -460,7 +460,7 @@ void LevelData::setVersion(int version)
     this->version = version;
 }
 
-__int64 LevelData::getLastPlayed()
+int64_t LevelData::getLastPlayed()
 {
     return lastPlayed;
 }

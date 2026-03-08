@@ -114,7 +114,7 @@ protected:
 public:
 	MinecraftServer *getServer();
 	EntityTracker *getTracker();
-	void setTimeAndAdjustTileTicks(__int64 newTime);
+	void setTimeAndAdjustTileTicks(int64_t newTime);
 	PlayerChunkMap *getChunkMap();
 
 	void queueSendTileUpdate(int x, int y, int z); // 4J Added

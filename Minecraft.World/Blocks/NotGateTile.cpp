@@ -221,7 +221,7 @@ int NotGateTile::cloneTileId(Level *level, int x, int y, int z)
 	return Tile::notGate_on_Id;
 }
 
-void NotGateTile::levelTimeChanged(Level *level, __int64 delta, __int64 newTime)
+void NotGateTile::levelTimeChanged(Level *level, int64_t delta, int64_t newTime)
 {
 	std::deque<Toggle> *toggles = recentToggles[level];
 

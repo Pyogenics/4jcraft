@@ -30,7 +30,7 @@ StringTable::StringTable(uint8_t* pbData, uint32_t dwSize)
 	app.getLocale(locales);
 
 	bool foundLang = false;
-	__int64 bytesToSkip = 0;
+	int64_t bytesToSkip = 0;
 	int dataSize = 0;
 
 	//

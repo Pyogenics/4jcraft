@@ -158,7 +158,7 @@ RegionFile::~RegionFile()
 	m_saveFile->closeHandle( fileEntry );
 }
 
-__int64 RegionFile::lastModified()
+int64_t RegionFile::lastModified()
 {
 	return _lastModified;
 }

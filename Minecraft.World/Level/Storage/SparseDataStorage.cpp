@@ -40,7 +40,7 @@ SparseDataStorage::SparseDataStorage()
 
 	// Data and count packs together the pointer to our data and the count of planes allocated - 127 planes allocated in this case
 #pragma warning ( disable : 4826 )
-	dataAndCount = 0x007F000000000000L | (( (__int64) planeIndices ) & 0x0000ffffffffffffL);
+	dataAndCount = 0x007F000000000000L | (( (int64_t) planeIndices ) & 0x0000ffffffffffffL);
 #pragma warning ( default : 4826 )
 #ifdef DATA_COMPRESSION_STATS
 	count = 128;
@@ -59,7 +59,7 @@ SparseDataStorage::SparseDataStorage(bool isUpper)
 
 	// Data and count packs together the pointer to our data and the count of planes allocated - 127 planes allocated in this case
 #pragma warning ( disable : 4826 )
-	dataAndCount = 0x0000000000000000L | (( (__int64) planeIndices ) & 0x0000ffffffffffffL);
+	dataAndCount = 0x0000000000000000L | (( (int64_t) planeIndices ) & 0x0000ffffffffffffL);
 #pragma warning ( default : 4826 )
 #ifdef DATA_COMPRESSION_STATS
 	count = 128;
@@ -87,7 +87,7 @@ SparseDataStorage::~SparseDataStorage()
 SparseDataStorage::SparseDataStorage(SparseDataStorage *copyFrom)
 {
 	// Extra details of source storage
-	__int64 sourceDataAndCount = copyFrom->dataAndCount;
+	int64_t sourceDataAndCount = copyFrom->dataAndCount;
 	unsigned char *sourceIndicesAndData = (unsigned char *)(sourceDataAndCount & 0x0000ffffffffffff);
 	int sourceCount = (sourceDataAndCount >> 48 ) & 0xffff;
 
@@ -97,7 +97,7 @@ SparseDataStorage::SparseDataStorage(SparseDataStorage *copyFrom)
 	// AP - I've moved this to be before the memcpy because of a very strange bug on vita. Sometimes dataAndCount wasn't valid in time when ::get was called.
 	// This should never happen and this isn't a proper solution but fixes it for now.
 #pragma warning ( disable : 4826 )
-	dataAndCount = ( sourceDataAndCount & 0xffff000000000000L ) | ( ((__int64) destIndicesAndData ) & 0x0000ffffffffffffL );
+	dataAndCount = ( sourceDataAndCount & 0xffff000000000000L ) | ( ((int64_t) destIndicesAndData ) & 0x0000ffffffffffffL );
 #pragma warning ( default : 4826 )
 
 	XMemCpy( destIndicesAndData, sourceIndicesAndData, sourceCount * 128 + 128 );
@@ -176,9 +176,9 @@ void SparseDataStorage::setData(byteArray dataIn, unsigned int inOffset)
 
 	// Get new data and count packed info
 #pragma warning ( disable : 4826 )
-	__int64 newDataAndCount = ((__int64) planeIndices) & 0x0000ffffffffffffL;
+	int64_t newDataAndCount = ((int64_t) planeIndices) & 0x0000ffffffffffffL;
 #pragma warning ( default : 4826 )
-	newDataAndCount |= ((__int64)allocatedPlaneCount) << 48;
+	newDataAndCount |= ((int64_t)allocatedPlaneCount) << 48;
 
 	updateDataAndCount( newDataAndCount );
 }
@@ -380,7 +380,7 @@ void SparseDataStorage::addNewPlane(int y)
 	do
 	{
 		// Get last packed data pointer & count
-		__int64 lastDataAndCount = dataAndCount;
+		int64_t lastDataAndCount = dataAndCount;
 
 		// Unpack count & data pointer
 		int lastLinesUsed = (int)(( lastDataAndCount >> 48 ) & 0xffff);
@@ -401,13 +401,13 @@ void SparseDataStorage::addNewPlane(int y)
 
 		// Get new data and count packed info
 #pragma warning ( disable : 4826 )
-		__int64 newDataAndCount = ((__int64) dataPointer) & 0x0000ffffffffffffL;
+		int64_t newDataAndCount = ((int64_t) dataPointer) & 0x0000ffffffffffffL;
 #pragma warning ( default : 4826 )
-		newDataAndCount |= ((__int64)linesUsed) << 48;
+		newDataAndCount |= ((int64_t)linesUsed) << 48;
 
 		// Attempt to update the data & count atomically. This command will Only succeed if the data stored at
 		// dataAndCount is equal to lastDataAndCount, and will return the value present just before the write took place
-		__int64 lastDataAndCount2 = InterlockedCompareExchangeRelease64( (LONG64 *)&dataAndCount, newDataAndCount, lastDataAndCount );
+		int64_t lastDataAndCount2 = InterlockedCompareExchangeRelease64( (LONG64 *)&dataAndCount, newDataAndCount, lastDataAndCount );
 		
 		if( lastDataAndCount2 == lastDataAndCount )
 		{
@@ -473,19 +473,19 @@ void SparseDataStorage::tick()
 }
 
 // Update storage with a new values for dataAndCount, repeating as necessary if other simultaneous writes happen.
-void SparseDataStorage::updateDataAndCount(__int64 newDataAndCount)
+void SparseDataStorage::updateDataAndCount(int64_t newDataAndCount)
 {
 	// Now actually assign this data to the storage. Just repeat until successful, there isn't any useful really that we can merge the results of this
 	// with any other simultaneous writes that might be happening.
 	bool success = false;
 	do
 	{
-		__int64 lastDataAndCount = dataAndCount;
+		int64_t lastDataAndCount = dataAndCount;
 		unsigned char *lastDataPointer = (unsigned char *)(lastDataAndCount & 0x0000ffffffffffff);
 
 		// Attempt to update the data & count atomically. This command will Only succeed if the data stored at
 		// dataAndCount is equal to lastDataAndCount, and will return the value present just before the write took place
-		__int64 lastDataAndCount2 = InterlockedCompareExchangeRelease64( (LONG64 *)&dataAndCount, newDataAndCount, lastDataAndCount );
+		int64_t lastDataAndCount2 = InterlockedCompareExchangeRelease64( (LONG64 *)&dataAndCount, newDataAndCount, lastDataAndCount );
 		
 		if( lastDataAndCount2 == lastDataAndCount )
 		{
@@ -508,7 +508,7 @@ int SparseDataStorage::compress()
 	unsigned char _planeIndices[128];
 	bool needsCompressed = false;
 
-	__int64 lastDataAndCount = dataAndCount;
+	int64_t lastDataAndCount = dataAndCount;
 
 	unsigned char *planeIndices = (unsigned char *)(lastDataAndCount & 0x0000ffffffffffff);
 	unsigned char *data = planeIndices + 128;
@@ -558,13 +558,13 @@ int SparseDataStorage::compress()
 
 		// Get new data and count packed info
 #pragma warning ( disable : 4826 )
-		__int64 newDataAndCount = ((__int64) newIndicesAndData) & 0x0000ffffffffffffL;
+		int64_t newDataAndCount = ((int64_t) newIndicesAndData) & 0x0000ffffffffffffL;
 #pragma warning ( default : 4826 )
-		newDataAndCount |= ((__int64)planesToAlloc) << 48;
+		newDataAndCount |= ((int64_t)planesToAlloc) << 48;
 
 		// Attempt to update the data & count atomically. This command will Only succeed if the data stored at
 		// dataAndCount is equal to lastDataAndCount, and will return the value present just before the write took place
-		__int64 lastDataAndCount2 = InterlockedCompareExchangeRelease64( (LONG64 *)&dataAndCount, newDataAndCount, lastDataAndCount );
+		int64_t lastDataAndCount2 = InterlockedCompareExchangeRelease64( (LONG64 *)&dataAndCount, newDataAndCount, lastDataAndCount );
 
 		if( lastDataAndCount2 != lastDataAndCount )
 		{
@@ -617,9 +617,9 @@ void SparseDataStorage::read(DataInputStream *dis)
 	dis->readFully(wrapper);
 
 #pragma warning ( disable : 4826 )
-	__int64 newDataAndCount = ((__int64) dataPointer) & 0x0000ffffffffffffL;
+	int64_t newDataAndCount = ((int64_t) dataPointer) & 0x0000ffffffffffffL;
 #pragma warning ( default : 4826 )
-	newDataAndCount |= ((__int64)count) << 48;
+	newDataAndCount |= ((int64_t)count) << 48;
 
 	updateDataAndCount(newDataAndCount);
 }

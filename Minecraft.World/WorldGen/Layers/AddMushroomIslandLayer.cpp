@@ -3,7 +3,7 @@
 #include "../../Headers/net.minecraft.world.level.biome.h"
 
 
-AddMushroomIslandLayer::AddMushroomIslandLayer(__int64 seedMixup, std::shared_ptr<Layer> parent) : Layer(seedMixup)
+AddMushroomIslandLayer::AddMushroomIslandLayer(int64_t seedMixup, std::shared_ptr<Layer> parent) : Layer(seedMixup)
 {
 	this->parent = parent;
 }

@@ -220,7 +220,7 @@ bool DataInputStream::readFully(charArray b)
 //the double value read.
 double DataInputStream::readDouble()
 {
-	__int64 bits = readLong();
+	int64_t bits = readLong();
 
 	return Double::longBitsToDouble( bits );
 }
@@ -276,23 +276,23 @@ int DataInputStream::readInt()
 //
 //Returns:
 //the long value read.
-__int64 DataInputStream::readLong()
+int64_t DataInputStream::readLong()
 {
 	if (stream == NULL)
 	{
 		app.DebugPrintf("DataInputStream::readLong() but underlying stream is NULL\n");
 		return 0;
 	}
-	__int64 a = stream->read();
-	__int64 b = stream->read();
-	__int64 c = stream->read();
-	__int64 d = stream->read();
-	__int64 e = stream->read();
-	__int64 f = stream->read();
-	__int64 g = stream->read();
-	__int64 h = stream->read();
+	int64_t a = stream->read();
+	int64_t b = stream->read();
+	int64_t c = stream->read();
+	int64_t d = stream->read();
+	int64_t e = stream->read();
+	int64_t f = stream->read();
+	int64_t g = stream->read();
+	int64_t h = stream->read();
 
-	__int64 bits = (((a & 0xff) << 56) |
+	int64_t bits = (((a & 0xff) << 56) |
 		((b & 0xff) << 48) |
 		((c & 0xff) << 40) |
 		((d & 0xff) << 32) |
@@ -610,7 +610,7 @@ void DataInputStream::deleteChildStream()
 //n - the number of bytes to be skipped.
 //Returns:
 //the actual number of bytes skipped.
-__int64 DataInputStream::skip(__int64 n)
+int64_t DataInputStream::skip(int64_t n)
 {
 	return stream->skip(n);
 }
