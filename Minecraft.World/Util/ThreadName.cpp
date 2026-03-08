@@ -22,7 +22,7 @@ void SetThreadName( uint32_t dwThreadID, const char* szThreadName )
 #if ( defined _WINDOWS64 | defined _DURANGO )
 	__try
 	{
-		RaiseException( 0x406D1388, 0, sizeof(info)/sizeof(uint32_t), (ULONG_PTR *)&info );
+		RaiseException( 0x406D1388, 0, sizeof(info)/sizeof(uint32_t), (uintptr_t *)&info );
 	}
 	__except( GetExceptionCode()==0x406D1388 ? EXCEPTION_CONTINUE_EXECUTION : EXCEPTION_EXECUTE_HANDLER )
 	{

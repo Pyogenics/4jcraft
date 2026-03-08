@@ -553,7 +553,7 @@ HRESULT InitDevice()
 
     // Create a render target view
     ID3D11Texture2D* pBackBuffer = NULL;
-    hr = g_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&pBackBuffer );
+    hr = g_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( void** )&pBackBuffer );
     if( FAILED( hr ) )
         return hr;
 
@@ -916,7 +916,7 @@ int main(int argc, const char *argv[] )
 	ui.init(1920,1080);
 
 	// storage manager is needed for the trial key check
-	StorageManager.Init(0,app.GetString(IDS_DEFAULT_SAVENAME),"savegame.dat",FIFTY_ONE_MB,&CConsoleMinecraftApp::DisplaySavingMessage,(LPVOID)&app,"");
+	StorageManager.Init(0,app.GetString(IDS_DEFAULT_SAVENAME),"savegame.dat",FIFTY_ONE_MB,&CConsoleMinecraftApp::DisplaySavingMessage,(void*)&app,"");
 	StorageManager.SetSaveTitleExtraFileSuffix(app.GetString(IDS_SAVE_SUBTITLE_SUFFIX));
 	StorageManager.SetDLCInfoMap(app.GetSonyDLCMap());
 	app.CommerceInit(); //  MGH - moved this here so GetCommerce isn't NULL
@@ -1013,7 +1013,7 @@ int main(int argc, const char *argv[] )
 	StorageManager.SetDefaultImages((uint8_t*)baOptionsIcon.data, baOptionsIcon.length,(uint8_t*)baSaveImage.data, baSaveImage.length,(uint8_t*)baSaveThumbnail.data, baSaveThumbnail.length);
 
 	// Set function to be called if a save game operation can't complete due to running out of storage space etc.
-	StorageManager.SetIncompleteSaveCallback(CConsoleMinecraftApp::Callback_SaveGameIncomplete, (LPVOID)&app);
+	StorageManager.SetIncompleteSaveCallback(CConsoleMinecraftApp::Callback_SaveGameIncomplete, (void*)&app);
 
 	// Temporary - set a single user for quadrant 0 for the storage manager. Will need to do more to link this aspect of the storage manager is once we have proper profile management.
 
@@ -1029,22 +1029,22 @@ int main(int argc, const char *argv[] )
 
 
 	// set a function to be called when the ethernet is disconnected, so we can back out if required
-	ProfileManager.SetNotificationsCallback(&CConsoleMinecraftApp::NotificationsCallback,(LPVOID)&app);
+	ProfileManager.SetNotificationsCallback(&CConsoleMinecraftApp::NotificationsCallback,(void*)&app);
 	
 #endif
 	// set a function to be called when there's a sign in change, so we can exit a level if the primary player signs out
-	ProfileManager.SetSignInChangeCallback(&CConsoleMinecraftApp::SignInChangeCallback,(LPVOID)&app);
+	ProfileManager.SetSignInChangeCallback(&CConsoleMinecraftApp::SignInChangeCallback,(void*)&app);
 
 
 	// Set a callback for the default player options to be set - when there is no profile data for the player
-	StorageManager.SetDefaultOptionsCallback(&CConsoleMinecraftApp::DefaultOptionsCallback,(LPVOID)&app);
-	StorageManager.SetOptionsDataCallback(&CConsoleMinecraftApp::OptionsDataCallback,(LPVOID)&app);
+	StorageManager.SetDefaultOptionsCallback(&CConsoleMinecraftApp::DefaultOptionsCallback,(void*)&app);
+	StorageManager.SetOptionsDataCallback(&CConsoleMinecraftApp::OptionsDataCallback,(void*)&app);
 
 	// Set a callback to deal with old profile versions needing updated to new versions
-	StorageManager.SetOldProfileVersionCallback(&CConsoleMinecraftApp::OldProfileVersionCallback,(LPVOID)&app);
+	StorageManager.SetOldProfileVersionCallback(&CConsoleMinecraftApp::OldProfileVersionCallback,(void*)&app);
 
 	// Set a callback for when there is a read error on profile data
-	//StorageManager.SetProfileReadErrorCallback(&CConsoleMinecraftApp::ProfileReadErrorCallback,(LPVOID)&app);
+	//StorageManager.SetProfileReadErrorCallback(&CConsoleMinecraftApp::ProfileReadErrorCallback,(void*)&app);
 
 
 	// QNet needs to be setup after profile manager, as we do not want its Notify listener to handle
@@ -1059,7 +1059,7 @@ int main(int argc, const char *argv[] )
 
 	//ProfileManager.AddDLC(2);
 	StorageManager.SetDLCPackageRoot("DLCDrive");
-	StorageManager.RegisterMarketplaceCountsCallback(&CConsoleMinecraftApp::MarketplaceCountsCallback,(LPVOID)&app);
+	StorageManager.RegisterMarketplaceCountsCallback(&CConsoleMinecraftApp::MarketplaceCountsCallback,(void*)&app);
 	// Kinect !
 
 	if(XNuiGetHardwareStatus()!=0)
@@ -1518,7 +1518,7 @@ volatile int sectCheck = 48;
 CRITICAL_SECTION memCS;
 uint32_t tlsIdx;
 
-LPVOID XMemAlloc(size_t dwSize, uint32_t dwAllocAttributes)
+void* XMemAlloc(size_t dwSize, uint32_t dwAllocAttributes)
 {
 	if( !trackStarted )
 	{
@@ -1572,7 +1572,7 @@ void operator delete (void *p)
 	XMemFree(p,MAKE_XALLOC_ATTRIBUTES(0,FALSE,TRUE,FALSE,0,XALLOC_PHYSICAL_ALIGNMENT_DEFAULT,XALLOC_MEMPROTECT_READWRITE,FALSE,XALLOC_MEMTYPE_HEAP));
 }
 
-void WINAPI XMemFree(PVOID pAddress, uint32_t dwAllocAttributes)
+void WINAPI XMemFree(void* pAddress, uint32_t dwAllocAttributes)
 {
 	bool special = false;
 	if( dwAllocAttributes == 0 )
@@ -1609,7 +1609,7 @@ void WINAPI XMemFree(PVOID pAddress, uint32_t dwAllocAttributes)
 }
 
 size_t WINAPI XMemSize(
-         PVOID pAddress,
+         void* pAddress,
          uint32_t dwAllocAttributes
 )
 {
@@ -1666,7 +1666,7 @@ void MemSect(int section)
 	{
 		value = (value << 6) | section;
 	}
-	TlsSetValue(tlsIdx, (LPVOID)value);
+	TlsSetValue(tlsIdx, (void*)value);
 }
 
 void MemPixStuff()

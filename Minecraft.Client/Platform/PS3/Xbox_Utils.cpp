@@ -5,7 +5,7 @@
 // Desc: Internal helper function
 //--------------------------------------------------------------------------------------
 #ifndef _CONTENT_PACKAGE
-static VOID DebugSpewV( const char* strFormat, const va_list pArgList )
+static void DebugSpewV( const char* strFormat, const va_list pArgList )
 {
 #ifdef __PS3__
 	assert(0);
@@ -25,9 +25,9 @@ static VOID DebugSpewV( const char* strFormat, const va_list pArgList )
 // Desc: Prints formatted debug spew
 //--------------------------------------------------------------------------------------
 #ifdef  _Printf_format_string_  // VC++ 2008 and later support this annotation
-VOID CDECL DebugSpew( _In_z_ _Printf_format_string_ const char* strFormat, ... )
+void CDECL DebugSpew( _In_z_ _Printf_format_string_ const char* strFormat, ... )
 #else
-VOID CDECL DebugPrintf( const char* strFormat, ... )
+void CDECL DebugPrintf( const char* strFormat, ... )
 #endif
 {
 #ifndef _CONTENT_PACKAGE

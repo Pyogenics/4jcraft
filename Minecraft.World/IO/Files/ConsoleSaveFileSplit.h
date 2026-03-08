@@ -67,7 +67,7 @@ private:
 	static const unsigned int CSF_PAGE_SIZE = 64 * 1024;
 	static const unsigned int MAX_PAGE_COUNT = 1024;
 #endif
-	LPVOID pvSaveMem;
+	void* pvSaveMem;
 
 	CRITICAL_SECTION m_lock;
 
@@ -79,14 +79,14 @@ private:
 	void processSubfilesForWrite();
 	void processSubfilesAfterWrite();
 public:
-	static int SaveSaveDataCallback(LPVOID lpParam,bool bRes);
-	static int SaveRegionFilesCallback(LPVOID lpParam,bool bRes);
+	static int SaveSaveDataCallback(void* lpParam,bool bRes);
+	static int SaveRegionFilesCallback(void* lpParam,bool bRes);
 	
 private:
-	void _init(const std::wstring &fileName, LPVOID pvSaveData, uint32_t fileSize, ESavePlatform plat);
+	void _init(const std::wstring &fileName, void* pvSaveData, uint32_t fileSize, ESavePlatform plat);
 
 public:
-	ConsoleSaveFileSplit(const std::wstring &fileName, LPVOID pvSaveData = NULL, uint32_t fileSize = 0, bool forceCleanSave = false, ESavePlatform plat = SAVE_FILE_PLATFORM_LOCAL);
+	ConsoleSaveFileSplit(const std::wstring &fileName, void* pvSaveData = NULL, uint32_t fileSize = 0, bool forceCleanSave = false, ESavePlatform plat = SAVE_FILE_PLATFORM_LOCAL);
 	ConsoleSaveFileSplit(ConsoleSaveFile *sourceSave, bool alreadySmallRegions = true, ProgressListener *progress = NULL);
 	virtual ~ConsoleSaveFileSplit();
 
@@ -96,9 +96,9 @@ public:
 	virtual void deleteFile( FileEntry *file );
 
 	virtual void setFilePointer(FileEntry *file,int32_t lDistanceToMove,int32_t* lpDistanceToMoveHigh,uint32_t dwMoveMethod);
-	virtual BOOL writeFile(	FileEntry *file, LPCVOID lpBuffer, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten );
+	virtual BOOL writeFile(	FileEntry *file, const void* lpBuffer, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten );
 	virtual BOOL zeroFile(FileEntry *file, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten);
-	virtual BOOL readFile( FileEntry *file, LPVOID lpBuffer, uint32_t nNumberOfBytesToRead, uint32_t* lpNumberOfBytesRead );
+	virtual BOOL readFile( FileEntry *file, void* lpBuffer, uint32_t nNumberOfBytesToRead, uint32_t* lpNumberOfBytesRead );
 	virtual BOOL closeHandle( FileEntry *file );
 
 	virtual void finalizeWrite();

@@ -157,7 +157,7 @@ byteArray ArchiveFile::getFile(const std::wstring &filename)
 
 				uint32_t bytesRead = -1;
 				BOOL bSuccess = ReadFile(	hfile,
-					(LPVOID) pbData,
+					(void*) pbData,
 					data->filesize,
 					&bytesRead,
 					NULL

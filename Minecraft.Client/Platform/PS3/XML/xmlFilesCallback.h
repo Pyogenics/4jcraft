@@ -90,7 +90,7 @@ public:
 
 	virtual HRESULT  CDATAEnd( ){ return S_OK; };
 
-	virtual VOID     Error( HRESULT hError, CONST char *strMessage )    {     app.DebugPrintf("Error when Parsing xuids.XML\n");    };
+	virtual void     Error( HRESULT hError, CONST char *strMessage )    {     app.DebugPrintf("Error when Parsing xuids.XML\n");    };
 
 };
 
@@ -225,7 +225,7 @@ public:
 
 	virtual HRESULT  CDATAEnd( ){ return S_OK; };
 
-	virtual VOID     Error( HRESULT hError, CONST char *strMessage )    {     app.DebugPrintf("Error when Parsing DLC.XML\n");    };
+	virtual void     Error( HRESULT hError, CONST char *strMessage )    {     app.DebugPrintf("Error when Parsing DLC.XML\n");    };
 
 };
 

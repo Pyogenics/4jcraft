@@ -16,5 +16,5 @@ public:
 	
 	uint32_t lookup(std::wstring);
 
-	VOID getTable(std::wstring **lookup, uint32_t *len);
+	void getTable(std::wstring **lookup, uint32_t *len);
 };

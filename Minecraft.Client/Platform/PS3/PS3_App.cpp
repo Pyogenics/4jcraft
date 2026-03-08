@@ -547,7 +547,7 @@ void CConsoleMinecraftApp::TemporaryCreateGameStart()
 
 	LoadingInputParams *loadingParams = new LoadingInputParams();
 	loadingParams->func = &CGameNetworkManager::RunNetworkGameThreadProc;
-	loadingParams->lpParam = (LPVOID)param;
+	loadingParams->lpParam = (void*)param;
 
 	// Reset the autosave time
 	app.SetAutosaveTimerTime();
@@ -872,7 +872,7 @@ bool CConsoleMinecraftApp::DLCAlreadyPurchased(char *pchTitle)
 ////////////////////
 // Commerce callbacks
 /////////////////////
-void CConsoleMinecraftApp::CommerceInitCallback(LPVOID lpParam,int err)
+void CConsoleMinecraftApp::CommerceInitCallback(void* lpParam,int err)
 {
 	CConsoleMinecraftApp *pClass=(CConsoleMinecraftApp *)lpParam;
 
@@ -889,7 +889,7 @@ void CConsoleMinecraftApp::CommerceInitCallback(LPVOID lpParam,int err)
 }
 
 
-void CConsoleMinecraftApp::CommerceGetCategoriesCallback(LPVOID lpParam,int err)
+void CConsoleMinecraftApp::CommerceGetCategoriesCallback(void* lpParam,int err)
 {
 	CConsoleMinecraftApp *pClass=(CConsoleMinecraftApp *)lpParam;
 
@@ -916,7 +916,7 @@ void CConsoleMinecraftApp::CommerceGetCategoriesCallback(LPVOID lpParam,int err)
 	pClass->m_bCommerceCategoriesRetrieved=true;
 }
 
-void CConsoleMinecraftApp::CommerceGetProductListCallback(LPVOID lpParam,int err)
+void CConsoleMinecraftApp::CommerceGetProductListCallback(void* lpParam,int err)
 {
 	CConsoleMinecraftApp *pClass=(CConsoleMinecraftApp *)lpParam;
 
@@ -942,7 +942,7 @@ void CConsoleMinecraftApp::CommerceGetProductListCallback(LPVOID lpParam,int err
 	}
 }
 
-// void CConsoleMinecraftApp::CommerceGetDetailedProductInfoCallback(LPVOID lpParam,int err)
+// void CConsoleMinecraftApp::CommerceGetDetailedProductInfoCallback(void* lpParam,int err)
 // {
 // 	CConsoleMinecraftApp *pScene=(CConsoleMinecraftApp *)lpParam;
 // 
@@ -955,7 +955,7 @@ void CConsoleMinecraftApp::CommerceGetProductListCallback(LPVOID lpParam,int err
 // 
 // }
 
-void CConsoleMinecraftApp::CommerceAddDetailedProductInfoCallback(LPVOID lpParam,int err)
+void CConsoleMinecraftApp::CommerceAddDetailedProductInfoCallback(void* lpParam,int err)
 {
 	CConsoleMinecraftApp *pClass=(CConsoleMinecraftApp *)lpParam;
 
@@ -1003,7 +1003,7 @@ void CConsoleMinecraftApp::CommerceAddDetailedProductInfoCallback(LPVOID lpParam
 	}
 }
 
-void CConsoleMinecraftApp::CommerceCheckoutCallback(LPVOID lpParam,int err)
+void CConsoleMinecraftApp::CommerceCheckoutCallback(void* lpParam,int err)
 {
 	CConsoleMinecraftApp *pClass=(CConsoleMinecraftApp *)lpParam;
 
@@ -1013,7 +1013,7 @@ void CConsoleMinecraftApp::CommerceCheckoutCallback(LPVOID lpParam,int err)
 	pClass->m_eCommerce_State=eCommerce_State_Online;
 }
 
-void CConsoleMinecraftApp::CheckoutSessionStartedCallback(LPVOID lpParam,int err)
+void CConsoleMinecraftApp::CheckoutSessionStartedCallback(void* lpParam,int err)
 {
 	CConsoleMinecraftApp *pClass=(CConsoleMinecraftApp *)lpParam;
 	if(err==0)
@@ -1022,7 +1022,7 @@ void CConsoleMinecraftApp::CheckoutSessionStartedCallback(LPVOID lpParam,int err
 		pClass->m_eCommerce_State=eCommerce_State_Error;
 }
 
-void CConsoleMinecraftApp::DownloadAlreadyPurchasedSessionStartedCallback(LPVOID lpParam,int err)
+void CConsoleMinecraftApp::DownloadAlreadyPurchasedSessionStartedCallback(void* lpParam,int err)
 {
 	CConsoleMinecraftApp *pClass=(CConsoleMinecraftApp *)lpParam;
 	if(err==0)
@@ -1031,7 +1031,7 @@ void CConsoleMinecraftApp::DownloadAlreadyPurchasedSessionStartedCallback(LPVOID
 		pClass->m_eCommerce_State=eCommerce_State_Error;
 }
 
-void CConsoleMinecraftApp::UpgradeTrialSessionStartedCallback(LPVOID lpParam,int err)
+void CConsoleMinecraftApp::UpgradeTrialSessionStartedCallback(void* lpParam,int err)
 {
 	CConsoleMinecraftApp *pClass=(CConsoleMinecraftApp *)lpParam;
 	if(err==0)

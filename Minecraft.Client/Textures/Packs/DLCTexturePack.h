@@ -58,7 +58,7 @@ private:
 	static std::wstring getFilePath(uint32_t packId, std::wstring filename, bool bAddDataFolder=true);
 
 public:
-	static int packMounted(LPVOID pParam,int iPad,uint32_t dwErr,uint32_t dwLicenceMask);
+	static int packMounted(void* pParam,int iPad,uint32_t dwErr,uint32_t dwLicenceMask);
 	virtual void loadData();
 	virtual void loadUI();
 	virtual void unloadUI();

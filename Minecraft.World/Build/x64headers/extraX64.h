@@ -127,7 +127,7 @@ private:
 void XMemCpy(void *a, const void *b, size_t s);
 void XMemSet(void *a, int t, size_t s);
 void XMemSet128(void *a, int t, size_t s);
-void *XPhysicalAlloc(size_t a, ULONG_PTR  b, ULONG_PTR c, uint32_t d);
+void *XPhysicalAlloc(size_t a, uintptr_t  b, uintptr_t c, uint32_t d);
 void XPhysicalFree(void *a);
 
 class DLCManager;
@@ -210,10 +210,10 @@ public:
 	bool HasVoice();
 	bool HasCamera();
 	int GetUserIndex();
-	void SetCustomDataValue(ULONG_PTR ulpCustomDataValue);
-	ULONG_PTR GetCustomDataValue();
+	void SetCustomDataValue(uintptr_t ulpCustomDataValue);
+	uintptr_t GetCustomDataValue();
 private:
-	ULONG_PTR m_customData;
+	uintptr_t m_customData;
 };
 
 const int QNET_GETSENDQUEUESIZE_SECONDARY_TYPE = 0;
@@ -435,8 +435,8 @@ public:
 };
 
 #if !defined(__ORBIS__) && !defined(_XBOX_ONE)
-typedef VOID * XMEMDECOMPRESSION_CONTEXT;
-typedef VOID * XMEMCOMPRESSION_CONTEXT;
+typedef void * XMEMDECOMPRESSION_CONTEXT;
+typedef void * XMEMCOMPRESSION_CONTEXT;
 
 typedef enum _XMEMCODEC_TYPE
 {
@@ -446,31 +446,31 @@ typedef enum _XMEMCODEC_TYPE
 
 HRESULT XMemDecompress(
          XMEMDECOMPRESSION_CONTEXT Context,
-         VOID *pDestination,
+         void *pDestination,
          size_t *pDestSize,
-          VOID *pSource,
+          void *pSource,
          size_t SrcSize
 );
 
 
 HRESULT XMemCompress(
          XMEMCOMPRESSION_CONTEXT Context,
-         VOID *pDestination,
+         void *pDestination,
          size_t *pDestSize,
-          VOID *pSource,
+          void *pSource,
          size_t SrcSize
 );
 
 HRESULT XMemCreateCompressionContext(
          XMEMCODEC_TYPE CodecType,
-         const VOID *pCodecParams,
+         const void *pCodecParams,
          uint32_t Flags,
          XMEMCOMPRESSION_CONTEXT *pContext
 );
 
 HRESULT XMemCreateDecompressionContext(
          XMEMCODEC_TYPE CodecType,
-         const VOID *pCodecParams,
+         const void *pCodecParams,
          uint32_t Flags,
          XMEMDECOMPRESSION_CONTEXT *pContext
 );

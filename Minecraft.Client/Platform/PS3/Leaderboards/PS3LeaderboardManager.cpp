@@ -62,7 +62,7 @@ PS3LeaderboardManager::~PS3LeaderboardManager()
 	DeleteCriticalSection(&m_csViewsLock);
 }
 
-int PS3LeaderboardManager::scoreboardThreadEntry(LPVOID lpParam)
+int PS3LeaderboardManager::scoreboardThreadEntry(void* lpParam)
 {
 	ShutdownManager::HasStarted(ShutdownManager::eLeaderboardThread);
 	PS3LeaderboardManager *self = reinterpret_cast<PS3LeaderboardManager *>(lpParam);

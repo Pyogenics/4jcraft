@@ -151,7 +151,7 @@ void Entity::freeSmallId(int index)
 
 void Entity::useSmallIds()
 {
-	pthread_setspecific(tlsIdx,(LPVOID)1);
+	pthread_setspecific(tlsIdx,(void*)1);
 }
 
 // Things also added here to be able to manage the concept of a number of extra "wandering" entities - normally path finding entities aren't allowed to

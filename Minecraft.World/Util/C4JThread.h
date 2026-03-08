@@ -218,7 +218,7 @@ private:
 	uint32_t m_threadID;
 	HANDLE m_threadHandle;
 	Event			*m_completionFlag;
-	static uint32_t WINAPI	entryPoint(LPVOID lpParam);
+	static uint32_t WINAPI	entryPoint(void* lpParam);
 #endif
 };
 void SetThreadName( uint32_t dwThreadID, const char* szThreadName );

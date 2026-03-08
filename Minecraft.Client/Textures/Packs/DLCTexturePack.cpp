@@ -272,7 +272,7 @@ std::wstring DLCTexturePack::getFilePath(uint32_t packId, std::wstring filename,
 	return app.getFilePath(packId,filename,bAddDataFolder);
 }
 
-int DLCTexturePack::packMounted(LPVOID pParam,int iPad,uint32_t dwErr,uint32_t dwLicenceMask)
+int DLCTexturePack::packMounted(void* pParam,int iPad,uint32_t dwErr,uint32_t dwLicenceMask)
 {
 	DLCTexturePack *texturePack = (DLCTexturePack *)pParam;
 	texturePack->m_bLoadingData = false;

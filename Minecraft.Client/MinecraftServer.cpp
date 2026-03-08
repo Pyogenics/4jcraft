@@ -427,7 +427,7 @@ bool MinecraftServer::loadLevel(LevelStorageSource *storageSource, const std::ws
 		if( levelGen != NULL && levelGen->requiresBaseSave())
 		{
 			uint32_t fileSize = 0;
-			LPVOID pvSaveData = levelGen->getBaseSaveData(fileSize);
+			void* pvSaveData = levelGen->getBaseSaveData(fileSize);
 			if(pvSaveData && fileSize != 0) bLevelGenBaseSave = true;
 		}
 		ConsoleSaveFileSplit *newFormatSave = NULL;
@@ -1194,7 +1194,7 @@ void MinecraftServer::run(int64_t seed, void *lpParameter)
 
 			// Process delayed actions			
 			eXuiServerAction eAction;
-			LPVOID param;
+			void* param;
 			for(int i=0;i<XUSER_MAX_COUNT;i++)
 			{
 				eAction = app.GetXuiServerAction(i);

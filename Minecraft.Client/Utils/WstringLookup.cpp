@@ -35,7 +35,7 @@ uint32_t WstringLookup::lookup(std::wstring str)
 	}
 }
 
-VOID WstringLookup::getTable(std::wstring **lookup, uint32_t *len)
+void WstringLookup::getTable(std::wstring **lookup, uint32_t *len)
 {
 	// Outputs
 	std::wstring *out_lookup; uint32_t out_len;

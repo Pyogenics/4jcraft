@@ -23,7 +23,7 @@
 unsigned int ConsoleSaveFileOriginal::pagesCommitted = 0;
 void *ConsoleSaveFileOriginal::pvHeap = NULL;
 
-ConsoleSaveFileOriginal::ConsoleSaveFileOriginal(const std::wstring &fileName, LPVOID pvSaveData /*= NULL*/, uint32_t dFileSize /*= 0*/, bool forceCleanSave /*= false*/, ESavePlatform plat /*= SAVE_FILE_PLATFORM_LOCAL*/)
+ConsoleSaveFileOriginal::ConsoleSaveFileOriginal(const std::wstring &fileName, void* pvSaveData /*= NULL*/, uint32_t dFileSize /*= 0*/, bool forceCleanSave /*= false*/, ESavePlatform plat /*= SAVE_FILE_PLATFORM_LOCAL*/)
 {
 	InitializeCriticalSectionAndSpinCount(&m_lock,5120);
 
@@ -336,7 +336,7 @@ void ConsoleSaveFileOriginal::PrepareForWrite( FileEntry *file, uint32_t nNumber
 	finalizeWrite();
 }
 
-BOOL ConsoleSaveFileOriginal::writeFile(FileEntry *file,LPCVOID lpBuffer, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten)
+BOOL ConsoleSaveFileOriginal::writeFile(FileEntry *file,const void* lpBuffer, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten)
 {
 	assert( pvSaveMem != NULL );
 	if( pvSaveMem == NULL )
@@ -410,7 +410,7 @@ BOOL ConsoleSaveFileOriginal::zeroFile(FileEntry *file, uint32_t nNumberOfBytesT
 	return 1;
 }
 
-BOOL ConsoleSaveFileOriginal::readFile( FileEntry *file, LPVOID lpBuffer, uint32_t nNumberOfBytesToRead, uint32_t* lpNumberOfBytesRead)
+BOOL ConsoleSaveFileOriginal::readFile( FileEntry *file, void* lpBuffer, uint32_t nNumberOfBytesToRead, uint32_t* lpNumberOfBytesRead)
 {
 	uint32_t actualBytesToRead;
 	assert( pvSaveMem != NULL );
@@ -816,7 +816,7 @@ void ConsoleSaveFileOriginal::Flush(bool autosave, bool updateThumbnail )
 
 #if (defined __PS3__ || defined __ORBIS__ || defined __PSVITA__ || defined _DURANGO || defined _WINDOWS64)
 
-int ConsoleSaveFileOriginal::SaveSaveDataCallback(LPVOID lpParam,bool bRes)
+int ConsoleSaveFileOriginal::SaveSaveDataCallback(void* lpParam,bool bRes)
 {
 	ConsoleSaveFile *pClass=(ConsoleSaveFile *)lpParam;
 

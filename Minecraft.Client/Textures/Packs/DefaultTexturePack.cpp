@@ -20,7 +20,7 @@ void DefaultTexturePack::loadIcon()
 	const uint32_t LOCATOR_SIZE = 256; // Use this to allocate space to hold a ResourceLocator string 
 	wchar_t szResourceLocator[ LOCATOR_SIZE ];
 
-	const ULONG_PTR c_ModuleHandle = (ULONG_PTR)GetModuleHandle(NULL);
+	const uintptr_t c_ModuleHandle = (uintptr_t)GetModuleHandle(NULL);
 	swprintf(szResourceLocator, LOCATOR_SIZE ,L"section://%X,%ls#%ls",c_ModuleHandle,L"media", L"media/Graphics/TexturePackIcon.png");
 
 	uint32_t size = 0;

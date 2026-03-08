@@ -418,7 +418,7 @@ HRESULT InitDevice()
 
     // Create a render target view
     ID3D11Texture2D* pBackBuffer = NULL;
-    hr = g_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&pBackBuffer );
+    hr = g_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( void** )&pBackBuffer );
     if( FAILED( hr ) )
         return hr;
 
@@ -632,23 +632,23 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	app.LoadXuiResources();
 
 	// initialise the storage manager with a default save display name, a Minimum save size, and a callback for displaying the saving message
-	StorageManager.Init(app.GetString(IDS_DEFAULT_SAVENAME),"savegame.dat",FIFTY_ONE_MB,&CXboxMinecraftApp::DisplaySavingMessage,(LPVOID)&app);
+	StorageManager.Init(app.GetString(IDS_DEFAULT_SAVENAME),"savegame.dat",FIFTY_ONE_MB,&CXboxMinecraftApp::DisplaySavingMessage,(void*)&app);
 	// Set up the global title storage path
 	StorageManager.StoreTMSPathName();
 
 	// set a function to be called when there's a sign in change, so we can exit a level if the primary player signs out
-	ProfileManager.SetSignInChangeCallback(&CXboxMinecraftApp::SignInChangeCallback,(LPVOID)&app);
+	ProfileManager.SetSignInChangeCallback(&CXboxMinecraftApp::SignInChangeCallback,(void*)&app);
 
 	// set a function to be called when the ethernet is disconnected, so we can back out if required
-	ProfileManager.SetNotificationsCallback(&CXboxMinecraftApp::NotificationsCallback,(LPVOID)&app);
+	ProfileManager.SetNotificationsCallback(&CXboxMinecraftApp::NotificationsCallback,(void*)&app);
 	
 	// Set a callback for the default player options to be set - when there is no profile data for the player
-	ProfileManager.SetDefaultOptionsCallback(&CXboxMinecraftApp::DefaultOptionsCallback,(LPVOID)&app);
+	ProfileManager.SetDefaultOptionsCallback(&CXboxMinecraftApp::DefaultOptionsCallback,(void*)&app);
 	// Set a callback to deal with old profile versions needing updated to new versions
-	ProfileManager.SetOldProfileVersionCallback(&CXboxMinecraftApp::OldProfileVersionCallback,(LPVOID)&app);
+	ProfileManager.SetOldProfileVersionCallback(&CXboxMinecraftApp::OldProfileVersionCallback,(void*)&app);
 
 	// Set a callback for when there is a read error on profile data
-	ProfileManager.SetProfileReadErrorCallback(&CXboxMinecraftApp::ProfileReadErrorCallback,(LPVOID)&app);
+	ProfileManager.SetProfileReadErrorCallback(&CXboxMinecraftApp::ProfileReadErrorCallback,(void*)&app);
 
 
 	// QNet needs to be setup after profile manager, as we do not want its Notify listener to handle
@@ -663,7 +663,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 	//ProfileManager.AddDLC(2);
 	StorageManager.SetDLCPackageRoot("DLCDrive");
-	StorageManager.RegisterMarketplaceCountsCallback(&CXboxMinecraftApp::MarketplaceCountsCallback,(LPVOID)&app);
+	StorageManager.RegisterMarketplaceCountsCallback(&CXboxMinecraftApp::MarketplaceCountsCallback,(void*)&app);
 	// Kinect !
 
 	if(XNuiGetHardwareStatus()!=0)
@@ -1011,7 +1011,7 @@ volatile int sectCheck = 48;
 CRITICAL_SECTION memCS;
 uint32_t tlsIdx;
 
-LPVOID XMemAlloc(size_t dwSize, uint32_t dwAllocAttributes)
+void* XMemAlloc(size_t dwSize, uint32_t dwAllocAttributes)
 {
 	if( !trackStarted )
 	{
@@ -1065,7 +1065,7 @@ void operator delete (void *p)
 	XMemFree(p,MAKE_XALLOC_ATTRIBUTES(0,FALSE,TRUE,FALSE,0,XALLOC_PHYSICAL_ALIGNMENT_DEFAULT,XALLOC_MEMPROTECT_READWRITE,FALSE,XALLOC_MEMTYPE_HEAP));
 }
 
-void WINAPI XMemFree(PVOID pAddress, uint32_t dwAllocAttributes)
+void WINAPI XMemFree(void* pAddress, uint32_t dwAllocAttributes)
 {
 	bool special = false;
 	if( dwAllocAttributes == 0 )
@@ -1102,7 +1102,7 @@ void WINAPI XMemFree(PVOID pAddress, uint32_t dwAllocAttributes)
 }
 
 size_t WINAPI XMemSize(
-         PVOID pAddress,
+         void* pAddress,
          uint32_t dwAllocAttributes
 )
 {
@@ -1159,7 +1159,7 @@ void MemSect(int section)
 	{
 		value = (value << 6) | section;
 	}
-	TlsSetValue(tlsIdx, (LPVOID)value);
+	TlsSetValue(tlsIdx, (void*)value);
 }
 
 void MemPixStuff()

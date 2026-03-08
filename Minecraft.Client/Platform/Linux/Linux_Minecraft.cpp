@@ -484,7 +484,7 @@ HRESULT InitDevice()
 
     // Create a render target view
     ID3D11Texture2D* pBackBuffer = NULL;
-    hr = g_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&pBackBuffer );
+    hr = g_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( void** )&pBackBuffer );
     if( FAILED( hr ) )
         return hr;
 
@@ -671,7 +671,7 @@ app.loadStringTable();
     // fuck you
     ui.init(1920, 1080);
 // storage manager is needed for the trial key check
-StorageManager.Init(0,app.GetString(IDS_DEFAULT_SAVENAME),(char*)"savegame.dat",FIFTY_ONE_MB,&CConsoleMinecraftApp::DisplaySavingMessage,(LPVOID)&app,(char*)"");
+StorageManager.Init(0,app.GetString(IDS_DEFAULT_SAVENAME),(char*)"savegame.dat",FIFTY_ONE_MB,&CConsoleMinecraftApp::DisplaySavingMessage,(void*)&app,(char*)"");
 
 ////////////////
 // Initialise //
@@ -704,10 +704,10 @@ byteArray baSaveThumbnail = app.getArchiveFile(L"DefaultSaveThumbnail64x64.png")
 byteArray baSaveImage = app.getArchiveFile(L"DefaultSaveImage228x128.png");
 
 // set a function to be called when there's a sign in change, so we can exit a level if the primary player signs out
-ProfileManager.SetSignInChangeCallback(&CConsoleMinecraftApp::SignInChangeCallback,(LPVOID)&app);
+ProfileManager.SetSignInChangeCallback(&CConsoleMinecraftApp::SignInChangeCallback,(void*)&app);
 
 // Set a callback for when there is a read error on profile data
-//StorageManager.SetProfileReadErrorCallback(&CConsoleMinecraftApp::ProfileReadErrorCallback,(LPVOID)&app);
+//StorageManager.SetProfileReadErrorCallback(&CConsoleMinecraftApp::ProfileReadErrorCallback,(void*)&app);
 
 
 // QNet needs to be setup after profile manager, as we do not want its Notify listener to handle
@@ -1046,7 +1046,7 @@ volatile int sectCheck = 48;
 CRITICAL_SECTION memCS;
 uint32_t tlsIdx;
 
-LPVOID XMemAlloc(size_t dwSize, uint32_t dwAllocAttributes)
+void* XMemAlloc(size_t dwSize, uint32_t dwAllocAttributes)
 {
     if( !trackStarted )
     {
@@ -1100,7 +1100,7 @@ void operator delete (void *p)
     XMemFree(p,MAKE_XALLOC_ATTRIBUTES(0,FALSE,TRUE,FALSE,0,XALLOC_PHYSICAL_ALIGNMENT_DEFAULT,XALLOC_MEMPROTECT_READWRITE,FALSE,XALLOC_MEMTYPE_HEAP));
 }
 
-void WINAPI XMemFree(PVOID pAddress, uint32_t dwAllocAttributes)
+void WINAPI XMemFree(void* pAddress, uint32_t dwAllocAttributes)
 {
     bool special = false;
     if( dwAllocAttributes == 0 )
@@ -1137,7 +1137,7 @@ void WINAPI XMemFree(PVOID pAddress, uint32_t dwAllocAttributes)
 }
 
 size_t WINAPI XMemSize(
-    PVOID pAddress,
+    void* pAddress,
     uint32_t dwAllocAttributes
 )
 {
@@ -1194,7 +1194,7 @@ void MemSect(int section)
     {
         value = (value << 6) | section;
     }
-    TlsSetValue(tlsIdx, (LPVOID)value);
+    TlsSetValue(tlsIdx, (void*)value);
 }
 
 void MemPixStuff()

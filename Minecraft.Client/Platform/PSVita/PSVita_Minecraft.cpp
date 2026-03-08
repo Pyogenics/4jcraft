@@ -294,8 +294,8 @@ void debugSaveGameDirect()
 
 int simpleMessageBoxCallback(	uint32_t uiTitle, uint32_t uiText, 
 							 uint32_t *uiOptionA, uint32_t uiOptionC, uint32_t dwPad,
-							 int(*Func) (LPVOID,int,const C4JStorage::EMessageResult),
-							 LPVOID lpParam )
+							 int(*Func) (void*,int,const C4JStorage::EMessageResult),
+							 void* lpParam )
 {
 	ui.RequestMessageBox(	uiTitle, uiText,
 		uiOptionA, uiOptionC, dwPad,
@@ -522,7 +522,7 @@ int main()
 	PSVitaNPToolkit::init();
 
 	// initialise the storage manager with a default save display name, a Minimum save size, and a callback for displaying the saving message
-	StorageManager.Init( 0, L"savegame.dat", "savePackName", FIFTY_ONE_MB, &CConsoleMinecraftApp::DisplaySavingMessage, (LPVOID)&app, NULL);
+	StorageManager.Init( 0, L"savegame.dat", "savePackName", FIFTY_ONE_MB, &CConsoleMinecraftApp::DisplaySavingMessage, (void*)&app, NULL);
 	StorageManager.SetDLCProductCode(app.GetProductCode());
 	StorageManager.SetProductUpgradeKey(app.GetUpgradeKey());
 	ProfileManager.SetServiceID(app.GetCommerceCategory());
@@ -630,7 +630,7 @@ int main()
 	if(baSaveThumbnail.data!=NULL){	delete [] baSaveThumbnail.data; }
 	if(baSaveImage.data!=NULL){	delete [] baSaveImage.data;	}
 
-	StorageManager.SetIncompleteSaveCallback(CConsoleMinecraftApp::Callback_SaveGameIncomplete, (LPVOID)&app);
+	StorageManager.SetIncompleteSaveCallback(CConsoleMinecraftApp::Callback_SaveGameIncomplete, (void*)&app);
 
 #if 0
 	// Set up the global title storage path
@@ -638,22 +638,22 @@ int main()
 #endif
 
 	// set a function to be called when there's a sign in change, so we can exit a level if the primary player signs out
-	ProfileManager.SetSignInChangeCallback(&CConsoleMinecraftApp::SignInChangeCallback,(LPVOID)&app);
+	ProfileManager.SetSignInChangeCallback(&CConsoleMinecraftApp::SignInChangeCallback,(void*)&app);
 #if 0
 	// set a function to be called when the ethernet is disconnected, so we can back out if required
-	ProfileManager.SetNotificationsCallback(&CConsoleMinecraftApp::NotificationsCallback,(LPVOID)&app);
+	ProfileManager.SetNotificationsCallback(&CConsoleMinecraftApp::NotificationsCallback,(void*)&app);
 #endif
 
 	// Set a callback for the default player options to be set - when there is no profile data for the player
-	StorageManager.SetDefaultOptionsCallback(&CConsoleMinecraftApp::DefaultOptionsCallback,(LPVOID)&app);
-	StorageManager.SetOptionsDataCallback(&CConsoleMinecraftApp::OptionsDataCallback,(LPVOID)&app);
+	StorageManager.SetDefaultOptionsCallback(&CConsoleMinecraftApp::DefaultOptionsCallback,(void*)&app);
+	StorageManager.SetOptionsDataCallback(&CConsoleMinecraftApp::OptionsDataCallback,(void*)&app);
 
 	// Set a callback to deal with old profile versions needing updated to new versions
-	StorageManager.SetOldProfileVersionCallback(&CConsoleMinecraftApp::OldProfileVersionCallback,(LPVOID)&app);
+	StorageManager.SetOldProfileVersionCallback(&CConsoleMinecraftApp::OldProfileVersionCallback,(void*)&app);
 
 #if 0
 	// Set a callback for when there is a read error on profile data
-	//StorageManager.SetProfileReadErrorCallback(&CConsoleMinecraftApp::ProfileReadErrorCallback,(LPVOID)&app);
+	//StorageManager.SetProfileReadErrorCallback(&CConsoleMinecraftApp::ProfileReadErrorCallback,(void*)&app);
 #endif
 
 	StorageManager.SetDLCInfoMap(app.GetSonyDLCMap());
@@ -670,7 +670,7 @@ int main()
 #if 0
 	//ProfileManager.AddDLC(2);
 	StorageManager.SetDLCPackageRoot("DLCDrive");
-	StorageManager.RegisterMarketplaceCountsCallback(&CConsoleMinecraftApp::MarketplaceCountsCallback,(LPVOID)&app);
+	StorageManager.RegisterMarketplaceCountsCallback(&CConsoleMinecraftApp::MarketplaceCountsCallback,(void*)&app);
 	// Kinect !
 
 	if(XNuiGetHardwareStatus()!=0)

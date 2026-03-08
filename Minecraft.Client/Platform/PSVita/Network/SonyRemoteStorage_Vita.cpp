@@ -139,7 +139,7 @@ void SonyRemoteStorage_Vita::internalCallback(const SceRemoteStorageEvent event,
 	}
 }
 
-bool SonyRemoteStorage_Vita::init(CallbackFunc cb, LPVOID lpParam)
+bool SonyRemoteStorage_Vita::init(CallbackFunc cb, void* lpParam)
 {
 	int ret = 0;
 	int reqId = 0;
@@ -241,7 +241,7 @@ bool SonyRemoteStorage_Vita::init(CallbackFunc cb, LPVOID lpParam)
 
 
 
-bool SonyRemoteStorage_Vita::getRemoteFileInfo(SceRemoteStorageStatus* pInfo, CallbackFunc cb, LPVOID lpParam)
+bool SonyRemoteStorage_Vita::getRemoteFileInfo(SceRemoteStorageStatus* pInfo, CallbackFunc cb, void* lpParam)
 {
 	m_callbackFunc = cb;
 	m_callbackParam = lpParam;
@@ -359,7 +359,7 @@ bool SonyRemoteStorage_Vita::setDataInternal()
 }
 
 
-bool SonyRemoteStorage_Vita::getData( const char* remotePath, const char* localPath, CallbackFunc cb, LPVOID lpParam )
+bool SonyRemoteStorage_Vita::getData( const char* remotePath, const char* localPath, CallbackFunc cb, void* lpParam )
 {
 	m_callbackFunc = cb;
 	m_callbackParam = lpParam;

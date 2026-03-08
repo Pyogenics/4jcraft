@@ -440,8 +440,8 @@ void LoadSysModule(uint16_t module, const char* moduleName)
 
 int simpleMessageBoxCallback(	uint32_t uiTitle, uint32_t uiText, 
 								uint32_t *uiOptionA, uint32_t uiOptionC, uint32_t dwPad,
-								int(*Func) (LPVOID,int,const C4JStorage::EMessageResult),
-								LPVOID lpParam )
+								int(*Func) (void*,int,const C4JStorage::EMessageResult),
+								void* lpParam )
 {
 	ui.RequestMessageBox(	uiTitle, uiText,
 							uiOptionA, uiOptionC, dwPad,
@@ -894,7 +894,7 @@ int main()
 	ProfileManager.SetSignInQuestionID(IDS_SIGNIN_PSN);
 
 	// initialise the storage manager with a callback for displaying the saving message
-	StorageManager.Init(0,app.GetString(IDS_DEFAULT_SAVENAME),"savegame.dat",FIFTY_ONE_MB,&CConsoleMinecraftApp::DisplaySavingMessage,(LPVOID)&app,"");
+	StorageManager.Init(0,app.GetString(IDS_DEFAULT_SAVENAME),"savegame.dat",FIFTY_ONE_MB,&CConsoleMinecraftApp::DisplaySavingMessage,(void*)&app,"");
 
 #if 0
 
@@ -908,23 +908,23 @@ int main()
 
 
 	// set a function to be called when there's a sign in change, so we can exit a level if the primary player signs out
-	ProfileManager.SetSignInChangeCallback(&CConsoleMinecraftApp::SignInChangeCallback,(LPVOID)&app);
+	ProfileManager.SetSignInChangeCallback(&CConsoleMinecraftApp::SignInChangeCallback,(void*)&app);
 
 #if 0
 	// set a function to be called when the ethernet is disconnected, so we can back out if required
-	ProfileManager.SetNotificationsCallback(&CConsoleMinecraftApp::NotificationsCallback,(LPVOID)&app);
+	ProfileManager.SetNotificationsCallback(&CConsoleMinecraftApp::NotificationsCallback,(void*)&app);
 #endif
 	// Set a callback for the default player options to be set - when there is no profile data for the player
 
-	StorageManager.SetDefaultOptionsCallback(&CConsoleMinecraftApp::DefaultOptionsCallback,(LPVOID)&app);
-	StorageManager.SetOptionsDataCallback(&CConsoleMinecraftApp::OptionsDataCallback,(LPVOID)&app);
+	StorageManager.SetDefaultOptionsCallback(&CConsoleMinecraftApp::DefaultOptionsCallback,(void*)&app);
+	StorageManager.SetOptionsDataCallback(&CConsoleMinecraftApp::OptionsDataCallback,(void*)&app);
 
 	// Set a callback to deal with old profile versions needing updated to new versions
 #if 0
-	ProfileManager.SetOldProfileVersionCallback(&CConsoleMinecraftApp::OldProfileVersionCallback,(LPVOID)&app);
+	ProfileManager.SetOldProfileVersionCallback(&CConsoleMinecraftApp::OldProfileVersionCallback,(void*)&app);
 
 	// Set a callback for when there is a read error on profile data
-	ProfileManager.SetProfileReadErrorCallback(&CConsoleMinecraftApp::ProfileReadErrorCallback,(LPVOID)&app);
+	ProfileManager.SetProfileReadErrorCallback(&CConsoleMinecraftApp::ProfileReadErrorCallback,(void*)&app);
 
 	// QNet needs to be setup after profile manager, as we do not want its Notify listener to handle
 	// XN_SYS_SIGNINCHANGED notifications. This does mean that we need to have a callback in the
@@ -1007,7 +1007,7 @@ int main()
 
 	//ProfileManager.AddDLC(2);
 	StorageManager.SetDLCPackageRoot("DLCDrive");
-	StorageManager.RegisterMarketplaceCountsCallback(&CConsoleMinecraftApp::MarketplaceCountsCallback,(LPVOID)&app);
+	StorageManager.RegisterMarketplaceCountsCallback(&CConsoleMinecraftApp::MarketplaceCountsCallback,(void*)&app);
 
 	// Initialise TLS for tesselator, for this main thread
 	Tesselator::CreateNewThreadStorage(1024*1024);
@@ -1397,7 +1397,7 @@ volatile int sectCheck = 48;
 CRITICAL_SECTION memCS;
 uint32_t tlsIdx;
 
-LPVOID XMemAlloc(size_t dwSize, uint32_t dwAllocAttributes)
+void* XMemAlloc(size_t dwSize, uint32_t dwAllocAttributes)
 {
 	if( !trackStarted )
 	{
@@ -1451,7 +1451,7 @@ void operator delete (void *p)
 	XMemFree(p,MAKE_XALLOC_ATTRIBUTES(0,FALSE,TRUE,FALSE,0,XALLOC_PHYSICAL_ALIGNMENT_DEFAULT,XALLOC_MEMPROTECT_READWRITE,FALSE,XALLOC_MEMTYPE_HEAP));
 }
 
-void WINAPI XMemFree(PVOID pAddress, uint32_t dwAllocAttributes)
+void WINAPI XMemFree(void* pAddress, uint32_t dwAllocAttributes)
 {
 	bool special = false;
 	if( dwAllocAttributes == 0 )
@@ -1487,7 +1487,7 @@ void WINAPI XMemFree(PVOID pAddress, uint32_t dwAllocAttributes)
 }
 
 size_t WINAPI XMemSize(
-         PVOID pAddress,
+         void* pAddress,
          uint32_t dwAllocAttributes
 )
 {
@@ -1543,7 +1543,7 @@ void MemSect(int section)
 	{
 		value = (value << 6) | section;
 	}
-	TlsSetValue(tlsIdx, (LPVOID)value);
+	TlsSetValue(tlsIdx, (void*)value);
 }
 
 void MemPixStuff()

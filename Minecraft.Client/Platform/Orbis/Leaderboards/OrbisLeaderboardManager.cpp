@@ -61,7 +61,7 @@ OrbisLeaderboardManager::~OrbisLeaderboardManager()
 	DeleteCriticalSection(&m_csViewsLock);
 }
 
-int OrbisLeaderboardManager::scoreboardThreadEntry(LPVOID lpParam)
+int OrbisLeaderboardManager::scoreboardThreadEntry(void* lpParam)
 {
 	ShutdownManager::HasStarted(ShutdownManager::eLeaderboardThread);
 	OrbisLeaderboardManager *self = reinterpret_cast<OrbisLeaderboardManager *>(lpParam);

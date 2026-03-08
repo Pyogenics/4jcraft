@@ -238,7 +238,7 @@ SceInt32 C4JThread::entryPoint(SceSize argSize, void *pArgBlock)
 	return pThread->m_exitCode;
 }
 #else
-uint32_t WINAPI	C4JThread::entryPoint(LPVOID lpParam)
+uint32_t WINAPI	C4JThread::entryPoint(void* lpParam)
 {
 	C4JThread* pThread = (C4JThread*)lpParam;
 	SetThreadName(-1, pThread->m_threadName);

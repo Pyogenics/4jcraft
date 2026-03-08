@@ -305,7 +305,7 @@ public:
 	static int64_t currentTimeMillis();
 
 #ifdef _DURANGO
-	static void inGameSignInCheckAllPrivilegesCallback(LPVOID lpParam, bool hasPrivileges, int iPad);
+	static void inGameSignInCheckAllPrivilegesCallback(void* lpParam, bool hasPrivileges, int iPad);
 #endif
 	static int InGame_SignInReturned(void *pParam,bool bContinue, int iPad);
 	// 4J-PB

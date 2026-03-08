@@ -379,7 +379,7 @@ FileEntry *ConsoleSaveFileSplit::GetRegionFileEntry(unsigned int regionIndex)
 	return newRef->fileEntry;
 }
 
-ConsoleSaveFileSplit::ConsoleSaveFileSplit(const std::wstring &fileName, LPVOID pvSaveData /*= NULL*/, uint32_t dFileSize /*= 0*/, bool forceCleanSave /*= false*/, ESavePlatform plat /*= SAVE_FILE_PLATFORM_LOCAL*/)
+ConsoleSaveFileSplit::ConsoleSaveFileSplit(const std::wstring &fileName, void* pvSaveData /*= NULL*/, uint32_t dFileSize /*= 0*/, bool forceCleanSave /*= false*/, ESavePlatform plat /*= SAVE_FILE_PLATFORM_LOCAL*/)
 {
 	uint32_t fileSize = dFileSize;
 
@@ -437,7 +437,7 @@ ConsoleSaveFileSplit::ConsoleSaveFileSplit(ConsoleSaveFile *sourceSave, bool alr
 	}
 }
 
-void ConsoleSaveFileSplit::_init(const std::wstring &fileName, LPVOID pvSaveData, uint32_t fileSize, ESavePlatform plat)
+void ConsoleSaveFileSplit::_init(const std::wstring &fileName, void* pvSaveData, uint32_t fileSize, ESavePlatform plat)
 {
 	InitializeCriticalSectionAndSpinCount(&m_lock,5120);
 
@@ -733,7 +733,7 @@ void ConsoleSaveFileSplit::PrepareForWrite( FileEntry *file, uint32_t nNumberOfB
 	finalizeWrite();
 }
 
-BOOL ConsoleSaveFileSplit::writeFile(FileEntry *file,LPCVOID lpBuffer, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten)
+BOOL ConsoleSaveFileSplit::writeFile(FileEntry *file,const void* lpBuffer, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten)
 {
 	assert( pvSaveMem != NULL );
 	if( pvSaveMem == NULL )
@@ -839,7 +839,7 @@ BOOL ConsoleSaveFileSplit::zeroFile(FileEntry *file, uint32_t nNumberOfBytesToWr
 	return 1;
 }
 
-BOOL ConsoleSaveFileSplit::readFile( FileEntry *file, LPVOID lpBuffer, uint32_t nNumberOfBytesToRead, uint32_t* lpNumberOfBytesRead)
+BOOL ConsoleSaveFileSplit::readFile( FileEntry *file, void* lpBuffer, uint32_t nNumberOfBytesToRead, uint32_t* lpNumberOfBytesRead)
 {
 	uint32_t actualBytesToRead;
 	assert( pvSaveMem != NULL );
@@ -1456,7 +1456,7 @@ void ConsoleSaveFileSplit::Flush(bool autosave, bool updateThumbnail)
 	}
 }
 
-int ConsoleSaveFileSplit::SaveSaveDataCallback(LPVOID lpParam,bool bRes)
+int ConsoleSaveFileSplit::SaveSaveDataCallback(void* lpParam,bool bRes)
 {
 	ConsoleSaveFileSplit *pClass=(ConsoleSaveFileSplit *)lpParam;
 	
@@ -1469,7 +1469,7 @@ int ConsoleSaveFileSplit::SaveSaveDataCallback(LPVOID lpParam,bool bRes)
 	return 0;
 }
 
-int ConsoleSaveFileSplit::SaveRegionFilesCallback(LPVOID lpParam,bool bRes)
+int ConsoleSaveFileSplit::SaveRegionFilesCallback(void* lpParam,bool bRes)
 {
 	ConsoleSaveFileSplit *pClass=(ConsoleSaveFileSplit *)lpParam;
 	

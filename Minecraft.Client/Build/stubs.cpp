@@ -103,7 +103,7 @@ void glTexGeni(int,int,int)
 // 4J Stu - Added these to stop us needing to pull in loads of media libraries just to use Qnet
 #include <xcam.h>
 uint32_t XCamInitialize(){ return 0; }
-VOID XCamShutdown() {}
+void XCamShutdown() {}
  
 uint32_t XCamCreateStreamEngine(
          CONST XCAM_STREAM_ENGINE_INIT_PARAMS *pParams,

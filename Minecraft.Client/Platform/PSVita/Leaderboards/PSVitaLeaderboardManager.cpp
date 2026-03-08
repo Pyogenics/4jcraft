@@ -60,7 +60,7 @@ PSVitaLeaderboardManager::~PSVitaLeaderboardManager()
 	DeleteCriticalSection(&m_csViewsLock);
 }
 
-int PSVitaLeaderboardManager::scoreboardThreadEntry(LPVOID lpParam)
+int PSVitaLeaderboardManager::scoreboardThreadEntry(void* lpParam)
 {
 	ShutdownManager::HasStarted(ShutdownManager::eLeaderboardThread);
 	PSVitaLeaderboardManager *self = reinterpret_cast<PSVitaLeaderboardManager *>(lpParam);

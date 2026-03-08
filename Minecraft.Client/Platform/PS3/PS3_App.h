@@ -159,16 +159,16 @@ public:
 	char *GetSkuIDFromProductList();
 	void GetDLCSkuIDFromProductList(char *,char *);
 
-	static void CommerceInitCallback(LPVOID lpParam,int err);
-	static void CommerceGetCategoriesCallback(LPVOID lpParam,int err);
-	static void CommerceGetProductListCallback(LPVOID lpParam,int err);
-//	static void CommerceGetDetailedProductInfoCallback(LPVOID lpParam,int err);
-	static void CommerceAddDetailedProductInfoCallback(LPVOID lpParam,int err);
-	static void CommerceCheckoutCallback(LPVOID lpParam,int err);
+	static void CommerceInitCallback(void* lpParam,int err);
+	static void CommerceGetCategoriesCallback(void* lpParam,int err);
+	static void CommerceGetProductListCallback(void* lpParam,int err);
+//	static void CommerceGetDetailedProductInfoCallback(void* lpParam,int err);
+	static void CommerceAddDetailedProductInfoCallback(void* lpParam,int err);
+	static void CommerceCheckoutCallback(void* lpParam,int err);
 
-	static void CheckoutSessionStartedCallback(LPVOID lpParam,int err);
-	static void DownloadAlreadyPurchasedSessionStartedCallback(LPVOID lpParam,int err);
-	static void UpgradeTrialSessionStartedCallback(LPVOID lpParam,int err);
+	static void CheckoutSessionStartedCallback(void* lpParam,int err);
+	static void DownloadAlreadyPurchasedSessionStartedCallback(void* lpParam,int err);
+	static void UpgradeTrialSessionStartedCallback(void* lpParam,int err);
 
 	void SetDiscPatchUsrDir(char *chPatchDir);
 	char *GetDiscPatchUsrDir();
