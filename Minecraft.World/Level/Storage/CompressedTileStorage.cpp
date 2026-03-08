@@ -314,7 +314,7 @@ void CompressedTileStorage::setData(byteArray dataIn, unsigned int inOffset)
 		// AP - Vita isn't so great at shifting 64bits. The top biggest CPU time sink after profiling is __ashldi3 (64bit shift) at 3%
 		// Let's use 32bit instead
 		unsigned int usedFlags[8] = {0,0,0,0,0,0,0,0};
-		__int32 i32_1 = 1;
+		int32_t i32_1 = 1;
 		for( int j = 0; j < 64; j++ )			// This loop of 64 is to go round the 4 x 4 tiles in the block
 		{
 			int tile = data[getIndex(i,j)];
@@ -933,7 +933,7 @@ void  CompressedTileStorage::compress(int upgradeBlock/*=-1*/)
 				// AP - Vita isn't so great at shifting 64bits. The top biggest CPU time sink after profiling is __ashldi3 (64bit shift) at 3%
 				// lets use 32bit values instead
 				unsigned int usedFlags[8] = {0,0,0,0,0,0,0,0};
-				__int32 i32_1 = 1;
+				int32_t i32_1 = 1;
 				for( int j = 0; j < 64; j++ )			// This loop of 64 is to go round the 4x4x4 tiles in the block
 				{
 					int tiletype = unpacked_data[j];
