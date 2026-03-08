@@ -128,7 +128,7 @@ SONYDLC *CConsoleMinecraftApp::GetSONYDLCInfoFromKeyname(char *pchKeyName)
 }
 
 #define WRAPPED_READFILE(hFile,lpBuffer,nNumberOfBytesToRead,lpNumberOfBytesRead,lpOverlapped) {if(ReadFile(hFile,lpBuffer,nNumberOfBytesToRead,lpNumberOfBytesRead,lpOverlapped)==FALSE) { return FALSE;}}
-BOOL CConsoleMinecraftApp::ReadProductCodes()
+bool CConsoleMinecraftApp::ReadProductCodes()
 {
 	char chDLCTitle[64];
 

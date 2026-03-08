@@ -87,7 +87,7 @@ int FileInputStream::read()
 	uint8_t byteRead = static_cast<uint8_t>(0);
 	uint32_t numberOfBytesRead;
 
-	BOOL bSuccess = ReadFile(
+	bool bSuccess = ReadFile(
 		m_fileHandle, // handle to file
 		&byteRead, // data buffer
 		1, // number of bytes to read
@@ -119,7 +119,7 @@ int FileInputStream::read(byteArray b)
 {
 	uint32_t numberOfBytesRead;
 
-	BOOL bSuccess = ReadFile(
+	bool bSuccess = ReadFile(
 		m_fileHandle, // handle to file
 		b.data, // data buffer
 		b.length, // number of bytes to read
@@ -157,7 +157,7 @@ int FileInputStream::read(byteArray b, unsigned int offset, unsigned int length)
 
 	uint32_t numberOfBytesRead;
 
-	BOOL bSuccess = ReadFile(
+	bool bSuccess = ReadFile(
 		m_fileHandle, // handle to file
 		&b[offset], // data buffer
 		length, // number of bytes to read

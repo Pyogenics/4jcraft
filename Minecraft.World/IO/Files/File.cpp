@@ -98,12 +98,12 @@ this->parent = NULL;
 bool File::_delete()
 {
 #if defined _UNICODE
-	BOOL result = DeleteFile( getPath().c_str() );
+	bool result = DeleteFile( getPath().c_str() );
 #elif defined(__linux__)
 	// FIXME
-	BOOL result = 0;
+	bool result = 0;
 #else
-	BOOL result = DeleteFile( wstringtofilename(getPath()) );
+	bool result = DeleteFile( wstringtofilename(getPath()) );
 #endif
 	if( result == 0 )
 	{
@@ -653,13 +653,13 @@ int64_t File::length()
 #else
 	WIN32_FILE_ATTRIBUTE_DATA fileInfoBuffer;
 #ifdef _UNICODE
-	BOOL result = GetFileAttributesEx(
+	bool result = GetFileAttributesEx(
 		getPath().c_str(), // file or directory name
 		GetFileExInfoStandard, // attribute 
 		&fileInfoBuffer // attribute information 
 		);
 #else
-	BOOL result = GetFileAttributesEx(
+	bool result = GetFileAttributesEx(
 		wstringtofilename(getPath()), // file or directory name
 		GetFileExInfoStandard, // attribute 
 		&fileInfoBuffer // attribute information 
@@ -692,13 +692,13 @@ int64_t File::lastModified()
 #if !defined(__linux__)
 	WIN32_FILE_ATTRIBUTE_DATA fileInfoBuffer;
 #ifdef _UNICODE
-	BOOL result = GetFileAttributesEx(
+	bool result = GetFileAttributesEx(
 		getPath().c_str(), // file or directory name
 		GetFileExInfoStandard, // attribute 
 		&fileInfoBuffer // attribute information 
 		);
 #else
-	BOOL result = GetFileAttributesEx(
+	bool result = GetFileAttributesEx(
 		wstringtofilename(getPath()), // file or directory name
 		GetFileExInfoStandard, // attribute 
 		&fileInfoBuffer // attribute information 

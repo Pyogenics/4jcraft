@@ -244,7 +244,7 @@ uint32_t MinecraftDynamicConfigurations::GetTrialTime() { return DYNAMIC_CONFIG_
 
 void XSetThreadProcessor(void* a, int b) {}
 // #if !(defined __PS3__) && !(defined __ORBIS__)
-// BOOL XCloseHandle(void* a) { return CloseHandle(a); }
+// bool XCloseHandle(void* a) { return CloseHandle(a); }
 // #endif // __PS3__
 
 uint32_t XUserGetSigninInfo(
@@ -261,7 +261,7 @@ const wchar_t* CXuiStringTable::Lookup(uint32_t nIndex) { return L"String"; }
 void CXuiStringTable::Clear() {}
 int32_t CXuiStringTable::Load(const wchar_t* szId) { return S_OK; }
 
-uint32_t XUserAreUsersFriends( uint32_t dwUserIndex, PPlayerUID pXuids, uint32_t dwXuidCount, PBOOL pfResult, void *pOverlapped) { return 0; }
+uint32_t XUserAreUsersFriends( uint32_t dwUserIndex, PPlayerUID pXuids, uint32_t dwXuidCount, bool* pfResult, void *pOverlapped) { return 0; }
 
 #if defined __ORBIS__ || defined __PS3__ || defined _XBOX_ONE
 #else
@@ -386,7 +386,7 @@ void XMemDestroyDecompressionContext(XMEMDECOMPRESSION_CONTEXT Context)
 #if !(defined _DURANGO || defined __PS3__ || defined __ORBIS__ || defined __PSVITA__)
 uint32_t XGetLanguage() { return 1; }
 uint32_t XGetLocale() { return 0; }
-uint32_t XEnableGuestSignin(BOOL fEnable) { return 0; }
+uint32_t XEnableGuestSignin(bool fEnable) { return 0; }
 #endif
 
 
@@ -473,8 +473,8 @@ uint32_t				C_4JProfile::RequestConvertOfflineToGuestUI(int( *Func)(void*,const 
 void				C_4JProfile::SetPrimaryPlayerChanged(bool bVal) {}
 bool				C_4JProfile::QuerySigninStatus(void) { return true; }
 void				C_4JProfile::GetXUID(int iPad, PlayerUID *pXuid,bool bOnlineXuid) {*pXuid = 0xe000d45248242f2e; }
-BOOL				C_4JProfile::AreXUIDSEqual(PlayerUID xuid1,PlayerUID xuid2) { return false; }
-BOOL				C_4JProfile::XUIDIsGuest(PlayerUID xuid) { return false; }
+bool				C_4JProfile::AreXUIDSEqual(PlayerUID xuid1,PlayerUID xuid2) { return false; }
+bool				C_4JProfile::XUIDIsGuest(PlayerUID xuid) { return false; }
 bool				C_4JProfile::AllowedToPlayMultiplayer(int iProf) { return true; }
 
 #if defined(__ORBIS__)
@@ -488,8 +488,8 @@ bool				C_4JProfile::GetChatAndContentRestrictions(int iPad, bool thisQuadrantOn
 #endif
 
 void				C_4JProfile::StartTrialGame() {}
-void				C_4JProfile::AllowedPlayerCreatedContent(int iPad, bool thisQuadrantOnly, BOOL *allAllowed, BOOL *friendsAllowed) {}
-BOOL				C_4JProfile::CanViewPlayerCreatedContent(int iPad, bool thisQuadrantOnly, PPlayerUID pXuids, uint32_t dwXuidCount ) { return true; }
+void				C_4JProfile::AllowedPlayerCreatedContent(int iPad, bool thisQuadrantOnly, bool *allAllowed, bool *friendsAllowed) {}
+bool				C_4JProfile::CanViewPlayerCreatedContent(int iPad, bool thisQuadrantOnly, PPlayerUID pXuids, uint32_t dwXuidCount ) { return true; }
 bool				C_4JProfile::GetProfileAvatar(int iPad,int( *Func)(void* lpParam,uint8_t* pbThumbnail,uint32_t dwThumbnailBytes), void* lpParam) { return false; }
 void				C_4JProfile::CancelProfileAvatarRequest() {}
 int					C_4JProfile::GetPrimaryPad() { return 0; }
@@ -621,25 +621,25 @@ C4JStorage::ETMSStatus				C4JStorage::TMSPP_ReadFile(int iPad,C4JStorage::eGloba
 int32_t CSentientManager::Init() { return S_OK; }
 int32_t CSentientManager::Tick() { return S_OK; }
 int32_t CSentientManager::Flush() { return S_OK; }
-BOOL CSentientManager::RecordPlayerSessionStart(uint32_t dwUserId) { return true; }
-BOOL CSentientManager::RecordPlayerSessionExit(uint32_t dwUserId, int exitStatus) { return true; }
-BOOL CSentientManager::RecordHeartBeat(uint32_t dwUserId) { return true; }
-BOOL CSentientManager::RecordLevelStart(uint32_t dwUserId, ESen_FriendOrMatch friendsOrMatch, ESen_CompeteOrCoop competeOrCoop, int difficulty, uint32_t numberOfLocalPlayers, uint32_t numberOfOnlinePlayers) { return true; }
-BOOL CSentientManager::RecordLevelExit(uint32_t dwUserId, ESen_LevelExitStatus levelExitStatus) { return true; }
-BOOL CSentientManager::RecordLevelSaveOrCheckpoint(uint32_t dwUserId, int32_t saveOrCheckPointID, int32_t saveSizeInBytes) { return true; }
-BOOL CSentientManager::RecordLevelResume(uint32_t dwUserId, ESen_FriendOrMatch friendsOrMatch, ESen_CompeteOrCoop competeOrCoop, int difficulty, uint32_t numberOfLocalPlayers, uint32_t numberOfOnlinePlayers, int32_t saveOrCheckPointID)  { return true; }
-BOOL CSentientManager::RecordPauseOrInactive(uint32_t dwUserId)  { return true; }
-BOOL CSentientManager::RecordUnpauseOrActive(uint32_t dwUserId) { return true; }
-BOOL CSentientManager::RecordMenuShown(uint32_t dwUserId, int32_t menuID, int32_t optionalMenuSubID) { return true; }
-BOOL CSentientManager::RecordAchievementUnlocked(uint32_t dwUserId, int32_t achievementID, int32_t achievementGamerscore) { return true; }
-BOOL CSentientManager::RecordMediaShareUpload(uint32_t dwUserId, ESen_MediaDestination mediaDestination, ESen_MediaType mediaType) { return true; }
-BOOL CSentientManager::RecordUpsellPresented(uint32_t dwUserId, ESen_UpsellID upsellId, int32_t marketplaceOfferID) { return true; }
-BOOL CSentientManager::RecordUpsellResponded(uint32_t dwUserId, ESen_UpsellID upsellId, int32_t marketplaceOfferID, ESen_UpsellOutcome upsellOutcome) { return true; }
-BOOL CSentientManager::RecordPlayerDiedOrFailed(uint32_t dwUserId, int32_t lowResMapX, int32_t lowResMapY, int32_t lowResMapZ, int32_t mapID, int32_t playerWeaponID, int32_t enemyWeaponID, ETelemetryChallenges enemyTypeID) { return true; }
-BOOL CSentientManager::RecordEnemyKilledOrOvercome(uint32_t dwUserId, int32_t lowResMapX, int32_t lowResMapY, int32_t lowResMapZ, int32_t mapID, int32_t playerWeaponID, int32_t enemyWeaponID, ETelemetryChallenges enemyTypeID) { return true; }
-BOOL CSentientManager::RecordSkinChanged(uint32_t dwUserId, uint32_t dwSkinId) { return true; }
-BOOL CSentientManager::RecordBanLevel(uint32_t dwUserId) { return true; }
-BOOL CSentientManager::RecordUnBanLevel(uint32_t dwUserId) { return true; }
+bool CSentientManager::RecordPlayerSessionStart(uint32_t dwUserId) { return true; }
+bool CSentientManager::RecordPlayerSessionExit(uint32_t dwUserId, int exitStatus) { return true; }
+bool CSentientManager::RecordHeartBeat(uint32_t dwUserId) { return true; }
+bool CSentientManager::RecordLevelStart(uint32_t dwUserId, ESen_FriendOrMatch friendsOrMatch, ESen_CompeteOrCoop competeOrCoop, int difficulty, uint32_t numberOfLocalPlayers, uint32_t numberOfOnlinePlayers) { return true; }
+bool CSentientManager::RecordLevelExit(uint32_t dwUserId, ESen_LevelExitStatus levelExitStatus) { return true; }
+bool CSentientManager::RecordLevelSaveOrCheckpoint(uint32_t dwUserId, int32_t saveOrCheckPointID, int32_t saveSizeInBytes) { return true; }
+bool CSentientManager::RecordLevelResume(uint32_t dwUserId, ESen_FriendOrMatch friendsOrMatch, ESen_CompeteOrCoop competeOrCoop, int difficulty, uint32_t numberOfLocalPlayers, uint32_t numberOfOnlinePlayers, int32_t saveOrCheckPointID)  { return true; }
+bool CSentientManager::RecordPauseOrInactive(uint32_t dwUserId)  { return true; }
+bool CSentientManager::RecordUnpauseOrActive(uint32_t dwUserId) { return true; }
+bool CSentientManager::RecordMenuShown(uint32_t dwUserId, int32_t menuID, int32_t optionalMenuSubID) { return true; }
+bool CSentientManager::RecordAchievementUnlocked(uint32_t dwUserId, int32_t achievementID, int32_t achievementGamerscore) { return true; }
+bool CSentientManager::RecordMediaShareUpload(uint32_t dwUserId, ESen_MediaDestination mediaDestination, ESen_MediaType mediaType) { return true; }
+bool CSentientManager::RecordUpsellPresented(uint32_t dwUserId, ESen_UpsellID upsellId, int32_t marketplaceOfferID) { return true; }
+bool CSentientManager::RecordUpsellResponded(uint32_t dwUserId, ESen_UpsellID upsellId, int32_t marketplaceOfferID, ESen_UpsellOutcome upsellOutcome) { return true; }
+bool CSentientManager::RecordPlayerDiedOrFailed(uint32_t dwUserId, int32_t lowResMapX, int32_t lowResMapY, int32_t lowResMapZ, int32_t mapID, int32_t playerWeaponID, int32_t enemyWeaponID, ETelemetryChallenges enemyTypeID) { return true; }
+bool CSentientManager::RecordEnemyKilledOrOvercome(uint32_t dwUserId, int32_t lowResMapX, int32_t lowResMapY, int32_t lowResMapZ, int32_t mapID, int32_t playerWeaponID, int32_t enemyWeaponID, ETelemetryChallenges enemyTypeID) { return true; }
+bool CSentientManager::RecordSkinChanged(uint32_t dwUserId, uint32_t dwSkinId) { return true; }
+bool CSentientManager::RecordBanLevel(uint32_t dwUserId) { return true; }
+bool CSentientManager::RecordUnBanLevel(uint32_t dwUserId) { return true; }
 int32_t CSentientManager::GetMultiplayerInstanceID() { return 0; }
 int32_t CSentientManager::GenerateMultiplayerInstanceId() { return 0; }
 void CSentientManager::SetMultiplayerInstanceId(int32_t value) {}

@@ -94,7 +94,7 @@ public:
 
 
 
-	BOOL ReadProductCodes();
+	bool ReadProductCodes();
 	char *GetProductCode();
 	char *GetSaveFolderPrefix();
 	char *GetCommerceCategory();

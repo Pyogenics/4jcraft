@@ -77,7 +77,7 @@ void FileOutputStream::write(unsigned int b)
 	uint8_t value = (uint8_t) b;
 
 #if defined(_WIN32)
-	BOOL result = WriteFile(
+	bool result = WriteFile(
 		m_fileHandle, // handle to file
 		&value, // data buffer
 		1, // number of bytes to write
@@ -106,7 +106,7 @@ void FileOutputStream::write(unsigned int b)
 void FileOutputStream::write(byteArray b)
 {
 #if defined(_WIN32)
-	BOOL result = WriteFile(
+	bool result = WriteFile(
 		m_fileHandle, // handle to file
 		&b.data, // data buffer
 		b.length, // number of bytes to write
@@ -142,7 +142,7 @@ void FileOutputStream::write(byteArray b, unsigned int offset, unsigned int leng
 #if defined(_WIN32)
 	uint32_t numberOfBytesWritten;
 
-	BOOL result = WriteFile(
+	bool result = WriteFile(
 		m_fileHandle, // handle to file
 		&b[offset], // data buffer
 		length, // number of bytes to write
@@ -171,7 +171,7 @@ void FileOutputStream::write(byteArray b, unsigned int offset, unsigned int leng
 void FileOutputStream::close()
 {
 #ifdef _WIN32
-	BOOL result = CloseHandle( m_fileHandle );
+	bool result = CloseHandle( m_fileHandle );
 #else // __linux__
 	int result = ::close( (int)(intptr_t)m_fileHandle );
 #endif // _WIN32

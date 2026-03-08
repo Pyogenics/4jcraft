@@ -325,7 +325,7 @@ void PIXSetMarkerDeprecated(int a, const char *b, ...);
 #endif
 
 void XSetThreadProcessor(void* a, int b);
-//BOOL XCloseHandle(void* a);
+//bool XCloseHandle(void* a);
 
 const int QNET_SENDDATA_LOW_PRIORITY = 0;
 const int QNET_SENDDATA_SECONDARY = 0;
@@ -367,13 +367,13 @@ typedef struct _XMARKETPLACE_CONTENTOFFER_INFO
     wchar_t *wszOfferName;
     uint32_t dwOfferType;
     uint8_t contentId[XMARKETPLACE_CONTENT_ID_LEN];
-    BOOL fIsUnrestrictedLicense;
+    bool fIsUnrestrictedLicense;
     uint32_t dwLicenseMask;
     uint32_t dwTitleID;
     uint32_t dwContentCategory;
     uint32_t dwTitleNameLength;
     wchar_t *wszTitleName;
-    BOOL fUserHasPurchased;
+    bool fUserHasPurchased;
     uint32_t dwPackageSize;
     uint32_t dwInstallSize;
     uint32_t dwSellTextLength;
@@ -618,7 +618,7 @@ const int XC_LOCALE_LATIN_AMERICA		=240;
 #if !(defined _DURANGO || defined __PS3__ || defined __ORBIS__ || defined __PSVITA__)
 uint32_t XGetLanguage();
 uint32_t XGetLocale();
-uint32_t XEnableGuestSignin(BOOL fEnable);
+uint32_t XEnableGuestSignin(bool fEnable);
 #endif
 
 class D3DXVECTOR3

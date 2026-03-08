@@ -156,7 +156,7 @@ byteArray ArchiveFile::getFile(const std::wstring &filename)
 				uint8_t* pbData = new uint8_t[ data->filesize ];
 
 				uint32_t bytesRead = -1;
-				BOOL bSuccess = ReadFile(	hfile,
+				bool bSuccess = ReadFile(	hfile,
 					(void*) pbData,
 					data->filesize,
 					&bytesRead,

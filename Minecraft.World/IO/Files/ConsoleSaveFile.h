@@ -11,10 +11,10 @@ public:
 	virtual FileEntry *createFile( const ConsoleSavePath &fileName ) = 0;
 	virtual void deleteFile( FileEntry *file ) = 0;
 	virtual void setFilePointer( FileEntry *file,int32_t lDistanceToMove, int32_t* lpDistanceToMoveHigh,uint32_t dwMoveMethod) = 0;
-	virtual BOOL writeFile(	FileEntry *file, const void* lpBuffer, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten) = 0;
-	virtual BOOL zeroFile(FileEntry *file, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten) = 0;
-	virtual BOOL readFile( FileEntry *file, void* lpBuffer, uint32_t nNumberOfBytesToRead, uint32_t* lpNumberOfBytesRead ) = 0;
-	virtual BOOL closeHandle( FileEntry *file ) = 0;
+	virtual bool writeFile(	FileEntry *file, const void* lpBuffer, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten) = 0;
+	virtual bool zeroFile(FileEntry *file, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten) = 0;
+	virtual bool readFile( FileEntry *file, void* lpBuffer, uint32_t nNumberOfBytesToRead, uint32_t* lpNumberOfBytesRead ) = 0;
+	virtual bool closeHandle( FileEntry *file ) = 0;
 	virtual void finalizeWrite() = 0;
 	virtual void tick() {};
 

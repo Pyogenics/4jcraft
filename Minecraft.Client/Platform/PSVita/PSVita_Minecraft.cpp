@@ -129,7 +129,7 @@ extern "C" void* __wrap__malloc_init(size_t a_Boundary, size_t a_Size)
 //                  for a long time.
 //-------------------------------------------------------------------------------------
 
-BOOL g_bWidescreen = TRUE;
+bool g_bWidescreen = TRUE;
 //int  g_numberOfSpeakersForMiles = 2; // number of speakers to pass to Miles, this is setup from init_audio_hardware 
 
 void DefineActions(void)

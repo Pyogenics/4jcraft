@@ -28,7 +28,7 @@ int ConsoleSaveFileInputStream::read()
 	uint8_t byteRead = static_cast<uint8_t>(0);
 	uint32_t numberOfBytesRead;
 
-	BOOL result = m_saveFile->readFile(
+	bool result = m_saveFile->readFile(
 		m_file,
 		&byteRead, // data buffer
 		1, // number of bytes to read
@@ -58,7 +58,7 @@ int ConsoleSaveFileInputStream::read(byteArray b)
 {
 	uint32_t numberOfBytesRead;
 
-	BOOL result = m_saveFile->readFile(
+	bool result = m_saveFile->readFile(
 		m_file,
 		&b.data, // data buffer
 		b.length, // number of bytes to read
@@ -94,7 +94,7 @@ int ConsoleSaveFileInputStream::read(byteArray b, unsigned int offset, unsigned 
 
 	uint32_t numberOfBytesRead;
 
-	BOOL result = m_saveFile->readFile(
+	bool result = m_saveFile->readFile(
 		m_file,
 		&b[offset], // data buffer
 		length, // number of bytes to read
@@ -121,7 +121,7 @@ void ConsoleSaveFileInputStream::close()
 {
 	if( m_saveFile != NULL )
 	{
-		BOOL result = m_saveFile->closeHandle( m_file );
+		bool result = m_saveFile->closeHandle( m_file );
 
 		if( result == 0 )
 		{

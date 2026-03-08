@@ -44,10 +44,10 @@ public:
 	virtual void deleteFile( FileEntry *file );
 
 	virtual void setFilePointer(FileEntry *file,int32_t lDistanceToMove,int32_t* lpDistanceToMoveHigh,uint32_t dwMoveMethod);
-	virtual BOOL writeFile(	FileEntry *file, const void* lpBuffer, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten );
-	virtual BOOL zeroFile(FileEntry *file, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten);
-	virtual BOOL readFile( FileEntry *file, void* lpBuffer, uint32_t nNumberOfBytesToRead, uint32_t* lpNumberOfBytesRead );
-	virtual BOOL closeHandle( FileEntry *file );
+	virtual bool writeFile(	FileEntry *file, const void* lpBuffer, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten );
+	virtual bool zeroFile(FileEntry *file, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten);
+	virtual bool readFile( FileEntry *file, void* lpBuffer, uint32_t nNumberOfBytesToRead, uint32_t* lpNumberOfBytesRead );
+	virtual bool closeHandle( FileEntry *file );
 
 	virtual void finalizeWrite();
 

@@ -68,7 +68,7 @@ uint32_t dwProfileSettingsA[NUM_PROFILE_VALUES]=
 //-------------------------------------------------------------------------------------
 
 
-BOOL g_bWidescreen = TRUE;
+bool g_bWidescreen = TRUE;
 
 
 void DefineActions(void)
@@ -339,7 +339,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 //        In this function, we save the instance handle in a global variable and
 //        create and display the main program window.
 //
-BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
+bool InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    g_hInst = hInstance; // Store instance handle in our global variable
 

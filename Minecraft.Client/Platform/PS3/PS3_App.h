@@ -93,7 +93,7 @@ public:
 	// original code
 	virtual void TemporaryCreateGameStart();
 
-	BOOL ReadProductCodes();
+	bool ReadProductCodes();
 	char *GetProductCode();
 	char *GetDiscProductCode();
 	char *GetSaveFolderPrefix();

@@ -75,7 +75,7 @@ void LoadPCMVoiceData()
 		{
 			g_loadedPCMVoiceData[i] = new char[g_loadedPCMVoiceDataSizes[i]];
 			uint32_t bytesRead;
-			BOOL bSuccess = ReadFile(file, g_loadedPCMVoiceData[i], g_loadedPCMVoiceDataSizes[i], &bytesRead, NULL);
+			bool bSuccess = ReadFile(file, g_loadedPCMVoiceData[i], g_loadedPCMVoiceDataSizes[i], &bytesRead, NULL);
 			assert(bSuccess);
 		}
 		g_loadedPCMVoiceDataPos[i] = 0;

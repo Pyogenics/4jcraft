@@ -80,13 +80,13 @@ public:
 		}
 	};
 
-	virtual int32_t  ElementContent( CONST wchar_t *strData, uint32_t DataLen, BOOL More ) {    return S_OK;   };
+	virtual int32_t  ElementContent( CONST wchar_t *strData, uint32_t DataLen, bool More ) {    return S_OK;   };
 
 	virtual int32_t  ElementEnd( CONST wchar_t *strName, uint32_t NameLen ){       return S_OK;    };
 
 	virtual int32_t  CDATABegin( )  { return S_OK; };
 
-	virtual int32_t  CDATAData( CONST wchar_t *strCDATA, uint32_t CDATALen, BOOL bMore ){ return S_OK; };
+	virtual int32_t  CDATAData( CONST wchar_t *strCDATA, uint32_t CDATALen, bool bMore ){ return S_OK; };
 
 	virtual int32_t  CDATAEnd( ){ return S_OK; };
 
@@ -215,13 +215,13 @@ public:
 		}
 	};
 
-	virtual int32_t  ElementContent( CONST wchar_t *strData, uint32_t DataLen, BOOL More ) {    return S_OK;   };
+	virtual int32_t  ElementContent( CONST wchar_t *strData, uint32_t DataLen, bool More ) {    return S_OK;   };
 
 	virtual int32_t  ElementEnd( CONST wchar_t *strName, uint32_t NameLen ){       return S_OK;    };
 
 	virtual int32_t  CDATABegin( )  { return S_OK; };
 
-	virtual int32_t  CDATAData( CONST wchar_t *strCDATA, uint32_t CDATALen, BOOL bMore ){ return S_OK; };
+	virtual int32_t  CDATAData( CONST wchar_t *strCDATA, uint32_t CDATALen, bool bMore ){ return S_OK; };
 
 	virtual int32_t  CDATAEnd( ){ return S_OK; };
 

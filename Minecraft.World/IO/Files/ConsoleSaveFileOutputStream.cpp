@@ -40,7 +40,7 @@ void ConsoleSaveFileOutputStream::write(unsigned int b)
 
 	uint8_t value = (uint8_t) b;
 
-	BOOL result = m_saveFile->writeFile(
+	bool result = m_saveFile->writeFile(
 		m_file,
 		&value, // data buffer
 		1, // number of bytes to write
@@ -64,7 +64,7 @@ void ConsoleSaveFileOutputStream::write(byteArray b)
 {
 	uint32_t numberOfBytesWritten;
 
-	BOOL result = m_saveFile->writeFile(
+	bool result = m_saveFile->writeFile(
 		m_file,
 		&b.data, // data buffer
 		b.length, // number of bytes to write
@@ -93,7 +93,7 @@ void ConsoleSaveFileOutputStream::write(byteArray b, unsigned int offset, unsign
 
 	uint32_t numberOfBytesWritten;
 
-	BOOL result = m_saveFile->writeFile(
+	bool result = m_saveFile->writeFile(
 		m_file,
 		&b[offset], // data buffer
 		length, // number of bytes to write
@@ -117,7 +117,7 @@ void ConsoleSaveFileOutputStream::close()
 {
 	if( m_saveFile != NULL )
 	{
-		BOOL result = m_saveFile->closeHandle( m_file );
+		bool result = m_saveFile->closeHandle( m_file );
 
 		if( result == 0 )
 		{

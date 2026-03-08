@@ -1619,11 +1619,11 @@ void ClientConnection::handlePreLogin(std::shared_ptr<PreLoginPacket> packet)
 	fprintf(stderr, "[LOGIN-CLI] handlePreLogin entered, isHost=%d, userIdx=%d\n", (int)g_NetworkManager.IsHost(), m_userIndex);
 #if 1
 	// 4J - Check that we can play with all the players already in the game who have Friends-Only UGC set
-	BOOL canPlay = TRUE;
-	BOOL canPlayLocal = TRUE;
-	BOOL isAtLeastOneFriend = g_NetworkManager.IsHost();
-	BOOL isFriendsWithHost = TRUE;
-	BOOL cantPlayContentRestricted = FALSE;
+	bool canPlay = TRUE;
+	bool canPlayLocal = TRUE;
+	bool isAtLeastOneFriend = g_NetworkManager.IsHost();
+	bool isFriendsWithHost = TRUE;
+	bool cantPlayContentRestricted = FALSE;
 	
 	if(!g_NetworkManager.IsHost())
 	{
@@ -1659,7 +1659,7 @@ void ClientConnection::handlePreLogin(std::shared_ptr<PreLoginPacket> packet)
 					if( playerXuid != INVALID_XUID )
 					{
 						// Is this user friends with the host player?			
-						BOOL result;
+						bool result;
 						uint32_t error;
 						error = XUserAreUsersFriends(idx,&packet->m_playerXuids[packet->m_hostIndex],1,&result,NULL);
 						if(error == ERROR_SUCCESS && result != TRUE)
@@ -1689,7 +1689,7 @@ void ClientConnection::handlePreLogin(std::shared_ptr<PreLoginPacket> packet)
 				if( playerXuid != INVALID_XUID )
 				{
 					// Is this user friends with the host player?			
-					BOOL result;
+					bool result;
 					uint32_t error;
 					error = XUserAreUsersFriends(m_userIndex,&packet->m_playerXuids[packet->m_hostIndex],1,&result,NULL);
 					if(error == ERROR_SUCCESS && result != TRUE)
@@ -1737,7 +1737,7 @@ void ClientConnection::handlePreLogin(std::shared_ptr<PreLoginPacket> packet)
 					// Local players are implied friends
 					if( isAtLeastOneFriend != TRUE )
 					{
-						BOOL result;
+						bool result;
 						uint32_t error;
 						for(uint32_t idx = 0; idx < XUSER_MAX_COUNT; ++idx)
 						{
@@ -1765,7 +1765,7 @@ void ClientConnection::handlePreLogin(std::shared_ptr<PreLoginPacket> packet)
 					bool thisQuadrantOnly = true;
 					if( m_userIndex == ProfileManager.GetPrimaryPad() ) thisQuadrantOnly = false;
 
-					BOOL result;
+					bool result;
 					uint32_t error;
 					for(uint32_t idx = 0; idx < XUSER_MAX_COUNT; ++idx)
 					{
@@ -2056,7 +2056,7 @@ void ClientConnection::handlePreLogin(std::shared_ptr<PreLoginPacket> packet)
 			// All other players we use their offline XUID so that they can play the game offline
  			ProfileManager.GetXUID(m_userIndex,&offlineXUID,false);
 		}
-		BOOL allAllowed, friendsAllowed;
+		bool allAllowed, friendsAllowed;
 		ProfileManager.AllowedPlayerCreatedContent(m_userIndex,true,&allAllowed,&friendsAllowed);
 		fprintf(stderr, "[LOGIN] Sending LoginPacket: user=%ls netVer=%d userIdx=%d isHost=%d\n",
 			minecraft->user->name.c_str(), SharedConstants::NETWORK_PROTOCOL_VERSION, m_userIndex, (int)g_NetworkManager.IsHost());

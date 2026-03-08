@@ -321,7 +321,7 @@ int DLCTexturePack::packMounted(void* pParam,int iPad,uint32_t dwErr,uint32_t dw
 						uint32_t dwFileSize = xzpPath.length();
 						uint32_t bytesRead;
 						uint8_t* pbData =  (uint8_t*) new uint8_t[dwFileSize];
-						BOOL success = ReadFile(fileHandle,pbData,dwFileSize,&bytesRead,NULL);
+						bool success = ReadFile(fileHandle,pbData,dwFileSize,&bytesRead,NULL);
 						CloseHandle(fileHandle);
 						if(success)
 						{
@@ -384,7 +384,7 @@ int DLCTexturePack::packMounted(void* pParam,int iPad,uint32_t dwErr,uint32_t dw
 									uint32_t dwFileSize = grf.length();
 									uint32_t bytesRead;
 									uint8_t* pbData =  (uint8_t*) new uint8_t[dwFileSize];
-									BOOL bSuccess = ReadFile(fileHandle,pbData,dwFileSize,&bytesRead,NULL);
+									bool bSuccess = ReadFile(fileHandle,pbData,dwFileSize,&bytesRead,NULL);
 									if(bSuccess==FALSE)
 									{
 										app.FatalLoadError();
@@ -435,7 +435,7 @@ int DLCTexturePack::packMounted(void* pParam,int iPad,uint32_t dwErr,uint32_t dw
 							{
 								uint32_t bytesRead,dwFileSize = GetFileSize(fileHandle,NULL);
 								uint8_t* pbData =  (uint8_t*) new uint8_t[dwFileSize];
-								BOOL bSuccess = ReadFile(fileHandle,pbData,dwFileSize,&bytesRead,NULL);
+								bool bSuccess = ReadFile(fileHandle,pbData,dwFileSize,&bytesRead,NULL);
 								if(bSuccess==FALSE)
 								{
 									app.FatalLoadError();

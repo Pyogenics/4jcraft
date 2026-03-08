@@ -336,7 +336,7 @@ void ConsoleSaveFileOriginal::PrepareForWrite( FileEntry *file, uint32_t nNumber
 	finalizeWrite();
 }
 
-BOOL ConsoleSaveFileOriginal::writeFile(FileEntry *file,const void* lpBuffer, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten)
+bool ConsoleSaveFileOriginal::writeFile(FileEntry *file,const void* lpBuffer, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten)
 {
 	assert( pvSaveMem != NULL );
 	if( pvSaveMem == NULL )
@@ -373,7 +373,7 @@ BOOL ConsoleSaveFileOriginal::writeFile(FileEntry *file,const void* lpBuffer, ui
 	return 1;
 }
 
-BOOL ConsoleSaveFileOriginal::zeroFile(FileEntry *file, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten)
+bool ConsoleSaveFileOriginal::zeroFile(FileEntry *file, uint32_t nNumberOfBytesToWrite, uint32_t* lpNumberOfBytesWritten)
 {
 	assert( pvSaveMem != NULL );
 	if( pvSaveMem == NULL )
@@ -410,7 +410,7 @@ BOOL ConsoleSaveFileOriginal::zeroFile(FileEntry *file, uint32_t nNumberOfBytesT
 	return 1;
 }
 
-BOOL ConsoleSaveFileOriginal::readFile( FileEntry *file, void* lpBuffer, uint32_t nNumberOfBytesToRead, uint32_t* lpNumberOfBytesRead)
+bool ConsoleSaveFileOriginal::readFile( FileEntry *file, void* lpBuffer, uint32_t nNumberOfBytesToRead, uint32_t* lpNumberOfBytesRead)
 {
 	uint32_t actualBytesToRead;
 	assert( pvSaveMem != NULL );
@@ -450,7 +450,7 @@ BOOL ConsoleSaveFileOriginal::readFile( FileEntry *file, void* lpBuffer, uint32_
 	return 1;
 }
 
-BOOL ConsoleSaveFileOriginal::closeHandle( FileEntry *file )
+bool ConsoleSaveFileOriginal::closeHandle( FileEntry *file )
 {
 	LockSaveAccess();
 	finalizeWrite();
