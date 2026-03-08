@@ -56,12 +56,12 @@ typedef SQRNetworkManager_Vita::PresenceSyncInfo INVITE_INFO;
 #elif defined _DURANGO
 #include "../../../Minecraft.Client/Platform/Durango/4JLibs/inc/4J_Profile.h"
 #include "../../../Minecraft.Client/Platform/Durango/Network/DQRNetworkManager.h"
-typedef ULONGLONG SessionID;
-typedef ULONGLONG GameSessionUID;
+typedef uint64_t SessionID;
+typedef uint64_t GameSessionUID;
 typedef DQRNetworkManager::SessionInfo INVITE_INFO;
 #else
-typedef ULONGLONG PlayerUID;
-typedef ULONGLONG SessionID;
+typedef uint64_t PlayerUID;
+typedef uint64_t SessionID;
 typedef PlayerUID GameSessionUID;
 class INVITE_INFO;
 
@@ -361,8 +361,8 @@ static const int XMARKETPLACE_CONTENT_ID_LEN = 4;
 #ifndef _DURANGO
 typedef struct _XMARKETPLACE_CONTENTOFFER_INFO
 {
-    ULONGLONG qwOfferID;
-    ULONGLONG qwPreviewOfferID;
+    uint64_t qwOfferID;
+    uint64_t qwPreviewOfferID;
     uint32_t dwOfferNameLength;
     wchar_t *wszOfferName;
     uint32_t dwOfferType;
@@ -489,7 +489,7 @@ typedef struct {
     uint8_t type;
     union {
         int32_t nData;
-        LONGLONG i64Data;
+        int64_t i64Data;
         double dblData;
         struct {
             uint32_t cbData;

@@ -108,8 +108,8 @@ public:
 		wchar_t wType[32] = L"";
 		wchar_t wFirstSkin[32] = L"";
 		wchar_t wDataFile[32] = L"";
-		ULONGLONG ullFull=0ll;
-		ULONGLONG ullTrial=0ll;
+		uint64_t ullFull=0ll;
+		uint64_t ullTrial=0ll;
 		int iGender=0;
 		int iConfig=0;
 

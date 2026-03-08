@@ -291,7 +291,7 @@ void StatsCounter::setLeaderboardProperty(XUSER_PROPERTY* prop, uint32_t id, uns
 	prop->value.nData	= (int)(value&0x7FFFFFFF); // Just making sure we clamp the unsigned int to the max val for a signed int
 }
 
-void StatsCounter::setLeaderboardRating(XUSER_PROPERTY* prop, LONGLONG value)
+void StatsCounter::setLeaderboardRating(XUSER_PROPERTY* prop, int64_t value)
 {
 	prop->dwPropertyId 	= PROPERTY_RATING;
 	prop->value.type 	= XUSER_DATA_TYPE_INT64;
@@ -778,7 +778,7 @@ void StatsCounter::writeStats()
 
 #elif defined _XBOX
 	
-	LONGLONG rating;
+	int64_t rating;
 
 	XSESSION_VIEW_PROPERTIES views[24];
 
@@ -823,7 +823,7 @@ void StatsCounter::writeStats()
 		setLeaderboardProperty( &killsEasyProperties[LeaderboardManager::eProperty_Kills_SpiderJockey	], PROPERTY_KILLS_SPIDERJOCKEY,		getValue(Stats::killsSpiderJockey,	eDifficulty_Easy) );
 		// 4J-PB - this could overflow
 		//setLeaderboardProperty( &killsEasyProperties[LeaderboardManager::eProperty_Kills_ZombiePigman	], PROPERTY_KILLS_ZOMBIEPIGMAN,		getValue(Stats::killsZombiePigman,	eDifficulty_Easy) + getValue(Stats::killsNetherZombiePigman,	eDifficulty_Easy) );
-		ULONGLONG ulTemp=getValue(Stats::killsZombiePigman,	eDifficulty_Easy) + getValue(Stats::killsNetherZombiePigman,	eDifficulty_Easy);
+		uint64_t ulTemp=getValue(Stats::killsZombiePigman,	eDifficulty_Easy) + getValue(Stats::killsNetherZombiePigman,	eDifficulty_Easy);
 		setLeaderboardProperty( &killsEasyProperties[LeaderboardManager::eProperty_Kills_ZombiePigman	], PROPERTY_KILLS_ZOMBIEPIGMAN,		(ulTemp>0xFFFFFFFFLL)?0xFFFFFFFF:(unsigned int)ulTemp );
 
 		setLeaderboardProperty( &killsEasyProperties[LeaderboardManager::eProperty_Kills_Slime			], PROPERTY_KILLS_SLIME,			getValue(Stats::killsSlime,			eDifficulty_Easy) );
@@ -855,7 +855,7 @@ void StatsCounter::writeStats()
 		setLeaderboardProperty( &killsNormalProperties[LeaderboardManager::eProperty_Kills_Spider		], PROPERTY_KILLS_SPIDER,		getValue(Stats::killsSpider,		eDifficulty_Normal) );
 		setLeaderboardProperty( &killsNormalProperties[LeaderboardManager::eProperty_Kills_SpiderJockey	], PROPERTY_KILLS_SPIDERJOCKEY,	getValue(Stats::killsSpiderJockey,	eDifficulty_Normal) );
 		// 4J-PB - this could overflow
-		ULONGLONG ulTemp=getValue(Stats::killsZombiePigman,	eDifficulty_Normal) + getValue(Stats::killsNetherZombiePigman,	eDifficulty_Normal);
+		uint64_t ulTemp=getValue(Stats::killsZombiePigman,	eDifficulty_Normal) + getValue(Stats::killsNetherZombiePigman,	eDifficulty_Normal);
 		//setLeaderboardProperty( &killsNormalProperties[LeaderboardManager::eProperty_Kills_ZombiePigman	], PROPERTY_KILLS_ZOMBIEPIGMAN,	getValue(Stats::killsZombiePigman,	eDifficulty_Normal) + getValue(Stats::killsNetherZombiePigman,	eDifficulty_Normal) );
 		setLeaderboardProperty( &killsNormalProperties[LeaderboardManager::eProperty_Kills_ZombiePigman	], PROPERTY_KILLS_ZOMBIEPIGMAN,		(ulTemp>0xFFFFFFFFLL)?0xFFFFFFFF:(unsigned int)ulTemp );
 
@@ -888,7 +888,7 @@ void StatsCounter::writeStats()
 		setLeaderboardProperty( &killsHardProperties[LeaderboardManager::eProperty_Kills_Spider			], PROPERTY_KILLS_SPIDER,		getValue(Stats::killsSpider,		eDifficulty_Hard) );
 		setLeaderboardProperty( &killsHardProperties[LeaderboardManager::eProperty_Kills_SpiderJockey	], PROPERTY_KILLS_SPIDERJOCKEY,	getValue(Stats::killsSpiderJockey,	eDifficulty_Hard) );
 		// 4J-PB - this could overflow
-		ULONGLONG ulTemp=getValue(Stats::killsZombiePigman,	eDifficulty_Hard) + getValue(Stats::killsNetherZombiePigman,	eDifficulty_Hard);
+		uint64_t ulTemp=getValue(Stats::killsZombiePigman,	eDifficulty_Hard) + getValue(Stats::killsNetherZombiePigman,	eDifficulty_Hard);
 		//setLeaderboardProperty( &killsHardProperties[LeaderboardManager::eProperty_Kills_ZombiePigman	], PROPERTY_KILLS_ZOMBIEPIGMAN,	getValue(Stats::killsZombiePigman,	eDifficulty_Hard) + getValue(Stats::killsNetherZombiePigman,	eDifficulty_Hard) );
 		setLeaderboardProperty( &killsHardProperties[LeaderboardManager::eProperty_Kills_ZombiePigman	], PROPERTY_KILLS_ZOMBIEPIGMAN,		(ulTemp>0xFFFFFFFFLL)?0xFFFFFFFF:(unsigned int)ulTemp );
 

@@ -96,7 +96,7 @@ private:
 
 #ifdef _XBOX
 	static void setLeaderboardProperty(XUSER_PROPERTY* prop, uint32_t id, unsigned int value);
-	static void setLeaderboardRating(XUSER_PROPERTY* prop, LONGLONG value);
+	static void setLeaderboardRating(XUSER_PROPERTY* prop, int64_t value);
 #endif
 
 	void writeStats();

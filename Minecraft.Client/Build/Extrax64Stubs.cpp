@@ -72,7 +72,7 @@ void CSocialManager::SetSocialPostText(const wchar_t* Title, const wchar_t* Capt
 uint32_t XShowPartyUI(uint32_t dwUserIndex) { return 0; }
 uint32_t XShowFriendsUI(uint32_t dwUserIndex) { return 0; }
 HRESULT XPartyGetUserList(XPARTY_USER_LIST *pUserList) { return S_OK; }
-uint32_t XContentGetThumbnail(uint32_t dwUserIndex, const XCONTENT_DATA *pContentData,  uint8_t* pbThumbnail,  PDWORD pcbThumbnail,  PXOVERLAPPED *pOverlapped) { return 0; }
+uint32_t XContentGetThumbnail(uint32_t dwUserIndex, const XCONTENT_DATA *pContentData,  uint8_t* pbThumbnail,  uint32_t* pcbThumbnail,  PXOVERLAPPED *pOverlapped) { return 0; }
 void XShowAchievementsUI(int i) {}
 uint32_t XBackgroundDownloadSetMode(XBACKGROUND_DOWNLOAD_MODE Mode) { return 0; }
 
@@ -598,7 +598,7 @@ uint32_t								C4JStorage::CancelGetDLCOffers() { return 0; }
 void								C4JStorage::ClearDLCOffers() {}
 XMARKETPLACE_CONTENTOFFER_INFO&		C4JStorage::GetOffer(uint32_t dw) { static XMARKETPLACE_CONTENTOFFER_INFO retval = {0}; return retval; }
 int									C4JStorage::GetOfferCount() { return 0; }
-uint32_t								C4JStorage::InstallOffer(int iOfferIDC,ULONGLONG *ullOfferIDA,int( *Func)(void*, int, int),void* lpParam, bool bTrial) { return 0; }
+uint32_t								C4JStorage::InstallOffer(int iOfferIDC,uint64_t *ullOfferIDA,int( *Func)(void*, int, int),void* lpParam, bool bTrial) { return 0; }
 uint32_t								C4JStorage::GetAvailableDLCCount( int iPad) { return 0; }
 XCONTENT_DATA&						C4JStorage::GetDLC(uint32_t dw) { static XCONTENT_DATA retval = {0}; return retval; }
 C4JStorage::EDLCStatus				C4JStorage::GetInstalledDLC(int iPad,int( *Func)(void*, int, int),void* lpParam) { return C4JStorage::EDLC_Idle; }

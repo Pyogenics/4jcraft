@@ -35,7 +35,7 @@ uint32_t XShowPartyUI(uint32_t dwUserIndex);
 uint32_t XShowFriendsUI(uint32_t dwUserIndex);
 HRESULT XPartyGetUserList(XPARTY_USER_LIST *pUserList);
 
-uint32_t XContentGetThumbnail(uint32_t dwUserIndex, const XCONTENT_DATA *pContentData,  uint8_t* pbThumbnail,  PDWORD pcbThumbnail,  PXOVERLAPPED *pOverlapped);
+uint32_t XContentGetThumbnail(uint32_t dwUserIndex, const XCONTENT_DATA *pContentData,  uint8_t* pbThumbnail,  uint32_t* pcbThumbnail,  PXOVERLAPPED *pOverlapped);
 
 void XShowAchievementsUI(int i);
 
@@ -79,7 +79,7 @@ typedef struct _XUSER_STATS_COLUMN {
 typedef struct _XUSER_STATS_ROW {
 	PlayerUID xuid;
 	uint32_t dwRank;
-	LONGLONG i64Rating;
+	int64_t i64Rating;
 	char szGamertag[XUSER_NAME_SIZE];
 	uint32_t dwNumColumns;
 	PXUSER_STATS_COLUMN pColumns;

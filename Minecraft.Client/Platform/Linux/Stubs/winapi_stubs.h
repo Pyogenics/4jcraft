@@ -41,7 +41,7 @@ typedef uintptr_t ULONG_PTR;
 typedef long LONG;
 typedef long LONG64, *PLONG64;
 typedef void VOID;
-typedef ULONGLONG PlayerUID;
+// typedef ULONGLONG PlayerUID;
 typedef DWORD WORD;
 typedef DWORD* PDWORD;
 
